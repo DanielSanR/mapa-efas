@@ -1,15 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-
+import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './@core/components/map/map.component';
 import { InstitucionComponent } from './@core/components/institucion/institucion.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -22,9 +20,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AppRoutingModule  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

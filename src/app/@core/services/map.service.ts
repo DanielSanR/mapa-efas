@@ -1,37 +1,40 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import * as mapboxgl from 'mapbox-gl';
+import * as L from 'leaflet';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-  mapbox = (mapboxgl as typeof mapboxgl);
-  map: mapboxgl.Map;
-  style = `mapbox://styles/mapbox/streets-v11`;
-  // fixear luego de agregar todos los market
-  lat = -27.9359265;
-  lng = -55.7744321;
-  zoom = 15;
-  constructor() {
-    // Asignamos el token desde las variables de entorno
-    this.mapbox.accessToken = environment.mapBoxToken;
-  }
-  buildMap() {
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      style: this.style,
-      zoom: this.zoom,
-      center: [this.lng, this.lat]
-    });
-    this.map.addControl(new mapboxgl.NavigationControl());
-     this.agregarEfa();
-    }
-    //agregamos el marcador a las efas
-    agregarEfa(){
 
-      var marker = new mapboxgl.Marker()
-  .setLngLat([-55.7744321, -27.9359265])
-  .addTo(this.map);
-    }
+  // fixear luego de agregar todos los market
+  /* lat = -27.9359265; */
+  /* lng = -55.7744321; */
+
+  private map;
+
+  lat = -27.3689659;
+  lng = -55.8975532;
+  zoom = 16;
+
+  constructor() {  }
+
+
+  buildMap() {
+
+    this.map = L.map('map').setView([this.lat, this.lng], this.zoom);
+
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+
+    
+
+    let marker = L.marker([this.lat, this.lng]).addTo(this.map);
+    marker.bindPopup('A pretty CSS3 popup.<br> Easily customizable.').openPopup();
+
+    let otromarker = L.marker([-27.3676498,-55.8967229]).addTo(this.map);
+    otromarker.bindPopup('OTRO MARCADOR.').openPopup();
+  }
 }

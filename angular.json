@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "mapa-efas"
+    }
+  },
+  "defaultProject": "mapa-efas",
+  "cli": {
+    "analytics": false
+  }
 }

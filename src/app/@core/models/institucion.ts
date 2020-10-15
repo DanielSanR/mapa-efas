@@ -7,7 +7,7 @@ export class Institucion {
 
     cue: string;
 
-    lat: string;
+    lat: number;
 
-    long: string;
+    long: number;
 }

@@ -75,7 +75,7 @@ cargarInstituto(){
         //cargamos las instituciones al mapa
         //console.log(this.usersArray[0].lat)
         //console.log(this.usersArray[0].long)
-        this.map = L.map('mapa').setView([this.usersArray[0].lat, this.usersArray[0].long], 10);
+        this.map = L.map('mapa').setView([this.usersArray[0].lat, this.usersArray[0].long], 8);
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 20,

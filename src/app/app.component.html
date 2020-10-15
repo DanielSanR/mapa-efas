@@ -1,5 +1,14 @@
-<div id="map" class="map-container"> </div>
 
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
 
+  </mat-sidenav>
 
-  <router-outlet></router-outlet>
+  <mat-sidenav-content>
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+  
+</mat-sidenav-container> 

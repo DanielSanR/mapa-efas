@@ -19,6 +19,7 @@ import { MapComponent } from './@core/components/map/map.component';
 import { InstitucionComponent } from './@core/components/institucion/institucion.component';
 import { HeaderComponent } from './@core/components/shared/header/header.component';
 import { from } from 'rxjs';
+import { SidenavListComponent } from './@core/components/shared/sidenav-list/sidenav-list.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { from } from 'rxjs';
     AppComponent,
     MapComponent,
     InstitucionComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,

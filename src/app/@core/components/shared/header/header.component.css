@@ -1,0 +1,32 @@
+mat-toolbar {
+    padding: 10px 0px;
+}
+
+.mat-toolbar-row {
+    padding: 0 5px;
+}
+
+
+.menu-spacer {
+    flex: 1 1 auto;
+}
+
+#img-logo {
+    max-width: 200px; 
+}
+
+a {
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: bold ;
+}
+
+#nav-links a:hover {
+    color: lightgray;
+}
+
+@media(max-width: 959px ) {
+    #img-logo {
+        max-width: 160px; 
+    }
+}

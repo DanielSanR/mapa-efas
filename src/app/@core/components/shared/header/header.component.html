@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    
+    <a routerLink=""> 
+        <img src="assets/images/logo.png" id="img-logo"  alt="LOGO">
+    </a>
+    <span class="menu-spacer"></span>
+
+
+    <div id="nav-links" fxShow="true" fxHide.lt-md>
+        <a routerLink="" mat-button>
+            INICIO
+        </a>
+        <a routerLink="institucion" mat-button>
+            INSTITUCIONES
+        </a>
+        <a href="#" mat-button>
+            DATOS
+        </a>
+        <a href="#" mat-button>
+            INICIO SESIÓN
+        </a>
+    </div>
+
+    <button mat-icon-button (click)="onToggleSidenav()" fxShow="true" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+    </button>
+    
+  </mat-toolbar-row>
+</mat-toolbar>

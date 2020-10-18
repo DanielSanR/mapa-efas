@@ -6,7 +6,7 @@ import { MapComponent } from './@core/components/map/map.component';
 import { InstitucionComponent } from './@core/components/institucion/institucion.component';
 
 const routes: Routes = [
-		{path: '', component: MapComponent},
+		{path: '', component: InstitucionComponent},
 		{path: 'institucion',component: InstitucionComponent},
 		{path: '**',component: MapComponent}
 		];

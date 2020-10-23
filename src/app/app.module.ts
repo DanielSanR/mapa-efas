@@ -4,23 +4,23 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatListModule } from "@angular/material/list";
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { from } from 'rxjs';
 
-
-
+//Componentes
 import { AppComponent } from './app.component';
 import { MapComponent } from './@core/components/map/map.component';
 import { InstitucionComponent } from './@core/components/institucion/institucion.component';
 import { HeaderComponent } from './@core/components/shared/header/header.component';
-import { from } from 'rxjs';
 import { SidenavListComponent } from './@core/components/shared/sidenav-list/sidenav-list.component';
 import { FooterComponent } from './@core/components/shared/footer/footer.component';
+import { EstacionesComponent } from './@core/components/estaciones/estaciones.component';
+
+//Modulos
+import { MaterialModule } from './material.module';
+
+//Servicios
+import { PopUpService } from '@core/services/pop-up.service';
+import { MarkerService } from './@core/services/marker.service';
 
 
 @NgModule({
@@ -30,7 +30,8 @@ import { FooterComponent } from './@core/components/shared/footer/footer.compone
     InstitucionComponent,
     HeaderComponent,
     SidenavListComponent,
-    FooterComponent
+    FooterComponent,
+    EstacionesComponent
   ],
   imports: [
     BrowserModule,
@@ -39,16 +40,12 @@ import { FooterComponent } from './@core/components/shared/footer/footer.compone
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    MatToolbarModule,
-    MatListModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatIconModule,
-    FlexLayoutModule,
-    MatTabsModule
+    MaterialModule
   ],
   providers: [
-    AppRoutingModule  
+    AppRoutingModule,
+    MarkerService,
+    PopUpService
   ],
   bootstrap: [AppComponent]
 })

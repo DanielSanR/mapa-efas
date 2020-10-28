@@ -3,7 +3,7 @@ export class Institucion {
 
 	id: number;
 
-    descripcion: string;
+    nombre: string;
 
     cue: string;
 

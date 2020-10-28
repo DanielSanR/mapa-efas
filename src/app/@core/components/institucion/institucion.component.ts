@@ -6,7 +6,7 @@ import { MarkerService } from '@core/services/marker.service';
 import coordenadasInstituciones from '@core/json/coordenadas.json';
 
 
-//icono para pop up - a elegir y fixear
+/* //icono para pop up - a elegir y fixear
 var tipoIcono = 'assets/images/marca_verde.png';
   var myIcon = new L.icon({
   iconUrl: 'assets/images/marca_verde.png',
@@ -15,7 +15,7 @@ var tipoIcono = 'assets/images/marca_verde.png';
   popupAnchor: [0, -14],
   shadowSize: [41, 41]
 });
-L.Marker.prototype.options.icon = myIcon;
+L.Marker.prototype.options.icon = myIcon; */
 
 @Component({
   selector: 'app-institucion',

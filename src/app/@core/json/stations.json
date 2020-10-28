@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "descripcion": "Estacion1",
+        "lat": "-27.0212113",
+        "lng": "-54.4493169"
+    },
+    {
+        "id": 2,
+        "descripcion": "Estacion2",
+        "lat": "-27.0124873",
+        "lng": "-54.5212307"
+    }
+]

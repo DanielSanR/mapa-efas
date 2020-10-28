@@ -73,7 +73,7 @@ export class InstitucionComponent implements OnInit {
 
               this.usersArray.push({
                 id: element.id,
-                descripcion: element.descripcion,
+                nombre: element.nombre,
                 cue: element.cue,
                 lat: parseFloat(this.Coordenadas[i].lat),
                 long: parseFloat(this.Coordenadas[i].lng),

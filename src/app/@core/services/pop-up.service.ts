@@ -24,10 +24,10 @@ export class PopUpService {
 
   makeStationsPopup(element: any): string {
     return `` +
-      `<strong>Estacion: </strong>${ element.descripcion } <br>` +
+      `<strong>Estacion: </strong>${ element.descripcion }<br><hr>` +
       `<button id="btnModalDataStation"  
         style="width:190px; height:30px;">
-            VER MAS DATOS
+            VER DATOS
       </button>`
   }
 

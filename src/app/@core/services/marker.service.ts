@@ -9,7 +9,7 @@ import { Estacion } from '@core/models/estacion';
 var myIcon = new L.icon({
   iconUrl: 'assets/images/icon-green.png',
   iconRetinaUrl: 'assets/images/icon-green.png',
-  iconSize: [30, 32],
+  iconSize: [30, 30],
   popupAnchor: [0, -14],
   shadowSize: [41, 41]
 });
@@ -43,7 +43,6 @@ export class MarkerService {
     })
   }
 
-  
   redirectStation(id:number){
     this.router.navigate(['/estaciones',id]);
   }
@@ -65,7 +64,6 @@ export class MarkerService {
       })
 
       marker.addTo(mapStation);
-
     })
   }
 

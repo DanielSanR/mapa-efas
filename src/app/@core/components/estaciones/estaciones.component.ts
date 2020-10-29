@@ -21,6 +21,8 @@ export class EstacionesComponent implements OnInit {
 
   stationsArray: Estacion[] = [];
 
+  
+
   constructor(private activatedRoute: ActivatedRoute, 
               private _estacionesService: EstacionesService, 
               private _markerService: MarkerService) { 
@@ -33,19 +35,13 @@ export class EstacionesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.Map();
-
-    /* this._estacionesService.getStationsInstitution(this.institution_id).subscribe( response => {
-      this.stationsArray = response;
-      console.log(this.stationsArray);
-    }); */
-
-    this.stationsArray = this._estacionesService.getStationsInstitution(this.institution_id);
-    this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray);
+    this.initMap();
+    this.loadStations();
+    
   }
 
 
-  private Map(): void {
+  private initMap(): void {
     
     this.mapStation = L.map('mapStation').setView([-27.1078918, -54.5039398], 8);
 
@@ -57,8 +53,15 @@ export class EstacionesComponent implements OnInit {
     tiles.addTo(this.mapStation);
   }
   
-  
-  
+  private loadStations():void {
+    /* this._estacionesService.getStationsInstitution(this.institution_id).subscribe( response => {
+      this.stationsArray = response;
+      console.log(this.stationsArray);
+    }); */
 
+    this.stationsArray = this._estacionesService.getStationsInstitution(this.institution_id);
+    this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray);
+  }
+  
 
 }

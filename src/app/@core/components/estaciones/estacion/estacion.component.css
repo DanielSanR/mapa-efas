@@ -1,0 +1,15 @@
+.tdKey {
+    width: 80px;
+    padding: 9px 10px;
+}
+
+.tdValue {
+    padding-left: 15px;
+}
+
+.table-content {
+    border: 1px solid black;
+    padding: 4px;
+    margin-top: 10px;
+}
+

@@ -9,5 +9,5 @@ export class Institucion {
 
     lat: number;
 
-    long: number;
+    lng: number;
 }

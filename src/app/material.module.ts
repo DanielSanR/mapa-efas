@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatIconModule,
     FlexLayoutModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule,
   ],
   exports: [
     MatToolbarModule,
@@ -29,7 +31,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatIconModule,
     FlexLayoutModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule { }

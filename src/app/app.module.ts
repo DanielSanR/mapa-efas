@@ -21,9 +21,14 @@ import { MaterialModule } from './material.module';
 //Servicios
 import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
+import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
+
 
 
 @NgModule({
+  entryComponents:[
+    EstacionComponent
+  ],
   declarations: [
     AppComponent,
     MapComponent,
@@ -31,7 +36,8 @@ import { MarkerService } from './@core/services/marker.service';
     HeaderComponent,
     SidenavListComponent,
     FooterComponent,
-    EstacionesComponent
+    EstacionesComponent,
+    EstacionComponent,
   ],
   imports: [
     BrowserModule,

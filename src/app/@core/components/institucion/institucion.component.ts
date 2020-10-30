@@ -67,7 +67,7 @@ export class InstitucionComponent implements OnInit {
                 nombre: element.nombre,
                 cue: element.cue,
                 lat: parseFloat(this.Coordenadas[i].lat),
-                long: parseFloat(this.Coordenadas[i].lng),
+                lng: parseFloat(this.Coordenadas[i].lng),
               })
             }
           }

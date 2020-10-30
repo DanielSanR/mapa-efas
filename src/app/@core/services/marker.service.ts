@@ -4,6 +4,9 @@ import { Institucion } from '@core/models/institucion';
 import { PopUpService } from '@core/services/pop-up.service';
 import { Router } from '@angular/router';
 import { Estacion } from '@core/models/estacion';
+import { MatDialog } from '@angular/material/dialog';
+import { EstacionComponent } from '@core/components/estaciones/estacion/estacion.component';
+
 
 //icono para pop up - a elegir y fixear
 var myIcon = new L.icon({
@@ -20,14 +23,16 @@ L.Marker.prototype.options.icon = myIcon;
 })
 export class MarkerService {
   
-  constructor(private _popupService: PopUpService, private router: Router) { }
+  constructor(private _popupService: PopUpService, 
+              private router: Router,
+              public dialog: MatDialog ) { }
 
 
   makeInstitutionsMarkers(map: L.map ,usersArray:Institucion[] ) {
 
     usersArray.forEach(element => {
       
-      let marker = L.marker([element.lat, element.long]);
+      let marker = L.marker([element.lat, element.lng]);
 
       marker.bindPopup(this._popupService.makeInstitutionsPopup(element));
 
@@ -58,8 +63,8 @@ export class MarkerService {
 
       marker.on("popupopen", (e) => {
         let popUp = e.target.getPopup();
-        popUp.getElement().querySelector("#btnModalDataStation").addEventListener("click", () => {
-          this.modalDataStation();
+        popUp.getElement().querySelector("#btnOpenDialogStation").addEventListener("click", () => {
+          this.openDialog(element);
         });
       })
 
@@ -67,8 +72,16 @@ export class MarkerService {
     })
   }
 
-  modalDataStation(){
-    console.log('MAS DATOS');
+  public openDialog(element: Estacion): void {
+    let dialogRef = this.dialog.open( EstacionComponent, {
+      width: '700px',
+      /* position: {
+        top: '10vh'
+      }, */
+      data: { element }
+    });
+
+
   }
 
 }

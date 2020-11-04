@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Estacion } from '@core/models/estacion';
-import stationsfrominstitution from '@core/json/stations.json';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,26 +10,24 @@ import stationsfrominstitution from '@core/json/stations.json';
 export class EstacionesService {
 
   url: string;
-  stations_from_institution: Estacion[] = [];
-
-  public stations: Estacion[] = stationsfrominstitution;
-  
 
 
   constructor(private _http: HttpClient) { 
-    /* //TODO */
+    //TODO: agregar url
     this.url = '';
   
   }
 
-
+  
+  //TODO: descomentar
   /* getStationsInstitution(institution_id:string):Observable<Estacion[]> {
     return this._http.get<Estacion[]>(this.url+'prototipo/'+institution_id);
   } */
 
 
-  getStationsInstitution(institution_id:string):any {
-    return this.stations
+  //TODO: DATOS LOCALES 'assets/jsons/*'
+  getStationsInstitution(institution_id:number):Observable<Estacion[]> {
+    return this._http.get<Estacion[]>('assets/jsons/stations.json');
   }
 
 

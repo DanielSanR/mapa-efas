@@ -15,14 +15,13 @@ import { Estacion } from '@core/models/estacion';
 })
 export class EstacionesComponent implements OnInit {
 
-  institution_id: string;
+  institution_id: number;
 
   public mapStation;
 
   stationsArray: Estacion[] = [];
 
   
-
   constructor(private activatedRoute: ActivatedRoute, 
               private _estacionesService: EstacionesService, 
               private _markerService: MarkerService) { 
@@ -34,10 +33,8 @@ export class EstacionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.initMap();
     this.loadStations();
-    
   }
 
 
@@ -53,15 +50,18 @@ export class EstacionesComponent implements OnInit {
     tiles.addTo(this.mapStation);
   }
   
-  private loadStations():void {
-    /* this._estacionesService.getStationsInstitution(this.institution_id).subscribe( response => {
-      this.stationsArray = response;
-      console.log(this.stationsArray);
-    }); */
 
-    this.stationsArray = this._estacionesService.getStationsInstitution(this.institution_id);
-    this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray);
+  private loadStations():void {
+    this._estacionesService.getStationsInstitution(this.institution_id).subscribe( response => {
+      this.stationsArray = response;
+      this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray);
+
+    },
+    error => {
+      console.log(<any>error)
+    });
   }
   
 
+  
 }

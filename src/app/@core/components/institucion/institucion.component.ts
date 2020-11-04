@@ -3,9 +3,6 @@ import { InstitucionesService } from '@core/services/institucion.service';
 import { Institucion } from '@core/models/institucion';
 import * as L from 'leaflet'; 
 import { MarkerService } from '@core/services/marker.service';
-import coordenadasInstituciones from '@core/json/coordenadas.json';
-
-
 
 
 @Component({
@@ -19,10 +16,8 @@ export class InstitucionComponent implements OnInit {
   public map;
 
 	//public Instituciones:  Array<Institucion>;
-  public response:any;
-   
+  public institutionsArray: Institucion[] = [];
   zoom = 16;
-  public Coordenadas :any = coordenadasInstituciones;
   public usersArray: Institucion[] = [];
   
 
@@ -49,30 +44,12 @@ export class InstitucionComponent implements OnInit {
   }
 
 
-  cargarInstituto() {
+  private cargarInstituto(): void {
     this._institucionesService.getInstitucion().subscribe(
       result => {
 
-        this.response = result;
-
-        //por cada objet que devuelve la api, agregamos a la clase Instituto - 
-        this.response.forEach(element => {
-          for (var i in this.Coordenadas) {
-            //recorremos el json de coordenadas (podriamos usar unicamente el json, pero la idea es hacerlo dinamico utilizando la API)
-            //mas adelante no haria falta recorrer el json.
-            if (this.Coordenadas[i].cue == element.cue) {
-
-              this.usersArray.push({
-                id: element.id,
-                nombre: element.nombre,
-                cue: element.cue,
-                lat: parseFloat(this.Coordenadas[i].lat),
-                lng: parseFloat(this.Coordenadas[i].lng),
-              })
-            }
-          }
-        })
-        this._markerService.makeInstitutionsMarkers(this.map, this.usersArray);  
+        this.institutionsArray = result;
+        this._markerService.makeInstitutionsMarkers(this.map, this.institutionsArray);  
 
       },
       error => {
@@ -81,8 +58,6 @@ export class InstitucionComponent implements OnInit {
 
       }
     );
-
-    
   }
 
 

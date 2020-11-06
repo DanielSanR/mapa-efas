@@ -12,7 +12,6 @@ export class PopUpService {
   makeInstitutionsPopup(element: any): string {
     return `` +
       `<strong>Institución: </strong>${ element.nombre } <br>` +
-      `<strong>CUE: </strong>${ element.cue } <br>` +
       `<strong>Localidad: </strong><br>` +
       `<strong>Departamento: </strong><br><hr>` +
       `<button id="btnRedirectStation"  

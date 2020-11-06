@@ -22,6 +22,7 @@ import { MaterialModule } from './material.module';
 import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
 import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
+import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 
 
 
@@ -38,6 +39,7 @@ import { EstacionComponent } from './@core/components/estaciones/estacion/estaci
     FooterComponent,
     EstacionesComponent,
     EstacionComponent,
+    TablaDatosComponent,
   ],
   imports: [
     BrowserModule,

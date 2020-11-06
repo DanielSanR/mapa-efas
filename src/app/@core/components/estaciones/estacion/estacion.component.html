@@ -4,34 +4,54 @@
             <table class="table ng-scope">
                 <tbody>
                     <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>ID</strong></td>
-                        <td class="tdValue"><strong>1</strong></td>
+                        <td bgcolor="#E5E8E8" class="tdKey"><strong>ESTACIÓN: </strong></td>
+                        <td class="tdValue"><strong>{{stationData['descripcion']}}</strong></td>
                     </tr>
                     <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>Nombre</strong></td>
-                        <td class="tdValue"><strong>EFA NN</strong></td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>Descripción</strong></td>
+                        <td bgcolor="#E5E8E8" class="tdKey"><strong>UBICACIÓN: </strong></td>
                         <td class="tdValue"><strong>Campo Anexo</strong></td>
                     </tr>
                     <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>CUE</strong></td>
-                        <td class="tdValue"><strong>123456</strong></td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>Latitud</strong></td>
-                        <td class="tdValue"><strong>-25.99</strong></td>
+                        <td bgcolor="#E5E8E8" class="tdKey"><strong>LOCALIDAD: </strong></td>
+                        <td class="tdValue"><strong>San Vicente</strong></td>
                     </tr>
                     <tr>  
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>Longitud</strong></td>
-                        <td class="tdValue"><strong>-54.11</strong></td>
+                        <td bgcolor="#E5E8E8" class="tdKey"><strong>DEPARTAMENTO: </strong></td>
+                        <td class="tdValue"><strong>Guaraní</strong></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </mat-tab>
-    <mat-tab label="ULTIMOS DATOS"> 
-      
+    <mat-tab label="ULTIMA INFORMACIÓN"> 
+        <div class="table-content">
+            <table class="table ng-scope">
+                <tbody>
+                    <tr>
+                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>TEMPERATURA: </strong></td>
+                        <td class="tdValue"><strong>25°C</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>HUMEDAD: </strong></td>
+                        <td class="tdValue"><strong>50 %</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>VIENTO: </strong></td>
+                        <td class="tdValue"><strong>40 km/h</strong></td>
+                    </tr>
+                    <tr>  
+                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>PRECIPITACIÓN: </strong></td>
+                        <td class="tdValue"><strong>120 mm</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </mat-tab>
+    <mat-tab label="DATOS DEL DÍA"> 
+        <app-tabla-datos [station_id]="stationData"></app-tabla-datos>
+    </mat-tab>
+    <mat-tab label="DATOS DEL DÍA"> 
+        <button mat-raised-button color="primary" id="btn-advance-search">BUSCAR MÁS DATOS</button>
+    </mat-tab>
+
 </mat-tab-group>

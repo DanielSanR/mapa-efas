@@ -1,167 +1,167 @@
 [
     {
-        "descripcion": "San Ignacio de Loyola",
+        "nombre": "San Ignacio de Loyola",
         "id": 1,
         "cue": "540079600",
         "lat": "-27.2432456",
         "lng": "-55.536243"
     },
     {
-        "descripcion": "San Pedro",
+        "nombre": "San Pedro",
         "id": 2,
         "cue": "540091700",
         "lat": "-26.6245283",
         "lng": "-54.1234783"
     },
     {
-        "descripcion": "Santa Rita",
+        "nombre": "Santa Rita",
         "id": 3,
         "cue": "540059600",
         "lat": "-27.5178749",
         "lng": "-54.7334307"
     },
     {
-        "descripcion": "Cristo Rey",
+        "nombre": "Cristo Rey",
         "id": 4,
         "cue": "540135600",
         "lat": "-27.6011642",
         "lng": "-55.1291049"
     },
     {
-        "descripcion": "Concepción de la Virgen María",
+        "nombre": "Concepción de la Virgen María",
         "id": 5,
         "cue": "540108200",
         "lat": "-27.9321899",
         "lng": "-55.4454453"
     },
     {
-        "descripcion": "San Conrado",
+        "nombre": "San Conrado",
         "id": 6,
         "cue": "540037100",
         "lat": "-26.411087",
         "lng": "-54.5260595"
     },
     {
-        "descripcion": "Santísima Trinidad",
+        "nombre": "Santísima Trinidad",
         "id": 7,
         "cue": "540133800",
         "lat": "-27.3768842",
         "lng": "-54.3439078"
     },
     {
-        "descripcion": "San Antonio",
+        "nombre": "San Antonio",
         "id": 8,
         "cue": "540161900",
         "lat": "-28.0214259",
         "lng": "-55.7045835"
     },
     {
-        "descripcion": "San Bonifacio",
+        "nombre": "San Bonifacio",
         "id": 9,
         "cue": "540092800",
         "lat": "-27.1337252",
         "lng": "-54.9094609"
     },
     {
-        "descripcion": "Jesús de Galilea",
+        "nombre": "Jesús de Galilea",
         "id": 10,
         "cue": "540126200",
         "lat": "-27.0256514",
         "lng": "-54.6765797"
     },
     {
-        "descripcion": "Santos Mártires",
+        "nombre": "Santos Mártires",
         "id": 11,
         "cue": "540175700",
         "lat": "-27.4228906",
         "lng": "-55.3731775"
     },
     {
-        "descripcion": "San Cristóbal",
+        "nombre": "San Cristóbal",
         "id": 12,
         "cue": "540130900",
         "lat": "-27.632927",
         "lng": "-55.7315713"
     },
     {
-        "descripcion": "Anexo San Roque Gonzalez",
+        "nombre": "Anexo San Roque Gonzalez",
         "id": 13,
         "cue": "540037101",
         "lat": "-26.3740079",
         "lng": "-53.9331881"
     },
     {
-        "descripcion": "Santa María Goretti",
+        "nombre": "Santa María Goretti",
         "id": 14,
         "cue": "540078100",
         "lat": "-25.682168",
         "lng": "-54.0434459"
     },
     {
-        "descripcion": "San Bernardo",
+        "nombre": "San Bernardo",
         "id": 15,
         "cue": "540116800",
         "lat": "-26.1985554",
         "lng": "-53.6750973"
     },
     {
-        "descripcion": "San Vicente de Paúl",
+        "nombre": "San Vicente de Paúl",
         "id": 16,
         "cue": "540061700",
         "lat": "-27.0042119",
         "lng": "-54.5006758"
     },
     {
-        "descripcion": "Espíritu Santo",
+        "nombre": "Espíritu Santo",
         "id": 17,
         "cue": "540057800",
         "lat": "-27.2995476",
         "lng": "-54.1994410"
     },
     {
-        "descripcion": "San Arnoldo Janssen",
+        "nombre": "San Arnoldo Janssen",
         "id": 18,
         "cue": "540131100",
         "lat": "-26.0307059",
         "lng": "-54.5965812"
     },
     {
-        "descripcion": "Santa Teresita",
+        "nombre": "Santa Teresita",
         "id": 19,
         "cue": "540055100",
         "lat": "-27.5980947",
         "lng": "-55.2948843"
     },
     {
-        "descripcion": "San Wendelino",
+        "nombre": "San Wendelino",
         "id": 20,
         "cue": "540090800",
         "lat": "-26.890669",
         "lng": "-55.0598638"
     },
     {
-        "descripcion": "San José Freinademetz",
+        "nombre": "San José Freinademetz",
         "id": 21,
         "cue": "540131400",
         "lat": "-26.6556368",
         "lng": "-54.7407134"
     },
     {
-        "descripcion": "Anexo Perutí",
+        "nombre": "Anexo Perutí",
         "id": 22,
         "cue": "540131401",
         "lat": "-26.5674207",
         "lng": "-54.7590379"
     },
     {
-        "descripcion": "Padre José Marx",
+        "nombre": "Padre José Marx",
         "id": 23,
         "cue": "540175600",
         "lat": "-27.3339405",
         "lng": "-55.074667"
     },
     {
-        "descripcion": "Padre Antonio Sepp",
+        "nombre": "Padre Antonio Sepp",
         "id": 24,
         "cue": "540003800",
         "lat": "-27.3562452",

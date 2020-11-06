@@ -28,9 +28,9 @@ export class MarkerService {
               public dialog: MatDialog ) { }
 
 
-  makeInstitutionsMarkers(map: L.map ,usersArray:Institucion[] ) {
+  makeInstitutionsMarkers(map: L.map ,institutionsArray:Institucion[] ) {
 
-    usersArray.forEach(element => {
+    institutionsArray.forEach(element => {
       
       let marker = L.marker([element.lat, element.lng]);
 
@@ -75,13 +75,8 @@ export class MarkerService {
   public openDialog(element: Estacion): void {
     let dialogRef = this.dialog.open( EstacionComponent, {
       width: '700px',
-      /* position: {
-        top: '10vh'
-      }, */
       data: { element }
     });
-
-
   }
 
 }

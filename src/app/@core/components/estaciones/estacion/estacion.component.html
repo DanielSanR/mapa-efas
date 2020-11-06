@@ -4,8 +4,8 @@
             <table class="table ng-scope">
                 <tbody>
                     <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>INSTITUCIÓN: </strong></td>
-                        <td class="tdValue"><strong>{{stationData.descripcion}}</strong></td>
+                        <td bgcolor="#E5E8E8" class="tdKey"><strong>ESTACIÓN: </strong></td>
+                        <td class="tdValue"><strong>{{stationData['descripcion']}}</strong></td>
                     </tr>
                     <tr>
                         <td bgcolor="#E5E8E8" class="tdKey"><strong>UBICACIÓN: </strong></td>
@@ -24,6 +24,34 @@
         </div>
     </mat-tab>
     <mat-tab label="ULTIMA INFORMACIÓN"> 
-        <app-tabla-datos [data]="stationData"></app-tabla-datos>
+        <div class="table-content">
+            <table class="table ng-scope">
+                <tbody>
+                    <tr>
+                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>TEMPERATURA: </strong></td>
+                        <td class="tdValue"><strong>25°C</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>HUMEDAD: </strong></td>
+                        <td class="tdValue"><strong>50 %</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>VIENTO: </strong></td>
+                        <td class="tdValue"><strong>40 km/h</strong></td>
+                    </tr>
+                    <tr>  
+                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>PRECIPITACIÓN: </strong></td>
+                        <td class="tdValue"><strong>120 mm</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </mat-tab>
+    <mat-tab label="DATOS DEL DÍA"> 
+        <app-tabla-datos [station_id]="stationData"></app-tabla-datos>
+    </mat-tab>
+    <mat-tab label="DATOS DEL DÍA"> 
+        <button mat-raised-button color="primary" id="btn-advance-search">BUSCAR MÁS DATOS</button>
+    </mat-tab>
+
 </mat-tab-group>

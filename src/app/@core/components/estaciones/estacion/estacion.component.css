@@ -1,6 +1,7 @@
 .tdKey {
-    width: 80px;
+    width: 105px;
     padding: 9px 10px;
+    font-size: 11px;
 }
 
 .tdValue {
@@ -12,4 +13,30 @@
     padding: 4px;
     margin-top: 5px;
 }
+
+strong .size-data {
+    font-size: 11px;
+}
+
+#btn-advance-search{
+    text-align: center;
+    display: block;
+    margin: 22px auto;
+    width: 222px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 12px;
+}
+
+@media only screen and (max-width: 500px) {
+    ::ng-deep .mat-dialog-container {
+        padding: 12px !important;
+    }
+
+    ::ng-deep .cdk-overlay-pane {
+        max-width: 90vw !important;
+    }
+
+}
+
 

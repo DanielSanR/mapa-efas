@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
 import { Estacion } from '@core/models/estacion';
+
 
 
 @Component({
@@ -10,51 +10,29 @@ import { Estacion } from '@core/models/estacion';
   templateUrl: './tabla-datos.component.html',
   styleUrls: ['./tabla-datos.component.css']
 })
-export class TablaDatosComponent implements OnInit {
+export class TablaDatosComponent implements AfterViewInit {
   
+  displayedColumns: string[] = ['fecha', 'temperatura', 'humedad', 'viento', 'precipitacion'];
+  dataSource: MatTableDataSource<any> ;
 
-  displayedColumns: string[] = ['id', 'descripcion', 'lat', 'lng'];
-  dataSource: MatTableDataSource<Estacion>;
-
-  @Input() set data(value:Estacion[]) {
-    console.log('value: ', value);
-    this.dataSource = new MatTableDataSource<Estacion>(value);
+  @Input() set station_id(id:number[]){
+    let arr:any[] = [{fecha: '01-05-2020', temperatura: 25, humedad: 50, viento: 40, precipitacion: 100}];
+    
+    
+    
+    this.dataSource = new MatTableDataSource<any>(arr);
   };
 
-  @ViewChild(MatSort) sort: MatSort;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-
-  ngOnInit() {
-    this.dataSource.sort = this.sort;
-
-    this.dataSource.paginator = this.paginator;
-  }
-
-
-
-
-
-
-  //--------------------------------------------------------------//
-
-  /* @Input() data:Estacion[]=[];
-  displayedColumns: string[] = ['id', 'descripcion', 'lat', 'lng'];
-  dataSource = new MatTableDataSource<Estacion>(this.data);
-
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
+    @ViewChild(MatPaginator) paginator: MatPaginator;
   
-  ngOnInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  } */
-
+    ngAfterViewInit() {
+      this.dataSource.paginator = this.paginator;
+    }
   
-
 }
+
+
+
 
 
 

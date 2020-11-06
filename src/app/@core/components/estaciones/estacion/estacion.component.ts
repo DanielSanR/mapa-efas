@@ -23,7 +23,9 @@ export class EstacionComponent implements OnInit {
 
   
   ngOnInit(): void {
-    
+    //Funcion para llamar a un servicio para realizar la peticion del ultimo dato ambiental de la estacion
+    //Funcion para llamar a un servicio para realizar la peticion de todos los datos ambientales del dia actual
+      //Los datos devueltos colocarlos en un array y pasarlo al tabla-datos component.
   }
 
 

@@ -5,18 +5,27 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+
+import {FormsModule} from '@angular/forms';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,    
+    CommonModule,
     MatToolbarModule,
     MatListModule,
     MatSidenavModule,
@@ -26,8 +35,16 @@ import { MatSortModule } from '@angular/material/sort';
     MatTabsModule,
     MatDialogModule,
     MatTableModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatCheckboxModule
+    
   ],
   exports: [
     MatToolbarModule,
@@ -39,8 +56,15 @@ import { MatSortModule } from '@angular/material/sort';
     MatTabsModule,
     MatDialogModule,
     MatTableModule,
+    MatInputModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSelectModule,
+    MatCheckboxModule
   ]
 })
 export class MaterialModule { }

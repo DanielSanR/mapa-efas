@@ -1,0 +1,114 @@
+<!-- <h2 *ngFor="let item of datos">
+    {{item.id}}
+    <mat-divider>{{item.descripcion}} </mat-divider>
+    <mat-divider>{{item.datoxFecha.fecha}} </mat-divider>
+    {{item.datoxFecha.datosAmbientales.viento}} {{item.datoxFecha.datosAmbientales.temperatura}} {{ item.datoxFecha.datosAmbientales.luz }} {{item.datoxFecha.datosAmbientales.precipitacion}}
+
+
+</h2> -->
+
+
+
+<div class="example-container">
+
+    <div class="contenedor">
+
+        <form class="example-full-width" [formGroup]="formulario" (ngSubmit)="buscarDatos()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Instituciones</mat-label>
+                <input matInput type="text" formControlName="institutoControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstitucion" (optionSelected)='obtenerPrototipo($event.option.value.id)'>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option.descripcion}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="formulario.get('institutoControl').hasError('required')">
+                    Seleccionar instituto
+                </mat-error>
+                <mat-error *ngIf="formulario.get('institutoControl').hasError('NoSelect')">
+                    Seleccionar un instituto de la lista
+                </mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Prototipo </mat-label>
+                <mat-select matInput [(value)]="selected" formControlName="prototipoControl">
+                    <mat-option *ngFor="let prototipo of prototiposArr" [value]="prototipo">
+                        {{prototipo.nombre}}
+                    </mat-option>
+                </mat-select>
+
+
+            </mat-form-field>
+            <p>
+
+                <mat-checkbox (change)="eventCheckBox($event.checked)">Buscar por rango de fecha</mat-checkbox>
+            </p>
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccionar Fecha</mat-label>
+                <input matInput [matDatepicker]="dp3" formControlName="fechaInicio" [(ngModel)]="minDate" (dateChange)="inicio('change', $event)" disabled>
+                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                <mat-error *ngIf="formulario.get('fechaInicio').hasError('required')">
+                    Valid date required.
+                </mat-error>
+            </mat-form-field>
+
+
+
+
+
+            <mat-form-field appearance="fill" *ngIf="rango">
+                <mat-label>Seleccionar Fecha Fin</mat-label>
+                <input matInput [min]="hasta" [matDatepicker]="dp4" formControlName="fechaFin" [(ngModel)]="hasta" (dateChange)="fin('change', $event)" disabled>
+                <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                <mat-datepicker #dp4 disabled="false"></mat-datepicker>
+
+            </mat-form-field>
+            <br>
+            <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="!formulario.valid">Submit</button>
+        </form>
+        <table mat-table [dataSource]="datos" class="mat-elevation-z8" *ngIf="(tablaStatus === true)">
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> No. </th>
+                <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.id}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="desc">
+                <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                <td mat-cell *matCellDef="let datos"> {{datos.descripcion}} </td>
+            </ng-container>
+            <ng-container matColumnDef="datoxFecha">
+                <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> Fecha </th>
+                <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.datoxFecha.fecha | date: 'y' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="viento">
+                <th mat-header-cell *matHeaderCellDef> Viento </th>
+                <td mat-cell *matCellDef="let datos"> {{datos.datoxFecha.datosAmbientales.viento}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="temperatura">
+                <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> Temperatura </th>
+                <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.datoxFecha.datosAmbientales.temperatura}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="luz">
+                <th mat-header-cell *matHeaderCellDef> Luz </th>
+                <td mat-cell *matCellDef="let datos"> {{datos.datoxFecha.datosAmbientales.luz}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="precipitacion">
+                <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> Precipitacion </th>
+                <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.datoxFecha.datosAmbientales.precipitacion}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
+
+</div>

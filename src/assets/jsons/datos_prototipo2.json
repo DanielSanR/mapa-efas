@@ -1,0 +1,47 @@
+[{
+        "id": 1,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-05T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 15,
+                "temperatura": 51,
+                "luz": 23,
+                "precipitacion": 52
+            }
+        }
+    },
+    {
+        "id": 2,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-05T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 77,
+                "temperatura": 27,
+                "luz": 7,
+                "precipitacion": 33
+            }
+        }
+    },
+
+    {
+        "id": 3,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-04T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 5455,
+                "temperatura": 51,
+                "luz": 83,
+                "precipitacion": 62
+            }
+        }
+    }
+]

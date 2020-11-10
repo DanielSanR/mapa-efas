@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { from } from 'rxjs';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field'; 
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -14,15 +15,17 @@ import { HeaderComponent } from './@core/components/shared/header/header.compone
 import { SidenavListComponent } from './@core/components/shared/sidenav-list/sidenav-list.component';
 import { FooterComponent } from './@core/components/shared/footer/footer.component';
 import { EstacionesComponent } from './@core/components/estaciones/estaciones.component';
-
+import { DatosComponent } from './@core/components/datos/datos.component';
 //Modulos
 import { MaterialModule } from './material.module';
+
+import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 
 //Servicios
 import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
 import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
-import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
+
 
 
 
@@ -39,7 +42,8 @@ import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabl
     FooterComponent,
     EstacionesComponent,
     EstacionComponent,
-    TablaDatosComponent,
+    DatosComponent,
+    TablaDatosComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +52,11 @@ import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabl
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     AppRoutingModule,
     MarkerService,
     PopUpService

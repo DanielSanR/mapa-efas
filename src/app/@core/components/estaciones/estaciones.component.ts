@@ -5,7 +5,7 @@ import * as L from 'leaflet';
 //services
 import { EstacionesService } from '@core/services/estaciones.service';
 import { MarkerService } from '@core/services/marker.service';
-import { Estacion } from '@core/models/estacion';
+import { Prototipo } from '@core/models/prototipo';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class EstacionesComponent implements OnInit {
 
   public mapStation;
 
-  stationsArray: Estacion[] = [];
+  stationsArray: Prototipo[] = [];
 
   
   constructor(private activatedRoute: ActivatedRoute, 
@@ -52,7 +52,7 @@ export class EstacionesComponent implements OnInit {
   
 
   private loadStations():void {
-    this._estacionesService.getStationsInstitution(this.institution_id).subscribe( response => {
+    this._estacionesService.getPrototypeInstitution(this.institution_id).subscribe( response => {
       this.stationsArray = response;
       this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray);
 

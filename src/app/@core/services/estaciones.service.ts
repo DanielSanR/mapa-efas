@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Estacion } from '@core/models/estacion';
+import { Prototipo } from '@core/models/prototipo';
 
 
 @Injectable({
@@ -20,14 +20,14 @@ export class EstacionesService {
 
   
   //TODO: descomentar
-  /* getStationsInstitution(institution_id:string):Observable<Estacion[]> {
-    return this._http.get<Estacion[]>(this.url+'prototipo/'+institution_id);
+  /* getStationsInstitution(institution_id:number):Observable<Prototipo[]> {
+    return this._http.get<Prototipo[]>(this.url+'prototipo/'+institution_id);
   } */
 
 
   //TODO: DATOS LOCALES 'assets/jsons/*'
-  getStationsInstitution(institution_id:number):Observable<Estacion[]> {
-    return this._http.get<Estacion[]>('assets/jsons/stations.json');
+  getPrototypeInstitution(institution_id:number):Observable<Prototipo[]> {
+    return this._http.get<Prototipo[]>('assets/jsons/prototipos.json');
   }
 
 

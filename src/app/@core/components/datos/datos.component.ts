@@ -1,6 +1,6 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
-import instituciones from '@core/json/instituciones.json';
-import Prototipos from '@core/json/prototipos.json';
+import instituciones from '../../../../assets/jsons/instituciones.json';
+import Prototipos from '../../../../assets/jsons/prototipos.json';
 import { FormBuilder, FormControl, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';

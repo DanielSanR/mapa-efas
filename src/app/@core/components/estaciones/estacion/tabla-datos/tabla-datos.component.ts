@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Estacion } from '@core/models/estacion';
+import { Prototipo } from '@core/models/prototipo';
 
 
 

@@ -14,16 +14,10 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 
-//sin lat y long, se puede hacer un parametro  opcional desde la clase Institucion = , proximo update
+// sin lat y long, se puede hacer un parametro  opcional desde la clase Institucion = , proximo update
 export interface Institucion {
   descripcion: string;
   id: number;
-}
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
 }
 
 /*
@@ -42,18 +36,14 @@ export interface Prototipo {
 })
 export class DatosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  breakpoint: number;
-  tiles: Tile[] = [
-    {text: 'One', cols: 2, rows: 2, color: 'lightblue'},
-    {text: 'Two', cols: 2, rows: 2, color: 'lightgreen'},
-  ];
+
+
   hasta = new Date();
   minDate = new Date();
 
   prototiposArr: Prototipo[];
   selected: Prototipo;
   tablaStatus = false;
-
 
   options: Institucion[] = instituciones;
   filteredOptions: Observable<Institucion[]>;
@@ -70,21 +60,20 @@ export class DatosComponent implements OnInit {
   'temperatura',
   'luz',
   'precipitacion'];
- 
+
   constructor(private formBuilder: FormBuilder, private _DATOSXFECHA: DatosxFechaService, private cdref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
 
-    this.breakpoint = window.innerWidth <= 400 ? 1: 2; 
-    
+
+
     this.formulario = this.formBuilder.group({
       institutoControl: ['', Validators.required],
       prototipoControl: ['',  Validators.required],
       fechaInicio: [ '', Validators.required],
-      fechaFin: [ new Date()], //sin validacion, fixeamos con dos funciones por el momento( inicio y fin)
+      fechaFin: [ new Date()], // sin validacion, fixeamos con dos funciones por el momento( inicio y fin)
     });
 
- 
 
     this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
       .pipe(
@@ -101,11 +90,11 @@ export class DatosComponent implements OnInit {
   // funcion para filtrar las instituciones
   private _filter(descripcion: string): Institucion[] {
     const filterValue = descripcion.toLowerCase();
-  
+
     return this.options.filter(option => option.descripcion.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  obtenerPrototipo(institucionId): any{
+  obtenerPrototipo( institucionId): any{
     // aca iria el service que trae los prototipos de dicha institucion
     console.log(institucionId);
 
@@ -123,7 +112,7 @@ export class DatosComponent implements OnInit {
             NoSelect: true
           });
          // console.log('no es un objeto de prototipo' );
-          this.tablaStatus = false; 
+          this.tablaStatus = false;
 
 }
     else {
@@ -171,7 +160,7 @@ export class DatosComponent implements OnInit {
    // tslint:disable-next-line: typedef
  eventCheckBox( value ) {
   this.rango = value;
-  if(this.rango === false){
+  if (this.rango === false){
     // this.formulario.controls['fechaFin'].setErrors(null);
   }
  }
@@ -192,11 +181,5 @@ fin(type: string, event: MatDatepickerInputEvent<Date>) {
 
   this.hasta = this.minDate;
 
-}
-
-onResize(event) {
-  this.breakpoint = event.target.innerWidth <= 400 ? 1 : 2;
-}
-
-
+  }
 }

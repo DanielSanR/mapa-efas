@@ -3,9 +3,10 @@ import * as L from 'leaflet';
 import { Institucion } from '@core/models/institucion';
 import { PopUpService } from '@core/services/pop-up.service';
 import { Router } from '@angular/router';
-import { Estacion } from '@core/models/estacion';
+import { Prototipo } from '@core/models/prototipo';
 import { MatDialog } from '@angular/material/dialog';
 import { EstacionComponent } from '@core/components/estaciones/estacion/estacion.component';
+
 
 
 //icono para pop up - a elegir y fixear
@@ -53,7 +54,7 @@ export class MarkerService {
   }
 
 
-  makeStationsMarkers(mapStation: L.map ,stationsArray:Estacion[] ) {
+  makeStationsMarkers(mapStation: L.map ,stationsArray:Prototipo[] ) {
 
     stationsArray.forEach(element => {
       
@@ -72,7 +73,7 @@ export class MarkerService {
     })
   }
 
-  public openDialog(element: Estacion): void {
+  public openDialog(element: Prototipo): void {
     let dialogRef = this.dialog.open( EstacionComponent, {
       width: '700px',
       data: { element }

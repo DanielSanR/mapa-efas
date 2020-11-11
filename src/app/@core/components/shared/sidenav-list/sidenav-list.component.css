@@ -5,3 +5,11 @@ a {
 a:hover a:active {
     color: lightgray;
 }
+
+#sidenav-toolbar {
+    height: 75px;
+}
+
+span {
+    font-weight: bold;
+}

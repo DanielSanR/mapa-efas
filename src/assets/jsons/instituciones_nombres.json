@@ -1,0 +1,101 @@
+[{
+        "descripcion": "San Ignacio de Loyola",
+        "id": 1
+
+    },
+    {
+        "descripcion": "San Pedro",
+        "id": 2
+
+    },
+    {
+        "descripcion": "Santa Rita",
+        "id": 3
+
+    },
+    {
+        "descripcion": "Cristo Rey",
+        "id": 4
+
+    },
+    {
+        "descripcion": "Concepción de la Virgen María",
+        "id": 5
+    },
+    {
+        "descripcion": "San Conrado",
+        "id": 6
+    },
+    {
+        "descripcion": "Santísima Trinidad",
+        "id": 7
+    },
+    {
+        "descripcion": "San Antonio",
+        "id": 8
+    },
+    {
+        "descripcion": "San Bonifacio",
+        "id": 9
+    },
+    {
+        "descripcion": "Jesús de Galilea",
+        "id": 10
+    },
+    {
+        "descripcion": "Santos Mártires",
+        "id": 11
+    },
+    {
+        "descripcion": "San Cristóbal",
+        "id": 12
+    },
+    {
+        "descripcion": "Anexo San Roque Gonzalez",
+        "id": 13
+    },
+    {
+        "descripcion": "Santa María Goretti",
+        "id": 14
+    },
+    {
+        "descripcion": "San Bernardo",
+        "id": 15
+    },
+    {
+        "descripcion": "San Vicente de Paúl",
+        "id": 16
+    },
+    {
+        "descripcion": "Espíritu Santo",
+        "id": 17
+    },
+    {
+        "descripcion": "San Arnoldo Janssen",
+        "id": 18
+    },
+    {
+        "descripcion": "Santa Teresita",
+        "id": 19
+    },
+    {
+        "descripcion": "San Wendelino",
+        "id": 20
+    },
+    {
+        "descripcion": "San José Freinademetz",
+        "id": 21
+    },
+    {
+        "descripcion": "Anexo Perutí",
+        "id": 22
+    },
+    {
+        "descripcion": "Padre José Marx",
+        "id": 23
+    },
+    {
+        "descripcion": "Padre Antonio Sepp",
+        "id": 24
+    }
+]

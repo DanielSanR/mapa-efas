@@ -1,6 +1,6 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
-import instituciones from '@core/json/instituciones.json';
-import Prototipos from '@core/json/prototipos.json';
+import { Component, OnInit, ɵConsole, ViewChild } from '@angular/core';
+import instituciones from '../../../../assets/jsons/instituciones_nombres.json';
+import Prototipos from '../../../../assets/jsons/prototipos.json';
 import { FormBuilder, FormControl, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -9,10 +9,21 @@ import { DatosxFechaService } from '../../services/datos.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ChangeDetectorRef } from '@angular/core';
 import { Prototipo } from '@core/models/prototipo';
+import { MatPaginator } from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+
 //sin lat y long, se puede hacer un parametro  opcional desde la clase Institucion = , proximo update
 export interface Institucion {
   descripcion: string;
   id: number;
+}
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
 }
 
 /*
@@ -30,7 +41,12 @@ export interface Prototipo {
   styleUrls: ['./datos.component.css']
 })
 export class DatosComponent implements OnInit {
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  breakpoint: number;
+  tiles: Tile[] = [
+    {text: 'One', cols: 2, rows: 2, color: 'lightblue'},
+    {text: 'Two', cols: 2, rows: 2, color: 'lightgreen'},
+  ];
   hasta = new Date();
   minDate = new Date();
 
@@ -45,7 +61,7 @@ export class DatosComponent implements OnInit {
   rango: boolean; // para saber si esta o no habiltiado el rango de datos
   formulario: FormGroup ;
   datos: any; // array de datos ambientales
-
+  dataSource: MatTableDataSource<Prototipo[]>;
   displayedColumns: string[] = ['position',
 
   'desc',
@@ -54,11 +70,13 @@ export class DatosComponent implements OnInit {
   'temperatura',
   'luz',
   'precipitacion'];
-
-
+ 
   constructor(private formBuilder: FormBuilder, private _DATOSXFECHA: DatosxFechaService, private cdref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+
+    this.breakpoint = window.innerWidth <= 400 ? 1: 2; 
+    
     this.formulario = this.formBuilder.group({
       institutoControl: ['', Validators.required],
       prototipoControl: ['',  Validators.required],
@@ -66,7 +84,7 @@ export class DatosComponent implements OnInit {
       fechaFin: [ new Date()], //sin validacion, fixeamos con dos funciones por el momento( inicio y fin)
     });
 
-    console.log(this.prototiposArr);
+ 
 
     this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
       .pipe(
@@ -114,6 +132,10 @@ export class DatosComponent implements OnInit {
           this._DATOSXFECHA.getProtoipoByID(this.selected.id).subscribe(
             result => {
               this.datos = result;
+              this.dataSource = new MatTableDataSource<any>(result);
+              console.log(this.dataSource.data);
+              this.dataSource.paginator = this.paginator;
+              // this.datos.paginator = this.paginator;
               // console.log(this.datos);
             },
             error => {
@@ -171,4 +193,10 @@ fin(type: string, event: MatDatepickerInputEvent<Date>) {
   this.hasta = this.minDate;
 
 }
+
+onResize(event) {
+  this.breakpoint = event.target.innerWidth <= 400 ? 1 : 2;
+}
+
+
 }

@@ -1,44 +1,92 @@
-.example-container {
-    padding: 16px;
-    margin-bottom: 16px;
-    width: 100%;
-}
-
-table {
-    width: 100%;
-    text-align: center;
-}
-
-.mat-cell {
-    font-size: 14px;
-    min-height: 32px;
-    text-align: center;
-    padding: 4px;
-    margin-top: 10px;
-}
-
-.mat-header-cell {
-    text-align: center;
-}
-
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-}
-
-.example-full-width {
-    width: 100%;
-}
-
-.contenedor {
-    float: center;
-    display: flex;
-    flex-direction: column;
-    margin: 1rem auto;
-    max-width: 600px;
-}
-
-.center {
-    margin: 10px auto;
-}
+ table {
+     width: 100%;
+     text-align: center;
+ }
+ 
+ .mat-cell {
+     font-size: 14px;
+     min-height: 32px;
+     text-align: center;
+     padding: 4px;
+     margin-top: 10px;
+ }
+ 
+ .mat-header-cell {
+     text-align: center;
+ }
+ 
+ .example-form {
+     min-width: 150px;
+     max-width: 500px;
+     width: 100%;
+ }
+ 
+ .center {
+     width: 75%;
+     margin: 10px auto;
+ }
+ 
+ mat-card {
+     display: center;
+     flex-direction: row;
+ }
+ 
+ mat-grid-tile {
+     background: lightblue;
+ }
+ 
+ .example-container .mat-form-field+.mat-form-field {
+     margin-left: 8px;
+ }
+ 
+ .cards {
+     display: flex;
+     flex-wrap: wrap;
+     margin-left: 18px;
+     margin-right: 18px;
+ }
+ 
+ .card {
+     flex: 0 1 calc(100% - 1em);
+     box-sizing: border-box;
+     margin: 1rem .50em;
+ }
+ 
+ .main-div {
+     height: auto;
+     display: flex;
+     justify-content: center;
+ }
+ 
+ .dateEnd {
+     margin-left: 5px;
+     width: 250px;
+ }
+ 
+ .input {
+     width: 250px;
+ }
+ 
+ .title-bar-style {
+     background: #673ab7;
+     padding: 1rem;
+     color: #ffffff;
+ }
+ 
+ @media screen and (min-width: 60em) {
+     .card {
+         flex: 0 1 calc(1000% - 1em);
+         flex-wrap: wrap;
+     }
+ }
+ 
+ @media screen and (min-width: 40em) {
+     .cards {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: row;
+     }
+     .card {
+         flex: 0 1 calc(100% - 1em);
+     }
+ }

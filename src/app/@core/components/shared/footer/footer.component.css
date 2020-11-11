@@ -1,11 +1,9 @@
-.mat-toolbar-footer 
-{
-    position: absolute;
+.mat-toolbar-footer {
+    position: fixed;
     bottom: 0;
-    height: 49px;
+    height: 40px;
 }
 
-h3 
-{
+h3 {
     font-size: 12px;
 }

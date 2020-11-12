@@ -5,7 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { from } from 'rxjs';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field'; 
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { DatePipe } from '@angular/common'; 
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -59,7 +60,8 @@ import { EstacionComponent } from './@core/components/estaciones/estacion/estaci
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     AppRoutingModule,
     MarkerService,
-    PopUpService
+    PopUpService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

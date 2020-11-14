@@ -9,17 +9,17 @@
 
         <div id="nav-links" fxShow="true" fxHide.lt-md>
             <a [routerLink]="['']" mat-button>
-            INICIO
-        </a>
-            <a routerLink="" mat-button>
-            INSTITUCIONES
-        </a>
+                INICIO
+            </a>
+            <!-- <a routerLink="['']" mat-button>
+                INSTITUCIONES
+            </a> -->
             <a [routerLink]="['/datos']" mat-button>
-            DATOS
-        </a>
+                DATOS
+            </a>
             <a href="#" mat-button>
-            INICIO SESIÓN
-        </a>
+                INICIO SESIÓN
+            </a>
         </div>
 
         <button mat-icon-button (click)="onToggleSidenav()" fxShow="true" fxHide.gt-sm>

@@ -1,25 +1,25 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
 
-        <a routerLink="['']">
+        <a routerLink="">
             <img src="assets/images/logo.png" id="img-logo" alt="LOGO">
         </a>
         <span class="menu-spacer"></span>
 
 
         <div id="nav-links" fxShow="true" fxHide.lt-md>
-            <a [routerLink]="['']" mat-button>
+            <a routerLink="" mat-button>
                 INICIO
             </a>
-            <!-- <a routerLink="['']" mat-button>
+            <a routerLink="['']" mat-button>
                 INSTITUCIONES
-            </a> -->
-            <a [routerLink]="['/datos']" mat-button>
-                DATOS
             </a>
-            <a href="#" mat-button>
+            <a routerLink="/datos" mat-button>
+                BUSCAR
+            </a>
+            <!-- <a href="#" mat-button>
                 INICIO SESIÓN
-            </a>
+            </a> -->
         </div>
 
         <button mat-icon-button (click)="onToggleSidenav()" fxShow="true" fxHide.gt-sm>

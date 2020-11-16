@@ -13,3 +13,7 @@ a:hover a:active {
 span {
     font-weight: bold;
 }
+
+mat-icon {
+    padding-right: 5px;
+}

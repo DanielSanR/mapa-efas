@@ -3,7 +3,7 @@
     padding: 9px 10px;
     font-size: 12px;
     border: solid 1px black;
-    border-radius: 7px;
+    border-radius: 5px;
     text-align: center;
 }
 
@@ -11,8 +11,7 @@
     padding-left: 15px;
 }
 
-.table-content {
-    border: 1px solid black;
+.content {
     padding: 4px;
     margin-top: 5px;
 }
@@ -30,6 +29,22 @@ strong .size-data {
     font-size: 20px;
     border-radius: 12px;
 }
+
+mat-grid-tile img {
+    padding: 0px 5px;
+    width: 30px;
+    height: auto;
+}
+
+.m-g-t-dataStations {
+    background-color:#E5E8E8;
+    border: solid 1px black;
+}
+
+.m-g-t-dataStations-attribute{
+    border: solid 1px black;
+}
+
 
 @media only screen and (max-width: 500px) {
     ::ng-deep .mat-dialog-container {

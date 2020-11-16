@@ -5,8 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { from } from 'rxjs';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
-import { DatePipe } from '@angular/common'; 
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field'; 
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -18,7 +17,7 @@ import { FooterComponent } from './@core/components/shared/footer/footer.compone
 import { EstacionesComponent } from './@core/components/estaciones/estaciones.component';
 import { DatosComponent } from './@core/components/datos/datos.component';
 //Modulos
-import { MaterialModule } from './material.module';
+import { MaterialModule, } from './material.module';
 
 import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 
@@ -26,8 +25,9 @@ import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabl
 import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
 import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
-
-
+import { ChartsModule } from 'ng2-charts';
+import * as Highcharts from 'highcharts';
+import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
 
 
 @NgModule({
@@ -44,7 +44,8 @@ import { EstacionComponent } from './@core/components/estaciones/estacion/estaci
     EstacionesComponent,
     EstacionComponent,
     DatosComponent,
-    TablaDatosComponent
+    TablaDatosComponent,
+    TablaComponent
   ],
   imports: [
     BrowserModule,
@@ -54,14 +55,14 @@ import { EstacionComponent } from './@core/components/estaciones/estacion/estaci
     FormsModule,
     AppRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     AppRoutingModule,
     MarkerService,
-    PopUpService,
-    DatePipe
+    PopUpService
   ],
   bootstrap: [AppComponent]
 })

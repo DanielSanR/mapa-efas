@@ -1,0 +1,33 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> No. </th>
+        <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="desc">
+        <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+        <td mat-cell *matCellDef="let datos"> {{datos.descripcion}} </td>
+    </ng-container>
+    <ng-container matColumnDef="datoxFecha">
+        <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> Fecha </th>
+        <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.datoxFecha.fecha | date: 'y' }}</td>
+    </ng-container>
+    <ng-container matColumnDef="temperatura">
+        <th mat-header-cell *matHeaderCellDef> Temperatura </th>
+        <td mat-cell *matCellDef="let datos"> {{datos.datoxFecha.datosAmbientales.temperatura}} C°</td>
+    </ng-container>
+    <ng-container matColumnDef="humedad">
+        <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> Humedad </th>
+        <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.datoxFecha.datosAmbientales.luz}} % </td>
+    </ng-container>
+    <ng-container matColumnDef="viento">
+        <th mat-header-cell *matHeaderCellDef> Viento </th>
+        <td mat-cell *matCellDef="let datos"> {{datos.datoxFecha.datosAmbientales.viento}} km/h</td>
+    </ng-container>
+    <ng-container matColumnDef="precipitacion">
+        <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> Precipitacion </th>
+        <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.datoxFecha.datosAmbientales.precipitacion}} (mm)</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5,10]" showFirstLastButtons></mat-paginator>

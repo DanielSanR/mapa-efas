@@ -1,14 +1,12 @@
-[
-    {
+[{
         "id": 1,
-        "nombre": "prototipo1",
-        "lat": "-27.0212113",
-        "lng": "-54.4493169"
+        "nombre": "prototipo1"
+
     },
     {
         "id": 2,
-        "nombre": "prototipo2",
-        "lat": "-27.0124873",
-        "lng": "-54.5212307"
+        "nombre": "prototipo2"
+
+
     }
 ]

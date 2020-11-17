@@ -14,16 +14,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 
 import {FormsModule} from '@angular/forms';
-
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule,} from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
-
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 @NgModule({
   declarations: [],
   imports: [
@@ -71,5 +71,6 @@ import {MatCardModule} from '@angular/material/card';
     MatGridListModule,
     MatCardModule
   ]
+  
 })
 export class MaterialModule { }

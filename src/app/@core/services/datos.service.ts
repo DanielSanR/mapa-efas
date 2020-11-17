@@ -6,7 +6,7 @@ import { Prototipo } from '@core/models/prototipo';
 @Injectable({
   providedIn: 'root'
 })
-export class DatosxFechaService {
+export class DatosService {
 
   url: string;
 

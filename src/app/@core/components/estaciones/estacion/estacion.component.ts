@@ -20,9 +20,10 @@ export class EstacionComponent implements OnInit {
   current_date_formatted: any;
 
   
-  constructor(private datePipe: DatePipe,  public dialogRef: MatDialogRef<EstacionComponent>,
+  constructor(private datePipe: DatePipe, public dialogRef: MatDialogRef<EstacionComponent>,
                 @Inject( MAT_DIALOG_DATA) public data: any ) {
                   this.stationData = data.element;
+                  console.log('this.stationData',this.stationData);
                 }
 
   

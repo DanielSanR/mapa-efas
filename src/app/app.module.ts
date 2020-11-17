@@ -45,9 +45,8 @@ import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
     EstacionComponent,
     DatosComponent,
     TablaDatosComponent,
-    InicioComponent
+    InicioComponent,
     TablaComponent
-
   ],
   imports: [
     BrowserModule,

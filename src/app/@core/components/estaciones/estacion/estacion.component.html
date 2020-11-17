@@ -1,8 +1,8 @@
 <mat-tab-group>
     <mat-tab label="ESTACIÓN">
-        <div class="table-content">
-            <table class="table ng-scope">
-                <tbody>
+        <div class="content">
+            
+                <!-- <tbody>
                     <tr>
                         <td bgcolor="#E5E8E8" class="tdKey"><strong>ESTACIÓN: </strong></td>
                         <td class="tdValue"><strong>{{stationData['nombre']}}</strong></td>
@@ -19,32 +19,94 @@
                         <td bgcolor="#E5E8E8" class="tdKey"><strong>DEPARTAMENTO: </strong></td>
                         <td class="tdValue"><strong>Guaraní</strong></td>
                     </tr>
-                </tbody>
-            </table>
+                </tbody> -->
+                <mat-grid-list cols="2" rowHeight="1:0.25" style="justify-content: end;">
+
+                    <mat-grid-tile class="m-g-t-dataStations"> 
+                        <strong>ESTACIÓN: </strong>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="m-g-t-dataStations-attribute">
+                        {{stationData['nombre']}}
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="m-g-t-dataStations">
+                        <strong>UBICACIÓN: </strong>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="m-g-t-dataStations-attribute">
+                        Campo Anexo
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="m-g-t-dataStations">
+                        <strong>LOCALIDAD: </strong>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="m-g-t-dataStations-attribute">
+                        San Vicente
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="m-g-t-dataStations">
+                        <strong>DEPARTAMENTO: </strong>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="m-g-t-dataStations-attribute">
+                        Guaraní
+                    </mat-grid-tile>
+                </mat-grid-list>
         </div>
     </mat-tab>
     <mat-tab label="ULTIMA INFORMACIÓN"> 
-        <div class="table-content">
-            <table class="table ng-scope">
-                <tbody>
-                    <tr>
-                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>TEMPERATURA: </strong></td>
-                        <td class="tdValue"><strong>25 °C</strong></td>
-                    </tr>
-                    <tr>
-                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>HUMEDAD: </strong></td>
-                        <td class="tdValue"><strong>50 %</strong></td>
-                    </tr>
-                    <tr>
-                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>VIENTO: </strong></td>
-                        <td class="tdValue"><strong>40 km/h</strong></td>
-                    </tr>
-                    <tr>  
-                        <td class="tdKey" bgcolor="#E5E8E8" ><strong>PRECIPITACIÓN: </strong></td>
-                        <td class="tdValue"><strong>120 mm</strong></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="content">
+            <mat-grid-list cols="3" rowHeight="0.8:0.4">
+                <mat-grid-tile>
+                    <img src="assets/images/temp_icon.png" alt="icono temperatura ambiente">
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <strong>TEMPERATURA</strong>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <strong>25 °C</strong>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <img src="assets/images/hum_icon.png" alt="icono humedad">
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <strong>HUMEDAD</strong>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <strong>50 %</strong>
+                </mat-grid-tile>
+                
+                <mat-grid-tile>
+                    <img src="assets/images/wind_icon.png" alt="icono vel viento">
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <strong>VIENTO</strong>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <strong>a 40 km/h</strong>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <img src="assets/images/pp_icon.png" alt="icono precipitacion">
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <strong>PRECIPITACIÓN</strong>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <strong>120 mm</strong>
+                </mat-grid-tile>
+            </mat-grid-list>
         </div>
     </mat-tab>
     <mat-tab label="DATOS DEL DÍA"> 

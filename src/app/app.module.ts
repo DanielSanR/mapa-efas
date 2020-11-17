@@ -16,9 +16,10 @@ import { SidenavListComponent } from './@core/components/shared/sidenav-list/sid
 import { FooterComponent } from './@core/components/shared/footer/footer.component';
 import { EstacionesComponent } from './@core/components/estaciones/estaciones.component';
 import { DatosComponent } from './@core/components/datos/datos.component';
-//Modulos
-import { MaterialModule, } from './material.module';
+import { InicioComponent } from './@core/components/inicio/inicio.component';
 
+//Modulos
+import { MaterialModule } from './material.module';
 import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 
 //Servicios
@@ -28,7 +29,6 @@ import { EstacionComponent } from './@core/components/estaciones/estacion/estaci
 import { ChartsModule } from 'ng2-charts';
 import * as Highcharts from 'highcharts';
 import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
-
 
 @NgModule({
   entryComponents:[
@@ -45,7 +45,9 @@ import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
     EstacionComponent,
     DatosComponent,
     TablaDatosComponent,
+    InicioComponent
     TablaComponent
+
   ],
   imports: [
     BrowserModule,

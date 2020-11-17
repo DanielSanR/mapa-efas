@@ -17,16 +17,16 @@ import { SidenavListComponent } from './@core/components/shared/sidenav-list/sid
 import { FooterComponent } from './@core/components/shared/footer/footer.component';
 import { EstacionesComponent } from './@core/components/estaciones/estaciones.component';
 import { DatosComponent } from './@core/components/datos/datos.component';
+import { InicioComponent } from './@core/components/inicio/inicio.component';
+
 //Modulos
 import { MaterialModule } from './material.module';
-
 import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 
 //Servicios
 import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
 import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
-
 
 
 
@@ -44,7 +44,8 @@ import { EstacionComponent } from './@core/components/estaciones/estacion/estaci
     EstacionesComponent,
     EstacionComponent,
     DatosComponent,
-    TablaDatosComponent
+    TablaDatosComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,

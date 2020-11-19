@@ -8,6 +8,8 @@ import { DatosService } from '../../services/datos.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { Prototipo } from '@core/models/prototipo';
 import * as Highcharts from 'highcharts';
+import more from 'highcharts/highcharts-more';
+ 
 import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import * as moment from 'moment';
 import {default as _rollupMoment} from 'moment';
@@ -18,6 +20,16 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+declare var require: any;
+let Boost = require('highcharts/modules/boost');
+let noData = require('highcharts/modules/no-data-to-display');
+let More = require('highcharts/highcharts-more');
+
+Boost(Highcharts);
+noData(Highcharts);
+More(Highcharts);
+noData(Highcharts);
+
 export interface Institucion {
   descripcion: string;
   id: number;
@@ -37,7 +49,12 @@ export interface Institucion {
   ],
 
 })
+
+
+
 export class DatosComponent implements OnInit {
+
+  breakpoint: number;
   dateMax = moment(); // variable para almacenar fecha actual
   dateMin  = moment(); // var para definir el rango minimo del datapicker, en este caso fecha actual -1 año
   hasta = new Date();
@@ -58,10 +75,13 @@ export class DatosComponent implements OnInit {
                       const year = this.dateMax.get('year');
                       this.dateMin = moment1([year - 1 , 0, 1]);
                       this.crearFormulario();
+                      
                 // this.simulargetDatosEstacion();
                 }
 
   ngOnInit(): void {
+    this.breakpoint = (window.innerWidth <= 480) ? 1 : 6;
+
     this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
       .pipe(
         startWith(''),
@@ -144,13 +164,14 @@ buscarDatos(){
       this._DATOSXFECHA.getProtoipoByID(this.selected.id).subscribe(
         result => {
           this.datos = result;
-
+          
      },
      error => {
       console.log(error as any);
      }
    );
       this.tablaStatus = true;
+      
   }
 }
 // institucionId: number, prototipoId: number
@@ -173,5 +194,6 @@ ngAfterContentChecked() {
     this.cdref.detectChanges();
 
  }
+ 
 
 }

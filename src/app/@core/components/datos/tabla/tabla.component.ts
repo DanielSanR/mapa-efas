@@ -16,9 +16,9 @@ export class TablaComponent implements AfterViewInit {
   displayedColumns: string[] = ['position',
   'desc',
   'datoxFecha',
-  'viento',
   'temperatura',
   'humedad',
+  'viento',
   'precipitacion'];
 
   // tslint:disable-next-line: variable-name

@@ -9,7 +9,7 @@
     </ng-container>
     <ng-container matColumnDef="datoxFecha">
         <th mat-header-cell *matHeaderCellDef bgcolor="#FAFAFA"> Fecha </th>
-        <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.datoxFecha.fecha | date: 'y' }}</td>
+        <td mat-cell *matCellDef="let datos" bgcolor="#FAFAFA"> {{datos.datoxFecha.fecha | date:'short' }}</td>
     </ng-container>
     <ng-container matColumnDef="temperatura">
         <th mat-header-cell *matHeaderCellDef> Temperatura </th>

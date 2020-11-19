@@ -1,101 +1,110 @@
 <mat-divider>
 </mat-divider>
 <div class="main-div">
-    <section class="cards">
-        <article class="card ">
-            <mat-card>
-                <mat-card-title-group>
-                    <mat-card-title class="title-bar-style">FORMULARIO DE DATOS AGROMETEOROLÓGICOS</mat-card-title>
-                    <mat-card-subtitle>Actuales o historicos </mat-card-subtitle>
-                </mat-card-title-group>
-                <form [formGroup]="formulario" (ngSubmit)="buscarDatos()">
-                    <mat-form-field appearance="fill" class="input">
-                        <mat-label>Instituciones</mat-label>
-                        <input matInput type="text" formControlName="institutoControl" [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstitucion" (optionSelected)='obtenerPrototipo(formulario.get("institutoControl").value)'>
-                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                {{option.descripcion}}
-                            </mat-option>
-                        </mat-autocomplete>
-                        <mat-error *ngIf="institutoNoValido">
-                            Seleccionar instituto
-                        </mat-error>
-                        <mat-error *ngIf="institutoNoValidoLista">
-                            Seleccionar un instituto de la lista
-                        </mat-error>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field appearance="fill" class="input">
-                        <mat-label>Prototipos</mat-label>
-                        <mat-select #mats matInput [(ngModel)]="selected" formControlName="prototipoControl">
-                            <mat-option *ngFor="let prototipo of prototiposArr" [value]="prototipo">
-                                {{prototipo.nombre}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="prototipoNoValido">
-                            Seleccionar un prototipo
-                        </mat-error>
-                    </mat-form-field>
-                    <p>
-                        <mat-checkbox formControlName="checkbox">Buscar por rango de fecha</mat-checkbox>
-                    </p>
-                    <mat-form-field appearance="fill" class="input">
-                        <mat-label>Seleccionar Fecha</mat-label>
-                        <input matInput [matDatepicker]="dp3" formControlName="fechaInicio" [min]="dateMin" [max]="dateMax">
-                        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-                        <mat-error *ngIf="formulario.get('fechaInicio').hasError('required')">
-                            Dato valido requerido.
-                        </mat-error>
-                        <mat-error *ngIf="formulario.get('fechaInicio').hasError('matDatepickerMin')">
-                            Seleccione una fecha minima valida
-                        </mat-error>
-                        <mat-error *ngIf="formulario.get('fechaInicio').hasError('matDatepickerMax')">
-                            Seleccione una fecha maxima válida
-                        </mat-error>
-                    </mat-form-field>
-                    <!--      (dateChange)="fin('change', $event)" -->
-                    <mat-form-field appearance="fill" *ngIf="checkStatus" class="dateEnd">
-                        <mat-label>Seleccionar Fecha Fin</mat-label>
-                        <input matInput [matDatepicker]="dp4" formControlName="fechaFin" [min]="dateMin" [max]="dateMax">
-                        <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
-                        <mat-datepicker #dp4 disabled="false"></mat-datepicker>
-                        <mat-error *ngIf="formulario.get('fechaFin').hasError('required')">
-                            Dato valido requerido.
-                        </mat-error>
-                        <mat-error *ngIf="hastaMenorDesde">
-                            Fecha Fin es menor o igual a Inicio
-                        </mat-error>
-                        <mat-error *ngIf="outRangeMax">
-                            Fecha Fin es mayor a fecha actual
-                        </mat-error>
-                        <mat-error *ngIf="outRangeMin">
-                            Fecha Fin es menor a fecha minima permitida
-                        </mat-error>
-                    </mat-form-field>
-                    <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="!formulario.valid" style="display: inline;margin: 15px">Submit</button>
-                </form>
-            </mat-card>
-        </article>
-    </section>
-</div>
-<div class="centered">
+    <mat-card class="card-form">
+        <mat-card-title-group>
+            <mat-card-title class="title-bar-style">BUSCADOR DE DATOS AGROMETEOROLÓGICOS</mat-card-title>
+        </mat-card-title-group>
+        <form [formGroup]="formulario" (ngSubmit)="buscarDatos()">
+            <mat-form-field appearance="outline" class="demo-full-width">
+                <mat-label>Instituciones</mat-label>
+                <input matInput type="text" formControlName="institutoControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstitucion" (optionSelected)='obtenerPrototipo(formulario.get("institutoControl").value)'>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option.descripcion}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="institutoNoValido">
+                    Seleccionar instituto
+                </mat-error>
+                <mat-error *ngIf="institutoNoValidoLista">
+                    Seleccionar un instituto de la lista
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="outline" class="demo-full-width">
+                <mat-label>Prototipos</mat-label>
+                <mat-select #mats matInput [(ngModel)]="selected" formControlName="prototipoControl">
+                    <mat-option *ngFor="let prototipo of prototiposArr" [value]="prototipo">
+                        {{prototipo.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="prototipoNoValido">
+                    Seleccionar un prototipo
+                </mat-error>
+            </mat-form-field>
+            <p>
+                <mat-checkbox formControlName="checkbox">Buscar por rango de fecha</mat-checkbox>
+            </p>
+            <mat-form-field appearance="outline" class="demo-full-width">
+                <mat-label>Seleccionar Fecha</mat-label>
+                <input matInput [matDatepicker]="dp3" formControlName="fechaInicio" [min]="dateMin" [max]="dateMax">
+                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+                <mat-error *ngIf="formulario.get('fechaInicio').hasError('required')">
+                    Dato valido requerido.
+                </mat-error>
+                <mat-error *ngIf="formulario.get('fechaInicio').hasError('matDatepickerMin')">
+                    Seleccione una fecha minima valida
+                </mat-error>
+                <mat-error *ngIf="formulario.get('fechaInicio').hasError('matDatepickerMax')">
+                    Seleccione una fecha maxima válida
+                </mat-error>
+            </mat-form-field>
+            <!--      (dateChange)="fin('change', $event)" -->
+            <mat-form-field appearance="outline" class="demo-full-width" *ngIf="checkStatus">
+                <mat-label>Seleccionar Fecha Fin</mat-label>
+                <input matInput [matDatepicker]="dp4" formControlName="fechaFin" [min]="dateMin" [max]="dateMax" [disabled]="!checkStatus">
+                <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                <mat-datepicker #dp4 [disabled]="!checkStatus"></mat-datepicker>
+                <mat-error *ngIf="formulario.get('fechaFin').hasError('required')">
+                    Dato valido requerido.
+                </mat-error>
+                <mat-error *ngIf="hastaMenorDesde">
+                    Fecha Fin es menor o igual a Inicio
+                </mat-error>
+                <mat-error *ngIf="outRangeMax">
+                    Fecha Fin es mayor a fecha actual
+                </mat-error>
+                <mat-error *ngIf="outRangeMin">
+                    Fecha Fin es menor a fecha minima permitida
+                </mat-error>
+            </mat-form-field>
+            <button class="submit-btn" mat-raised-button type="submit" class="demo-full-width" [disabled]="!formulario.valid">CONSULTAR</button>
+        </form>
+    </mat-card>
+    <!--    <div class="centered">
 
-    <section class="cards">
-        <article class="card" *ngIf="(tablaStatus === true)">
-            <mat-card>
-                <mat-card-title-group>
-                    <mat-card-title> Listado de datos para la EFA {{formulario.get('institutoControl').value.descripcion}} </mat-card-title>
-                    <mat-card-subtitle>Estación {{selected.nombre}} </mat-card-subtitle>
-                </mat-card-title-group>
+                <mat-card class="card-form" *ngIf="(tablaStatus === true)">
+                    <mat-card-title-group>
+                        <mat-card-title> Listado de datos para la EFA {{formulario.get('institutoControl').value.descripcion}} </mat-card-title>
+                        <mat-card-subtitle>Estación {{selected.nombre}} </mat-card-subtitle>
+                    </mat-card-title-group>
+                   
+
+                </mat-card>
+    </div> -->
+</div>
+<br>
+<div style='min-height:500px'>
+    <mat-tab-group [@.disabled]="true">
+        <mat-tab label="Listado de Datos">
+            <div class="card">
+                <h2 class="title-bar-style" *ngIf="tablaStatus">Listado de datos para la EFA {{formulario.get('institutoControl').value.descripcion}}</h2>
                 <app-tabla *ngIf="tablaStatus" [dato_form]="datos"></app-tabla>
+            </div>
+        </mat-tab>
+        <mat-tab label="Gráfico Díario">
+            <div class="card">
 
-            </mat-card>
-        </article>
-    </section>
-
+            </div>
+        </mat-tab>
+        <mat-tab label="Gráfico por Periodo">
+            <div class="card">
+            </div>
+        </mat-tab>
+    </mat-tab-group>
 </div>
-
-
 <br>
-<br>
+<br><br>
+<br><br>

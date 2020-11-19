@@ -1,23 +1,10 @@
- table {
-     width: 100%;
-     text-align: center;
- }
- 
- .mat-cell {
-     font-size: 14px;
-     min-height: 32px;
-     text-align: center;
-     padding: 4px;
-     margin-top: 10px;
- }
- 
- .mat-header-cell {
-     text-align: center;
- }
- 
  .example-form {
      min-width: 150px;
      max-width: 500px;
+     width: 100%;
+ }
+ 
+ .demo-full-width {
      width: 100%;
  }
  
@@ -26,17 +13,31 @@
      margin: 10px auto;
  }
  
- mat-card {
+ .mat-card {
+     text-align: -webkit-center;
+ }
+ 
+ .mat-card-title {
+     text-align: -webkit-center;
+ }
+ 
+ .card-form {
+     text-align: center;
      display: center;
-     flex-direction: row;
+     max-width: 475.61px;
+     margin: 2em auto;
+     margin-left: 18px;
+     margin-right: 18px;
+     box-sizing: border-box;
+ }
+ 
+ .mat-card-subtitle {
+     text-align: left;
+     font-size: 10px;
  }
  
  mat-grid-tile {
      background: lightblue;
- }
- 
- .example-container .mat-form-field+.mat-form-field {
-     margin-left: 8px;
  }
  
  .cards {
@@ -53,24 +54,18 @@
  }
  
  .main-div {
-     height: auto;
+     height: 100%;
      display: flex;
      justify-content: center;
- }
- 
- .dateEnd {
-     margin-left: 5px;
-     width: 250px;
- }
- 
- .input {
-     width: 250px;
+     border-color: rgb(0, 175, 215);
+     margin-left: 18px;
+     margin-right: 18px;
  }
  
  .title-bar-style {
-     background: #673ab7;
      padding: 1rem;
-     color: #ffffff;
+     font-size: 19px;
+     color: rgba(45 85 110);
  }
  
  .highcharts-figure,
@@ -118,9 +113,43 @@
      background: #f1f7ff;
  }
  
+ .mat-tab-body {
+     animation: fade-out 0.5s;
+     opacity: 0;
+ }
+ 
+ .mat-tab-body.mat-tab-body-active {
+     animation: fade-in 0.5s;
+     opacity: 1;
+ }
+ 
+ @keyframes fade-in {
+     0% {
+         opacity: 0;
+     }
+     50% {
+         opacity: 0;
+     }
+     100% {
+         opacity: 1;
+     }
+ }
+ 
+ @keyframes fade-out {
+     0% {
+         opacity: 1;
+     }
+     50% {
+         opacity: 0;
+     }
+     100% {
+         opacity: 0;
+     }
+ }
+ 
  @media screen and (min-width: 60em) {
      .card {
-         flex: 0 1 calc(1000% - 1em);
+         flex: 0 1 calc(100% - 1em);
          flex-wrap: wrap;
      }
  }
@@ -134,4 +163,22 @@
      .card {
          flex: 0 1 calc(100% - 1em);
      }
+ }
+ 
+ .mat-toolbar-row {
+     justify-content: space-between;
+     padding: 0 5px;
+ }
+ 
+ .mat-toolbar.mat-primary {
+     background: rgb(0, 175, 215);
+     color: #fff;
+ }
+ 
+ .mat-flat-button,
+ .mat-raised-button,
+ .mat-fab,
+ .mat-mini-fab {
+     background: rgba(45, 85, 110, .91);
+     color: white;
  }

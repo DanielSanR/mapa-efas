@@ -1,11 +1,9 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
     <mat-toolbar-row>
-
-        <a routerLink="">
-            <img src="assets/images/logo.png" id="img-logo" alt="LOGO">
+        <a routerLink="" id="icon-header">
+            <img src="assets/images/logo/logo_app.png" id="img-logo" alt="LOGO">
         </a>
         <span class="menu-spacer"></span>
-
         <div id="nav-links" fxShow="true" fxHide.lt-md>
             <a routerLink="" mat-button>
                 INICIO
@@ -17,10 +15,8 @@
                 BUSCAR
             </a>
         </div>
-
         <button mat-icon-button (click)="onToggleSidenav()" fxShow="true" fxHide.gt-sm>
-        <mat-icon>menu</mat-icon>
-    </button>
-
+            <mat-icon>menu</mat-icon>
+        </button>
     </mat-toolbar-row>
 </mat-toolbar>

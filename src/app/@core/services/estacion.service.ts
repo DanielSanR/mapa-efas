@@ -12,17 +12,21 @@ export class EstacionService {
 
   constructor(private _http: HttpClient) { 
     //TODO: agregar url
-    this.url = '';
+    this.url = 'asd.com/';
   
   }
 
 
   //TODO: descomentar
-  /* getStationsLastData(prototype_id:number, date_data:date):Observable<any[]> {
-    return this._http.get<any[]>(this.url+'prototipo/'+prototype_id/date_data);
+  /* getPrototypeLastData(prototype_id:number, current_date_formatted:any):Observable<any[]> {
+    return this._http.get<any[]>(this.url+'prototipo/'+prototype_id+'/'+current_date_formatted);
   } */
 
+  //TODO: DATOS LOCALES 'assets/jsons/*'
+  getPrototypeLastData(prototype_id:number, current_date_formatted:any):Observable<any[]> {
+    return this._http.get<any[]>('assets/jsons/datosDelDia.json');
+  }
 
-  
+
 
 }

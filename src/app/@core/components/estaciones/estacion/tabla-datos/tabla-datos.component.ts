@@ -15,11 +15,7 @@ export class TablaDatosComponent implements AfterViewInit {
   displayedColumns: string[] = ['fecha', 'temperatura', 'humedad', 'viento', 'precipitacion'];
   dataSource: MatTableDataSource<any> ;
 
-  @Input() set station_id(id:number[]){
-    let arr:any[] = [{fecha: '01-05-2020', temperatura: 25, humedad: 50, viento: 40, precipitacion: 100}];
-    
-    
-    
+  @Input() set array_data(arr:any[]){
     this.dataSource = new MatTableDataSource<any>(arr);
   };
 

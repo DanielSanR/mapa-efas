@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Prototipo } from '@core/models/prototipo';
 import { TablaDatosComponent } from '@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 import { DatePipe } from '@angular/common';
+import { EstacionService } from '@core/services/estacion.service';
 
 
 @Component({
@@ -18,25 +19,48 @@ export class EstacionComponent implements OnInit {
   latest_environmental_data: any;
   current_date: Date = new Date();
   current_date_formatted: any;
-
+  prototype_id: number;
+  last_data_prototype: any;
+  datas_prototype: any[] = [];
+  array_data:any[];
+  last_data_day:any = [];
   
-  constructor(private datePipe: DatePipe, public dialogRef: MatDialogRef<EstacionComponent>,
+  constructor(  private _estacionService: EstacionService,
+                private datePipe: DatePipe, public dialogRef: MatDialogRef<EstacionComponent>,
                 @Inject( MAT_DIALOG_DATA) public data: any ) {
                   this.stationData = data.element;
-                  console.log('this.stationData',this.stationData);
                 }
 
   
-  ngOnInit(): void {
-    console.log('this.current_date',this.current_date);
-    this.current_date_formatted = this.datePipe.transform(this.current_date,"yyyy-MM-dd HH:mm");
-    console.log('current_date_formatted', this.current_date_formatted);
-    
-    //Funcion para llamar a un servicio para realizar la peticion del ultimo dato ambiental de la estacion
-    //Funcion para llamar a un servicio para realizar la peticion de todos los datos ambientales del dia actual
-      //Los datos devueltos colocarlos en un array y pasarlo al tabla-datos component.
+  ngOnInit(): void {  
+    this.prototype_id = this.stationData.id;
+    this.current_date_formatted = this.datePipe.transform(this.current_date,"yyyy-MM-dd");
+    this.getDataPrototype(this.prototype_id, this.current_date_formatted);
   }
 
 
-}
+  private getDataPrototype(prototype_id:number, current_date_formatted:any) {
+    this.last_data_prototype = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(result => {
+      this.datas_prototype = result;
+      this.array_data = [];
+      this.datas_prototype.forEach( dato => {
+        var data_weather = {}
+        data_weather = {
+              fecha: this.datePipe.transform(dato.datoxFecha.fecha,"yyyy-MM-dd HH:mm"),
+              temperatura: dato.datoxFecha.datosAmbientales.temperatura,
+              humedad: 50,
+              viento: dato.datoxFecha.datosAmbientales.viento,
+              precipitacion: dato.datoxFecha.datosAmbientales.precipitacion
+        }
 
+        this.array_data.push(data_weather);
+      });
+
+      this.last_data_day = this.array_data[this.array_data.length - 1];
+    });
+    
+  }
+  
+
+
+}

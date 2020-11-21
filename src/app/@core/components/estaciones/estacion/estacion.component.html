@@ -1,25 +1,6 @@
 <mat-tab-group>
     <mat-tab label="ESTACIÓN">
         <div class="content">
-            
-                <!-- <tbody>
-                    <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>ESTACIÓN: </strong></td>
-                        <td class="tdValue"><strong>{{stationData['nombre']}}</strong></td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>UBICACIÓN: </strong></td>
-                        <td class="tdValue"><strong>Campo Anexo</strong></td>
-                    </tr>
-                    <tr>
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>LOCALIDAD: </strong></td>
-                        <td class="tdValue"><strong>San Vicente</strong></td>
-                    </tr>
-                    <tr>  
-                        <td bgcolor="#E5E8E8" class="tdKey"><strong>DEPARTAMENTO: </strong></td>
-                        <td class="tdValue"><strong>Guaraní</strong></td>
-                    </tr>
-                </tbody> -->
                 <mat-grid-list cols="2" rowHeight="1:0.25" style="justify-content: end;">
 
                     <mat-grid-tile class="m-g-t-dataStations"> 
@@ -58,59 +39,70 @@
     </mat-tab>
     <mat-tab label="ULTIMA INFORMACIÓN"> 
         <div class="content">
-            <mat-grid-list cols="3" rowHeight="0.8:0.4">
-                <mat-grid-tile>
-                    <img src="assets/images/temp_icon.png" alt="icono temperatura ambiente">
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <strong>TEMPERATURA</strong>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <strong>25 °C</strong>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <img src="assets/images/hum_icon.png" alt="icono humedad">
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <strong>HUMEDAD</strong>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <strong>50 %</strong>
-                </mat-grid-tile>
-                
-                <mat-grid-tile>
-                    <img src="assets/images/wind_icon.png" alt="icono vel viento">
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <strong>VIENTO</strong>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <strong>a 40 km/h</strong>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <img src="assets/images/pp_icon.png" alt="icono precipitacion">
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <strong>PRECIPITACIÓN</strong>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <strong>120 mm</strong>
-                </mat-grid-tile>
-            </mat-grid-list>
+            <mat-card>
+                <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <img src="assets/images/temp_icon.png" alt="icono temperatura ambiente">
+                            <strong>TEMPERATURA</strong>
+                        </figure>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            {{last_data_day['temperatura']}}°C
+                        </figure>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+            <mat-card style="margin-top: 5px;">
+                <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <img src="assets/images/hum_icon.png" alt="icono humedad">
+                            <strong>HUMEDAD</strong>
+                        </figure>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            {{last_data_day['humedad']}}%
+                        </figure>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+            <mat-card style="margin-top: 5px;">
+                <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <img src="assets/images/wind_icon.png" alt="icono vel viento">
+                            <strong>VIENTO</strong>
+                        </figure>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            {{last_data_day['viento']}}km/h
+                        </figure>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+            <mat-card style="margin-top: 5px;">
+                <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <img src="assets/images/pp_icon.png" alt="icono precipitacion">
+                            <strong>PRECIPITACIÓN</strong>
+                        </figure>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            {{last_data_day['precipitacion']}}mm
+                        </figure>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
         </div>
     </mat-tab>
     <mat-tab label="DATOS DEL DÍA"> 
-        <app-tabla-datos [station_id]="stationData"></app-tabla-datos>
+        <app-tabla-datos [array_data]="array_data"></app-tabla-datos>
     </mat-tab>
     <mat-tab label="DATOS DEL DÍA"> 
         <button mat-raised-button color="primary" id="btn-advance-search">BUSCAR MÁS DATOS</button>

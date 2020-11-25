@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, AfterViewInit, ViewChild, ViewChildren, Input } from '@angular/core';
 import instituciones from '../../../../assets/jsons/instituciones_nombres.json';
 import Prototipos from '../../../../assets/jsons/prototipos.json';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {Observable} from 'rxjs';
+import {empty, Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { DatosService } from '../../services/datos.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { Prototipo } from '@core/models/prototipo';
-import * as Highcharts from 'highcharts';
-import more from 'highcharts/highcharts-more';
- 
+
 import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import * as moment from 'moment';
-import {default as _rollupMoment} from 'moment';
+import { default as _rollupMoment, Moment } from 'moment';
 import { ValidadoresService } from '../../services/validadores.service';
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -20,15 +18,10 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-declare var require: any;
-let Boost = require('highcharts/modules/boost');
-let noData = require('highcharts/modules/no-data-to-display');
-let More = require('highcharts/highcharts-more');
+import { GraficoComponent } from './grafico/grafico.component';
 
-Boost(Highcharts);
-noData(Highcharts);
-More(Highcharts);
-noData(Highcharts);
+
+
 
 export interface Institucion {
   descripcion: string;
@@ -53,6 +46,9 @@ export interface Institucion {
 
 
 export class DatosComponent implements OnInit {
+@ViewChild('graficoC') sampleComponent1: GraficoComponent;
+@Input()selectedIndex: number | null;
+  fixedDias = Array();
 
   breakpoint: number;
   dateMax = moment(); // variable para almacenar fecha actual
@@ -75,11 +71,14 @@ export class DatosComponent implements OnInit {
                       const year = this.dateMax.get('year');
                       this.dateMin = moment1([year - 1 , 0, 1]);
                       this.crearFormulario();
-                      
+
                 // this.simulargetDatosEstacion();
                 }
 
   ngOnInit(): void {
+
+
+
     this.breakpoint = (window.innerWidth <= 480) ? 1 : 6;
 
     this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
@@ -88,7 +87,7 @@ export class DatosComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value.descripcion),
         map(descripcion => descripcion ? this._filter(descripcion) : this.options.slice())
       );
-      // Highcharts.chart('container', this.optionsC);
+      
   }
 
 get prototipoNoValido(): boolean{
@@ -100,7 +99,7 @@ get institutoNoValido(): boolean{
   }
 
 get institutoNoValidoLista(): boolean {
-    return this.formulario.get('institutoControl').hasError('NoSelect')
+    return this.formulario.get('institutoControl').hasError('NoSelect');
 }
 
 get hastaMenorDesde(): boolean {
@@ -127,12 +126,13 @@ displayInstitucion(institucion: Institucion): string {
     return this.options.filter(option => option.descripcion.toLowerCase().indexOf(filterValue) === 0);
   }
 
-obtenerPrototipo( institucionId): any{
+obtenerPrototipo( institucionId: { id: number; }): any{
     // aca iria el service que trae los prototipos de dicha institucion
-    console.log(institucionId);
-    if ( institucionId.id === 2){this.prototiposArr =  Prototipos;}
+
+    if ( institucionId.id === 2){this.prototiposArr =  Prototipos; }
     // vaciamos el array, en caso de q no sea de San Pedro
-    else{ this.selected = null,this.prototiposArr = []}
+    else{ this.selected = null, this.prototiposArr = [];
+    }
   }
   // funcion que vamos a usar para recibir los datos de EstacionesComponent
 crearFormulario(): void{
@@ -150,29 +150,74 @@ crearFormulario(): void{
             ]
     });
 
-    console.log(this.formulario);
+
   }
-  // tslint:disable-next-line: typedef
-buscarDatos(){
+
+buscarDatos(): void{
+ // Falta verificar si es por rango o no
+     this.selectedIndex = 0;
      if  (this.formulario.invalid){
-       return Object.values(this.formulario.controls).forEach(control =>{
+       return Object.values(this.formulario.controls).forEach(control => {
         this.tablaStatus = false;
         control.markAsTouched();
        });
      }
      else {
-      this._DATOSXFECHA.getProtoipoByID(this.selected.id).subscribe(
+      this._DATOSXFECHA.getProtoipoByID(this.selected.id
+                                        ).subscribe(
         result => {
-          this.datos = result;
-          
+          this.datos = this.limpiar(result, this.formulario.controls.fechaInicio.value,
+            this.formulario.controls.fechaFin.value);
+
+
      },
      error => {
       console.log(error as any);
      }
    );
       this.tablaStatus = true;
-      
+
   }
+}
+
+// funcion que limpia el json, deja solamente los dias que son consultados por el form
+
+limpiar(result: any, fecha1: string, fecha2: string){
+  const f1 = fecha1;
+  const f2 = moment(fecha2);
+  const dias = f2.diff(f1, 'days');
+  const arrDias = [];
+  const datos: any = result;
+  const datos2: any = [];
+
+
+
+  const mySet = new Set();
+  for (let i =  0; i <= dias ; i++) {
+    arrDias.push((moment(new Date(f1)).add(i , 'days')).format('YYYY-MM-DD'));
+ }
+  datos.forEach( (dato: { datoxFecha: { fecha: string | number | Date; }; }) => {
+  const datoc = moment(new Date(dato.datoxFecha.fecha)).format('YYYY-MM-DD');
+  if ( arrDias.indexOf(datoc) !==  -1){
+    mySet.add(datoc);
+  }
+ });
+  this.fixedDias = Array.from(mySet);
+
+  // tslint:disable-next-line: prefer-for-of
+  for ( let i = 0; i < this.fixedDias.length; i++){
+
+    // tslint:disable-next-line: prefer-for-of
+    for ( let j = 0; j < datos.length; j++){
+        const datoc = moment(new Date(datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
+        if ( this.fixedDias[i] === datoc){
+        datos2.push(datos[j]);
+        }
+    }
+}
+  return datos2;
+
+
 }
 // institucionId: number, prototipoId: number
 simulargetDatosEstacion( ): void{
@@ -184,16 +229,18 @@ simulargetDatosEstacion( ): void{
     id: 2
 });
   this.obtenerPrototipo(this.formulario.get('institutoControl').value);
-  console.log(this.prototiposArr)
+
   // seteamos el prototipo enviado, y agregamos al arr los prototipos de esa institucion
   this.selected = this.prototiposArr[0];
 }
 
 
-ngAfterContentChecked() {
-    this.cdref.detectChanges();
 
+ngAfterContentChecked() {
+  this.cdref.detectChanges();
  }
- 
+
+
+
 
 }

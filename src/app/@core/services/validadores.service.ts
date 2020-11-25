@@ -30,7 +30,7 @@ export class ValidadoresService {
       const f2 = FormGroup.controls[fecha2];
       const minc = min;
       const maxc = max;
-      console.log(maxc);
+ 
       if( f1.value === null){
         f2.setErrors({required: true});
       }
@@ -48,7 +48,6 @@ export class ValidadoresService {
       else if (f2.value.format() > maxc && (checkbox.value === true ) ) {
         f2.setErrors({outRangeMax: true});
       }
-      
        else {
            f2.setErrors(null);
         }

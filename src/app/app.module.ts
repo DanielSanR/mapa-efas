@@ -22,15 +22,17 @@ import { InicioComponent } from './@core/components/inicio/inicio.component';
 //Modulos
 import { MaterialModule } from './material.module';
 import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
-
+import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
+import { GraficoComponent } from './@core/components/datos/grafico/grafico.component';
+ 
 //Servicios
 import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
 import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
 import { ChartsModule } from 'ng2-charts';
 import * as Highcharts from 'highcharts';
-import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
 
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
     DatosComponent,
     TablaDatosComponent,
     InicioComponent,
-    TablaComponent
+    TablaComponent,
+    GraficoComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    HighchartsChartModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

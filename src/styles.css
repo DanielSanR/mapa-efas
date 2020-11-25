@@ -27,3 +27,8 @@ mat-toolbar {
     background: rgba(0, 175, 215, .92);
     color: #fff;
 }
+
+mat-checkbox-inner-container {
+    height: 12px !important;
+    width: 12px !important;
+}

@@ -10,11 +10,10 @@ import { Prototipo } from '../../../models/prototipo';
   templateUrl: './tabla.component.html',
   styleUrls: ['./tabla.component.css']
 })
-
+// 'position', 'desc',
 export class TablaComponent implements AfterViewInit {
   dataSource: MatTableDataSource<Prototipo[]>;
-  displayedColumns: string[] = ['position',
-  'desc',
+  displayedColumns: string[] = [
   'datoxFecha',
   'temperatura',
   'humedad',
@@ -24,7 +23,7 @@ export class TablaComponent implements AfterViewInit {
   // tslint:disable-next-line: variable-name
 @Input() set dato_form(prototipo: any){
     this.dataSource = new MatTableDataSource<any>(prototipo); // console.log(this.dataSource.data);
-    console.log(this.dataSource);
+ 
     this.dataSource.paginator = this.paginator;
     }
 

@@ -4,15 +4,26 @@ table {
 }
 
 .mat-cell {
-    font-size: 14px;
+    font-size: 13px;
     min-height: 32px;
     text-align: center;
     padding: 4px;
     margin-top: 10px;
 }
 
+tr.mat-header-row {
+    height: 55px;
+}
+
 .mat-header-cell {
     text-align: center;
+}
+
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
 }
 
 .card {
@@ -39,9 +50,9 @@ table {
     }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 420px) {
     .mat-paginator {
         display: block;
-        width: 436px;
+        width: 360px;
     }
 }

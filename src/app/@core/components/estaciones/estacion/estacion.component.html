@@ -1,40 +1,28 @@
-<mat-tab-group>
+<mat-tab-group style="transition-duration: 5000ms;">
     <mat-tab label="ESTACIÓN">
         <div class="content">
-                <mat-grid-list cols="2" rowHeight="1:0.25" style="justify-content: end;">
-
-                    <mat-grid-tile class="m-g-t-dataStations"> 
-                        <strong>ESTACIÓN: </strong>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile class="m-g-t-dataStations-attribute">
-                        {{stationData['nombre']}}
-                    </mat-grid-tile>
-
-                    <mat-grid-tile class="m-g-t-dataStations">
-                        <strong>UBICACIÓN: </strong>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile class="m-g-t-dataStations-attribute">
-                        Campo Anexo
-                    </mat-grid-tile>
-
-                    <mat-grid-tile class="m-g-t-dataStations">
-                        <strong>LOCALIDAD: </strong>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile class="m-g-t-dataStations-attribute">
-                        San Vicente
-                    </mat-grid-tile>
-
-                    <mat-grid-tile class="m-g-t-dataStations">
-                        <strong>DEPARTAMENTO: </strong>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile class="m-g-t-dataStations-attribute">
-                        Guaraní
-                    </mat-grid-tile>
-                </mat-grid-list>
+            <mat-list>
+                <mat-list-item>
+                    <span mat-line class="m-t-dataStations"> Estación </span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData['nombre']}}</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span mat-line class="m-t-dataStations"> Ubicación </span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >Campo Anexo</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span mat-line class="m-t-dataStations"> Localidad </span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >San Vicente</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <span mat-line class="m-t-dataStations"> Departamento </span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >Guaraní</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>    
+            </mat-list>
         </div>
     </mat-tab>
     <mat-tab label="ULTIMA INFORMACIÓN"> 
@@ -43,7 +31,7 @@
                 <mat-grid-list cols="2" rowHeight="35px" >
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-fc" >
-                            <img src="assets/images/temp_icon.png" alt="icono temperatura ambiente">
+                            <img src="assets/images/icons_modal/temp_icon_w.png" alt="icono temperatura ambiente">
                             <strong>TEMPERATURA</strong>
                         </figure>
                     </mat-grid-tile>
@@ -58,7 +46,7 @@
                 <mat-grid-list cols="2" rowHeight="35px" >
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-fc" >
-                            <img src="assets/images/hum_icon.png" alt="icono humedad">
+                            <img src="assets/images/icons_modal/hum_icon_w.png" alt="icono humedad">
                             <strong>HUMEDAD</strong>
                         </figure>
                     </mat-grid-tile>
@@ -73,7 +61,7 @@
                 <mat-grid-list cols="2" rowHeight="35px" >
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-fc" >
-                            <img src="assets/images/wind_icon.png" alt="icono vel viento">
+                            <img src="assets/images/icons_modal/wind_icon_w.png" alt="icono vel viento">
                             <strong>VIENTO</strong>
                         </figure>
                     </mat-grid-tile>
@@ -88,7 +76,7 @@
                 <mat-grid-list cols="2" rowHeight="35px" >
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-fc" >
-                            <img src="assets/images/pp_icon.png" alt="icono precipitacion">
+                            <img src="assets/images/icons_modal/pp_icon_w.png" alt="icono precipitacion">
                             <strong>PRECIPITACIÓN</strong>
                         </figure>
                     </mat-grid-tile>
@@ -104,8 +92,8 @@
     <mat-tab label="DATOS DEL DÍA"> 
         <app-tabla-datos [array_data]="array_data"></app-tabla-datos>
     </mat-tab>
-    <mat-tab label="DATOS DEL DÍA"> 
-        <button mat-raised-button color="primary" id="btn-advance-search">BUSCAR MÁS DATOS</button>
+    <mat-tab label="MÁS DATOS"> 
+        <button mat-raised-button id="btn-advance-search" (click)="redirectDatos()">BUSCAR MÁS DATOS</button>
     </mat-tab>
 
 </mat-tab-group>

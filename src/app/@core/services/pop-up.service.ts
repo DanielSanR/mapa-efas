@@ -16,7 +16,7 @@ export class PopUpService {
       `<strong>Localidad: </strong><br>` +
       `<strong>Departamento: </strong><br><hr>` +
       `<button id="btnRedirectStation" 
-          style="width:190px; height:30px; background-color:rgb(103,58,183); border-bottom-color: white; border: none; border-radius: 4px; font-weight: bold;">
+          style="width:190px; height:30px; background-color:rgb(0,175,215); border-bottom-color: white; border: none; border-radius: 4px; font-weight: bold;">
             <span style="color:white;">ESTACIONES</span>
       </button>`
   }
@@ -29,7 +29,7 @@ export class PopUpService {
       `<strong>Localidad: </strong><br>` +
       `<strong>Departamento: </strong><br><hr>` +
       `<button id="btnOpenDialogStation"  
-          style="width:195px; height:35px; background-color:rgb(103,58,183); border-bottom-color: white; border: none; border-radius: 4px; font-weight: bold;">
+          style="width:195px; height:35px; background-color:rgb(0,175,215); border-bottom-color: white; border: none; border-radius: 4px; font-weight: bold;">
             <span style="color:white;">VER DATOS</span>
       </button>`
   }

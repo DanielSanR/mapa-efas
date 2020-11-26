@@ -32,3 +32,11 @@ mat-checkbox-inner-container {
     height: 12px !important;
     width: 12px !important;
 }
+
+mat-sidenav-content {
+    background-color: rgb(202, 248, 255);
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: rgba(0, 175, 215, .92);
+}

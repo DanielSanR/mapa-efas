@@ -4,7 +4,7 @@ import { Prototipo } from '@core/models/prototipo';
 import { TablaDatosComponent } from '@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 import { DatePipe } from '@angular/common';
 import { EstacionService } from '@core/services/estacion.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-estacion',
@@ -26,6 +26,7 @@ export class EstacionComponent implements OnInit {
   last_data_day:any = [];
   
   constructor(  private _estacionService: EstacionService,
+                private router: Router,
                 private datePipe: DatePipe, public dialogRef: MatDialogRef<EstacionComponent>,
                 @Inject( MAT_DIALOG_DATA) public data: any ) {
                   this.stationData = data.element;
@@ -61,6 +62,9 @@ export class EstacionComponent implements OnInit {
     
   }
   
-
+  public redirectDatos = () => {
+    this.dialogRef.close();
+    this.router.navigate(['/datos']);
+  }
 
 }

@@ -14,10 +14,12 @@ a:hover a:active {
 
 span {
     font-weight: bold;
+    margin-top: 4px;
 }
 
 mat-icon {
     padding-right: 5px;
+    color: rgb(0, 175, 215);
 }
 
 @media(max-width: 800px) {

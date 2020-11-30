@@ -1,8 +1,11 @@
-mat-toolbar {
+.mat-toolbar-header {
     padding: 8px 0px;
     height: 70px;
     background-color: rgb(0, 175, 215); 
     color: white;
+    z-index: 1;
+    position: fixed;
+    top: 0;
 }
 
 #icon-header {

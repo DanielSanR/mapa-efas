@@ -18,3 +18,19 @@
         left: 35%;
     }
 }
+
+
+.div-content-img {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(202, 248, 255);
+}
+
+.container-inicio {
+    width: auto;
+    margin: 0px auto;
+    margin-top: 0px;
+    display: inline;
+    padding: 10px auto;
+}

@@ -4,6 +4,7 @@
     height: 60px;
     background-color: rgb(0, 175, 215); 
     align-items: center;
+    z-index: 1;
 }
 
 h3 {

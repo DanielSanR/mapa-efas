@@ -54,7 +54,7 @@ export class EstacionesComponent implements OnInit {
   private loadStations():void {
     this._estacionesService.getPrototypeInstitution(this.institution_id).subscribe( response => {
       this.stationsArray = response;
-      this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray);
+      this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray, this.institution_id);
 
     },
     error => {

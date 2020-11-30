@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 
 export class EstacionComponent implements OnInit {
 
+  institution_id:number;
   stationData: Prototipo;
   latest_environmental_data: any;
   current_date: Date = new Date();
@@ -30,6 +31,7 @@ export class EstacionComponent implements OnInit {
                 private datePipe: DatePipe, public dialogRef: MatDialogRef<EstacionComponent>,
                 @Inject( MAT_DIALOG_DATA) public data: any ) {
                   this.stationData = data.element;
+                  this.institution_id = data.institution_id;
                 }
 
   
@@ -62,9 +64,9 @@ export class EstacionComponent implements OnInit {
     
   }
   
-  public redirectDatos = () => {
+  public redirectDatos() {
     this.dialogRef.close();
-    this.router.navigate(['/datos']);
+    this.router.navigate(['/datos',{ inst_id: this.institution_id, protype_id: this.prototype_id }]);
   }
 
 }

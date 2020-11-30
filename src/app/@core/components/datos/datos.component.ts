@@ -20,7 +20,7 @@ import {
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { GraficoComponent } from './grafico/grafico.component';
 
-
+import { ActivatedRoute } from '@angular/router';
 
 
 export interface Institucion {
@@ -62,9 +62,13 @@ export class DatosComponent implements OnInit {
   formulario: FormGroup ;
   datos: any; // array de datos ambientales
 
+  institution_id:number;
+  prototype_id:number;
+
   constructor(private formBuilder: FormBuilder, private _DATOSXFECHA: DatosService, private cdref: ChangeDetectorRef,
               private _VALIDADORES: ValidadoresService,
-              private _ADAPTER: DateAdapter<any>) {
+              private _ADAPTER: DateAdapter<any>, 
+              private activatedRoute: ActivatedRoute) {
 
                       this._ADAPTER.setLocale('es');
                       const moment1 = _rollupMoment || moment;
@@ -73,11 +77,15 @@ export class DatosComponent implements OnInit {
                       this.crearFormulario();
 
                 // this.simulargetDatosEstacion();
+
+                  /**RECEPCION DE IDs DESDE ESTACION COMPONENTS */
+                  this.activatedRoute.params.subscribe(params => {
+                    this.institution_id = params['inst_id'];
+                    this.prototype_id = params['protype_id'];
+                  })
                 }
 
   ngOnInit(): void {
-
-
 
     this.breakpoint = (window.innerWidth <= 480) ? 1 : 6;
 

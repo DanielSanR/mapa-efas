@@ -54,7 +54,7 @@ export class MarkerService {
   }
 
 
-  makeStationsMarkers(mapStation: L.map ,stationsArray:Prototipo[] ) {
+  makeStationsMarkers(mapStation: L.map ,stationsArray:Prototipo[], institution_id:number ) {
 
     stationsArray.forEach(element => {
       
@@ -65,7 +65,7 @@ export class MarkerService {
       marker.on("popupopen", (e) => {
         let popUp = e.target.getPopup();
         popUp.getElement().querySelector("#btnOpenDialogStation").addEventListener("click", () => {
-          this.openDialog(element);
+          this.openDialog(element, institution_id);
         });
       })
 
@@ -73,10 +73,10 @@ export class MarkerService {
     })
   }
 
-  public openDialog(element: Prototipo): void {
+  public openDialog(element: Prototipo, institution_id:number): void {
     let dialogRef = this.dialog.open( EstacionComponent, {
       width: '700px',
-      data: { element }
+      data: { element, institution_id }
     });
   }
 

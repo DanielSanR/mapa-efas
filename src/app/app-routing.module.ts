@@ -13,6 +13,7 @@ const routes: Routes = [
 		{path: 'institucion', component: InstitucionComponent},
 		{path: 'estaciones/:id', component: EstacionesComponent},
 		{path: 'datos', component: DatosComponent},
+		{path: 'datos/:inst_id/:protype_id', component: DatosComponent},
 		{path: '**', component: InicioComponent},
 ];
 

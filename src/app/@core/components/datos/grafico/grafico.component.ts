@@ -11,7 +11,7 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './grafico.component.html',
   styleUrls: ['./grafico.component.css']
 })
-export class GraficoComponent implements AfterViewInit {
+export class GraficoComponent  {
 
   Highcharts: typeof Highcharts = Highcharts; // required
   chartOptions: Highcharts.Options; // required
@@ -26,12 +26,16 @@ export class GraficoComponent implements AfterViewInit {
 
 
 
-  ngAfterViewInit(): void {
-  this.addData();
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.addData();
+ 
 }
 
 
  addData(){
+  console.log("llama componet");
   this.arrFech = Object.values(this.fechas);
   const checkbox   = true;
   if (checkbox){
@@ -87,7 +91,7 @@ crearGrafico(datos: any, dias: any[]): void{
         renderTo: 'container'
       },
       title: {
-        text: 'Gráfico de datos agrometeorológicos de la EFA '
+        text: 'Gráfico de datos agrometeorológicos de la EFA  Prototipo 1'
       },
       credits: {
         enabled: false
@@ -146,7 +150,7 @@ crearGrafico(datos: any, dias: any[]): void{
       responsive: {
         rules: [{
           condition: {
-            maxWidth: 800
+            maxWidth: 400
           },
           chartOptions: {
             legend: {

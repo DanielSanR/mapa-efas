@@ -4,12 +4,12 @@
         "lat": "-26.29844",
         "long": "-54.57436",
         "datoxFecha": {
-            "fecha": "2020-11-05T13:47:15.000Z",
+            "fecha": "2020-11-13T13:47:15.000Z",
             "datosAmbientales": {
-                "viento": 15,
-                "temperatura": 51,
-                "luz": 23,
-                "precipitacion": 52
+                "viento": 5.3,
+                "temperatura": 30.1,
+                "luz": 6,
+                "precipitacion": 0.2
             }
         }
     },
@@ -19,12 +19,12 @@
         "lat": "-26.29844",
         "long": "-54.57436",
         "datoxFecha": {
-            "fecha": "2020-11-05T13:47:15.000Z",
+            "fecha": "2020-11-13T13:47:15.000Z",
             "datosAmbientales": {
-                "viento": 77,
-                "temperatura": 27,
+                "viento": 5.2,
+                "temperatura": 30.2,
                 "luz": 7,
-                "precipitacion": 33
+                "precipitacion": 0.25
             }
         }
     },
@@ -35,12 +35,327 @@
         "lat": "-26.29844",
         "long": "-54.57436",
         "datoxFecha": {
-            "fecha": "2020-11-06T13:47:15.000Z",
+            "fecha": "2020-11-14T13:47:15.000Z",
             "datosAmbientales": {
-                "viento": 5455,
-                "temperatura": 51,
-                "luz": 83,
-                "precipitacion": 62
+                "viento": 5.1,
+                "temperatura": 32,
+                "luz": 7.3,
+                "precipitacion": 0.29
+            }
+        }
+    },
+    {
+        "id": 4,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-14T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 10.6,
+                "temperatura": 24.6,
+                "luz": 5.2,
+                "precipitacion": 4.5
+            }
+        }
+    },
+    {
+        "id": 5,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-15T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 10.5,
+                "temperatura": 22,
+                "luz": 5,
+                "precipitacion": 3.8
+            }
+        }
+    },
+    {
+        "id": 6,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-16T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 10.6,
+                "temperatura": 21.7,
+                "luz": 5.3,
+                "precipitacion": 1.7
+            }
+        }
+    }, {
+        "id": 7,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-17T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 4.8,
+                "temperatura": 30,
+                "luz": 8,
+                "precipitacion": 0
+            }
+        }
+    },
+    {
+        "id": 8,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-18T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 4.7,
+                "temperatura": 31,
+                "luz": 8.6,
+                "precipitacion": 0
+            }
+        }
+    },
+    {
+        "id": 9,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-18T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 6.8,
+                "temperatura": 32,
+                "luz": 7,
+                "precipitacion": 0
+            }
+        }
+    },
+    {
+        "id": 10,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-19T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 13.5,
+                "temperatura": 31.8,
+                "luz": 8,
+                "precipitacion": 0
+            }
+        }
+    },
+    {
+        "id": 11,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-20T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 5.3,
+                "temperatura": 30.1,
+                "luz": 6,
+                "precipitacion": 0.2
+            }
+        }
+    },
+    {
+        "id": 12,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-21T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 8.2,
+                "temperatura": 31.2,
+                "luz": 7,
+                "precipitacion": 0.25
+            }
+        }
+    },
+
+    {
+        "id": 13,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-22T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 5.1,
+                "temperatura": 33,
+                "luz": 7.3,
+                "precipitacion": 0.29
+            }
+        }
+    },
+    {
+        "id": 14,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-23T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 11.6,
+                "temperatura": 24.6,
+                "luz": 7.2,
+                "precipitacion": 4.5
+            }
+        }
+    },
+    {
+        "id": 15,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-24T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 9.5,
+                "temperatura": 22,
+                "luz": 3,
+                "precipitacion": 1.8
+            }
+        }
+    },
+    {
+        "id": 16,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-25T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 13.6,
+                "temperatura": 21.7,
+                "luz": 3.3,
+                "precipitacion": 1.7
+            }
+        }
+    }, {
+        "id": 17,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-26T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 14.8,
+                "temperatura": 26,
+                "luz": 6,
+                "precipitacion": 0.3
+            }
+        }
+    },
+    {
+        "id": 18,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-27T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 4.7,
+                "temperatura": 27,
+                "luz": 5.6,
+                "precipitacion": 0.1
+            }
+        }
+    },
+    {
+        "id": 19,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-28T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 12.6,
+                "temperatura": 25,
+                "luz": 6,
+                "precipitacion": 0.1
+            }
+        }
+    },
+    {
+        "id": 20,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-29T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 16,
+                "temperatura": 31.8,
+                "luz": 6,
+                "precipitacion": 0.2
+            }
+        }
+    },
+    {
+        "id": 21,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-30T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 15.3,
+                "temperatura": 33.8,
+                "luz": 7,
+                "precipitacion": 0
+            }
+        }
+    },
+    {
+        "id": 22,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-11-31T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 14.4,
+                "temperatura": 32.8,
+                "luz": 4,
+                "precipitacion": 0.15
+            }
+        }
+    },
+    {
+        "id": 23,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-12-01T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 10.2,
+                "temperatura": 35.8,
+                "luz": 7,
+                "precipitacion": 0.27
+            }
+        }
+    },
+
+    {
+        "id": 24,
+        "descripcion": "prototipo2",
+        "lat": "-26.29844",
+        "long": "-54.57436",
+        "datoxFecha": {
+            "fecha": "2020-12-02T13:47:15.000Z",
+            "datosAmbientales": {
+                "viento": 9.6,
+                "temperatura": 36.8,
+                "luz": 5,
+                "precipitacion": 0.3
             }
         }
     }

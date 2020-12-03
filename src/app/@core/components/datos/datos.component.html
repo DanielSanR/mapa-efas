@@ -1,113 +1,221 @@
 <div class="contenedor">
 
-    <div class="main-div">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center">
         <mat-card class="card-form">
-            <mat-card-title-group>
-                <mat-card-title class="title-bar-style">BUSCADOR DE DATOS AGROMETEOROLÓGICOS</mat-card-title>
-            </mat-card-title-group>
-            <form [formGroup]="formulario" (ngSubmit)="buscarDatos()">
-                <mat-form-field appearance="outline" class="demo-full-width">
-                    <mat-label>Instituciones</mat-label>
-                    <input matInput type="text" formControlName="institutoControl" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstitucion" (optionSelected)='obtenerPrototipo(formulario.get("institutoControl").value)'>
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                            {{option.descripcion}}
-                        </mat-option>
-                    </mat-autocomplete>
-                    <mat-error *ngIf="institutoNoValido">
-                        Seleccionar instituto
-                    </mat-error>
-                    <mat-error *ngIf="institutoNoValidoLista">
-                        Seleccionar un instituto de la lista
-                    </mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field appearance="outline" class="demo-full-width">
-                    <mat-label>Prototipos</mat-label>
-                    <mat-select #mats matInput [(ngModel)]="selected" formControlName="prototipoControl">
-                        <mat-option *ngFor="let prototipo of prototiposArr" [value]="prototipo">
-                            {{prototipo.nombre}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="prototipoNoValido">
-                        Seleccionar un prototipo
-                    </mat-error>
-                </mat-form-field>
-                <p>
-                    <mat-checkbox formControlName="checkbox" class="checkbox">Consultar un periodo (un año de rango maximo)</mat-checkbox>
-                </p>
-                <mat-form-field appearance="outline" class="demo-full-width">
-                    <mat-label>Seleccionar Fecha</mat-label>
-                    <input matInput [matDatepicker]="dp3" formControlName="fechaInicio" [min]="dateMin" [max]="dateMax">
-                    <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                    <mat-datepicker #dp3></mat-datepicker>
-                    <mat-error *ngIf="formulario.get('fechaInicio').hasError('required')">
-                        Dato valido requerido.
-                    </mat-error>
-                    <mat-error *ngIf="formulario.get('fechaInicio').hasError('matDatepickerMin')">
-                        Seleccione una fecha minima valida
-                    </mat-error>
-                    <mat-error *ngIf="formulario.get('fechaInicio').hasError('matDatepickerMax')">
-                        Seleccione una fecha maxima válida
-                    </mat-error>
-                </mat-form-field>
-                <!--      (dateChange)="fin('change', $event)" -->
-                <mat-form-field appearance="outline" class="demo-full-width" *ngIf="checkStatus">
-                    <mat-label>Seleccionar Fecha Fin</mat-label>
-                    <input matInput [matDatepicker]="dp4" formControlName="fechaFin" [min]="dateMin" [max]="dateMax">
-                    <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
-                    <mat-datepicker #dp4></mat-datepicker>
-                    <mat-error *ngIf="formulario.get('fechaFin').hasError('required')">
-                        Dato valido requerido.
-                    </mat-error>
-                    <mat-error *ngIf="hastaMenorDesde">
-                        Fecha Fin es menor o igual a Inicio
-                    </mat-error>
-                    <mat-error *ngIf="outRangeMax">
-                        Fecha Fin es mayor a fecha actual
-                    </mat-error>
-                    <mat-error *ngIf="outRangeMin">
-                        Fecha Fin es menor a fecha minima permitida
-                    </mat-error>
-                </mat-form-field>
-                <button class="submit-btn" mat-raised-button type="submit" class="demo-full-width" [disabled]="!formulario.valid">CONSULTAR</button>
-            </form>
+            <mat-card-header>
+                <mat-card-title> BUSCADOR DE DATOS AGROMETEOROLÓGICOS </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" [formGroup]="formulario" (ngSubmit)="buscarDatos()">
+                    <p>
+                        <mat-checkbox formControlName="checkbox" class="checkbox">Consultar por rango de fechas</mat-checkbox>
+                    </p>
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Instituciones</mat-label>
+                            <input matInput type="text" formControlName="institutoControl" [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstitucion" (optionSelected)='obtenerPrototipo(formulario.get("institutoControl").value)'>
+                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                    {{option.descripcion}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="institutoNoValido">
+                                Seleccionar instituto
+                            </mat-error>
+                            <mat-error *ngIf="institutoNoValidoLista">
+                                Seleccionar un instituto de la lista
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Prototipos</mat-label>
+                            <mat-select #mats matInput [(ngModel)]="selected" formControlName="prototipoControl">
+                                <mat-option *ngFor="let prototipo of prototiposArr" [value]="prototipo">
+                                    {{prototipo.nombre}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="prototipoNoValido">
+                                Seleccionar un prototipo
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Seleccionar Fecha</mat-label>
+                            <input matInput [matDatepicker]="dp3" formControlName="fechaInicio" [min]="dateMin" [max]="dateMax">
+                            <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                            <mat-datepicker #dp3></mat-datepicker>
+                            <mat-error *ngIf="formulario.get('fechaInicio').hasError('required')">
+                                Dato valido requerido.
+                            </mat-error>
+                            <mat-error *ngIf="formulario.get('fechaInicio').hasError('matDatepickerMin')">
+                                Seleccione una fecha minima valida
+                            </mat-error>
+                            <mat-error *ngIf="formulario.get('fechaInicio').hasError('matDatepickerMax')">
+                                Seleccione una fecha maxima válida
+                            </mat-error>
+                        </mat-form-field>
+                        <!--      (dateChange)="fin('change', $event)" -->
+                        <mat-form-field appearance="outline" *ngIf="checkStatus" fxFlex>
+                            <mat-label>Seleccionar Fecha Fin</mat-label>
+                            <input matInput [matDatepicker]="dp4" formControlName="fechaFin" [min]="dateMin" [max]="dateMax">
+                            <mat-datepicker-toggle matSuffix [for]="dp4"></mat-datepicker-toggle>
+                            <mat-datepicker #dp4></mat-datepicker>
+                            <mat-error *ngIf="formulario.get('fechaFin').hasError('required')">
+                                Dato valido requerido.
+                            </mat-error>
+                            <mat-error *ngIf="hastaMenorDesde">
+                                Fecha Fin es menor o igual a Inicio
+                            </mat-error>
+                            <mat-error *ngIf="outRangeMax">
+                                Fecha Fin es mayor a fecha actual
+                            </mat-error>
+                            <mat-error *ngIf="outRangeMin">
+                                Fecha Fin es menor a fecha minima permitida
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="input-row" fxLayout="column" fxLayout.lt-md="column">
+                        <button class="btn-form" mat-raised-button type="submit" [disabled]="!formulario.valid" fxFlex>CONSULTAR</button>
+                    </div>
+                </form>
+            </mat-card-content>
+            <mat-card-actions></mat-card-actions>
         </mat-card>
     </div>
-    <div style="text-align:center" *ngIf="tablaStatus">
-        <div class="grafico">
-            <mat-tab-group headerPosition="above" [(selectedIndex)]="selectedIndex">
-                <mat-tab label="Ultimos Datos">
 
-                </mat-tab>
-                <mat-tab label="Listado de Datos">
-                    <div class="card">
-                        <app-tabla *ngIf="tablaStatus" [dato_form]="datos"></app-tabla>
+
+
+
+    <mat-card class="grafico" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column" *ngIf="tablaStatus">
+
+        <mat-tab-group id="tab-group" headerPosition="above" [(selectedIndex)]="selectedIndex" dynamicHeight="true">
+
+            <mat-tab label="Ultimos Datos">
+                <div class="content">
+                    <mat-card class="mat-info">
+                        <div class="header-u-datos" fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="0px" fxLayoutGap.lt-md="0px">
+                            <h1 class="titulo-u-datos" fxFlex>{{prototipo_nombre}}</h1>
+                            <p fxFlex class="temp-u-datos"> Localidad</p>
+                        </div>
+
+                        <mat-card-content fxLayout="row" class="ultimos-datos-mat" fxLayout.lt-md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="row">
+
+
+                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/temp_icon_w_2.png" alt="icono temperatura ambiente"> TEMPERATURA </div>
+                                    <div fxflex class="sub-u-datos-d"> 30°C</div>
+                                </div>
+                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/hum_icon_w_2.png" alt="icono humedad"> HUMEDAD </div>
+                                    <div fxflex class="sub-u-datos-d"> 15%</div>
+                                </div>
+
+
+                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos"><img src="assets/images/icons_modal/pp_icon_w_2.png" alt="icono precipitacion"> PRECIPITACIÓN </div>
+                                    <div fxflex class="sub-u-datos-d"> 0.3(mm)</div>
+                                </div>
+
+                            </div>
+                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                <!--  <div fxflex fxLayout="row" class="contenedor-u-datos-viento" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+
+                                    <div  fxflex> <img src="assets/images/icons_modal/wind_icon_w.png" alt="icono vel viento">VIENTO</div>
+
+                                </div> -->
+                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos-l"> <img src="assets/images/icons_modal/wind_icon_w_2.png" alt="icono vel viento">DIRECCION VIENTO </div>
+                                    <div fxflex class="sub-u-datos-l-d"> Este </div>
+                                </div>
+                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos-l"> <img src="assets/images/icons_modal/wind_icon_w_2.png" alt="icono vel viento">VELOCIDAD </div>
+                                    <div fxflex class="sub-u-datos-l-d"> 10km/h</div>
+                                </div>
+                                <mat-divider></mat-divider>
+                            </div>
+
+
+                        </mat-card-content>
+                        <mat-divider></mat-divider>
+                        <div class="content-a-p" fxLayout="row" fxLayout.lt-md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="row">
+                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                <div fxflex class="content-items-p" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos-p-a"> <img src="assets/images/icons_modal/amanecer.png" alt="icono vel viento"> AMANECER </div>
+                                    <div fxflex class="sub-u-datos-d"> 5:20 AM</div>
+                                </div>
+
+
+                            </div>
+                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                <div fxflex class="content-items-p" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos-p-a-l"> <img src="assets/images/icons_modal/atardecer.png" alt="icono vel viento">PUESTA DE SOL </div>
+                                    <div fxflex class="sub-u-datos-d"> 20:15 PM</div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <!--  <div class="content-a-p" fxLayout="row" fxLayout.lt-md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="row">
+                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                <div fxflex class="content-items" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos-p-a"> <img src="assets/images/icons_modal/pp_icon_w.png" alt="icono vel viento">LLUVIA HR </div>
+                                    <div fxflex class="sub-u-datos-d"> 0.3 (mm)</div>
+                                </div>
+
+
+                            </div>
+                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                <div fxflex class="content-items" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos-p-a-l"> <img src="assets/images/icons_modal/pp_icon_w.png" alt="icono vel viento">LLUVIA HOY </div>
+                                    <div fxflex class="sub-u-datos-d"> 0.4 (mm)</div>
+                                </div>
+
+
+                            </div>
+                        </div> -->
+                        <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
+
+                            <div fxflex class="content-u-act"> Ultima Actualización : </div>
+                            <div fxflex class="sub-u-act"> {{ dateMin | date:'medium' }} </div>
+                        </div>
+
+                    </mat-card>
+
+                </div>
+
+            </mat-tab>
+            <mat-tab label="Listado de Datos">
+
+
+                <app-tabla *ngIf="tablaStatus" [dato_form]="datos"></app-tabla>
+
+
+            </mat-tab>
+            <mat-tab label="Gráfico Diario">
+                <div fxFlex="100%" fxFill>
+                    <div fxLayout="column">
+                        <ng-template matTabContent>
+                            <!--  <div class="card" *ngIf="chartOptions && !flag && checkStatus "> -->
+                            <app-grafico *ngIf="tablaStatus" [datos]="datos" [fechas]="fixedDias"></app-grafico>
+                        </ng-template>
                     </div>
-                </mat-tab>
-                <mat-tab label="Gráfico Diario">
-                    <ng-template matTabContent>
-                        <!--  <div class="card" *ngIf="chartOptions && !flag && checkStatus "> -->
-                        <app-grafico #graficoC *ngIf="tablaStatus" [datos]="datos" [fechas]="fixedDias"></app-grafico>
-                    </ng-template>
                     <!--  </div> -->
-                </mat-tab>
-                <mat-tab label="Gráfico del Día">
-                    <div class="card">
+                </div>
+            </mat-tab>
 
-                    </div>
-                </mat-tab>
-                <mat-tab label="Gráfico en Vivo">
-                    <div class="card">
 
-                    </div>
-                </mat-tab>
-            </mat-tab-group>
-        </div>
+        </mat-tab-group>
 
 
 
-    </div>
+
+    </mat-card>
+    <br><br>
+
 </div>
-<br>
-<br>

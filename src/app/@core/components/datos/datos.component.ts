@@ -19,9 +19,12 @@ import {
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { GraficoComponent } from './grafico/grafico.component';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
 
+export interface ITile {
+  componentName: string;
+}
 
 export interface Institucion {
   descripcion: string;
@@ -46,8 +49,10 @@ export interface Institucion {
 
 
 export class DatosComponent implements OnInit {
-@ViewChild('graficoC') sampleComponent1: GraficoComponent;
+ 
 @Input()selectedIndex: number | null;
+tiles: Array<ITile>;
+ 
   fixedDias = Array();
 
   breakpoint: number;
@@ -61,13 +66,12 @@ export class DatosComponent implements OnInit {
   filteredOptions: Observable<Institucion[]>;
   formulario: FormGroup ;
   datos: any; // array de datos ambientales
-
   institution_id:number;
   prototype_id:number;
-
+  prototipo_nombre: string;
   constructor(private formBuilder: FormBuilder, private _DATOSXFECHA: DatosService, private cdref: ChangeDetectorRef,
               private _VALIDADORES: ValidadoresService,
-              private _ADAPTER: DateAdapter<any>, 
+              private _ADAPTER: DateAdapter<any>,
               private activatedRoute: ActivatedRoute) {
 
                       this._ADAPTER.setLocale('es');
@@ -77,15 +81,39 @@ export class DatosComponent implements OnInit {
                       this.crearFormulario();
 
                 // this.simulargetDatosEstacion();
+                      this.activatedRoute.params.subscribe(params => {
+                        this.institution_id = params['inst_id'];
+                        this.prototype_id = params['protype_id'];
+                })
+                }
+setComponents() {
+  this.tiles = new Array<ITile>();
+  let components = [];
+  components.push('grafico');
+  components.push('tabla');
+  console.log (components);
+  components.forEach(component => {
+  if (component === 'grafico') {
+          this.setTile(component);
+                    }
+  if (component === 'tabla') {
+          this.setTile(component);
+                    }
 
-                  /**RECEPCION DE IDs DESDE ESTACION COMPONENTS */
-                  this.activatedRoute.params.subscribe(params => {
-                    this.institution_id = params['inst_id'];
-                    this.prototype_id = params['protype_id'];
-                  })
+                  });
                 }
 
+ setTile( componentName) {
+        const tile = {
+        componentName
+                  };
+
+        this.tiles.push(tile);
+        console.log(JSON.stringify(this.tiles));
+  }
   ngOnInit(): void {
+
+
 
     this.breakpoint = (window.innerWidth <= 480) ? 1 : 6;
 
@@ -95,8 +123,9 @@ export class DatosComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value.descripcion),
         map(descripcion => descripcion ? this._filter(descripcion) : this.options.slice())
       );
-      
+    this.setComponents();
   }
+ 
 
 get prototipoNoValido(): boolean{
     return this.formulario.get('prototipoControl').hasError('required');
@@ -137,7 +166,7 @@ displayInstitucion(institucion: Institucion): string {
 obtenerPrototipo( institucionId: { id: number; }): any{
     // aca iria el service que trae los prototipos de dicha institucion
 
-    if ( institucionId.id === 2){this.prototiposArr =  Prototipos; }
+    if ( institucionId.id !== 0){this.prototiposArr =  Prototipos; }
     // vaciamos el array, en caso de q no sea de San Pedro
     else{ this.selected = null, this.prototiposArr = [];
     }
@@ -176,6 +205,7 @@ buscarDatos(): void{
         result => {
           this.datos = this.limpiar(result, this.formulario.controls.fechaInicio.value,
             this.formulario.controls.fechaFin.value);
+          this.prototipo_nombre = this.selected.nombre;
 
 
      },

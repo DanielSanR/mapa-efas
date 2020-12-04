@@ -36,7 +36,7 @@ a {
 
 @media(max-width: 800px) {
     #img-logo {
-        max-width: 130px;
+        max-width: 170px;
     }
     #icon-header {
         margin-bottom: 0px;

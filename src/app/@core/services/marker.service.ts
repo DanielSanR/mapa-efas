@@ -11,8 +11,8 @@ import { EstacionComponent } from '@core/components/estaciones/estacion/estacion
 
 //icono para pop up - a elegir y fixear
 var myIcon = new L.icon({
-  iconUrl: 'assets/images/icon-green.png',
-  iconRetinaUrl: 'assets/images/icon-green.png',
+  iconUrl: 'assets/images/markers_maps/marker_icon_map.png',
+  iconRetinaUrl: 'assets/images/markers_maps/marker_icon_map.png',
   iconSize: [30, 30],
   popupAnchor: [0, -14],
   shadowSize: [41, 41]

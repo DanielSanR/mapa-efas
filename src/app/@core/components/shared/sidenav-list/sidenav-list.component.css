@@ -24,7 +24,7 @@ mat-icon {
 
 @media(max-width: 800px) {
     #img-logo {
-        max-width: 130px;
+        max-width: 170px;
         margin-right: auto;
         margin-left: auto;  
     }

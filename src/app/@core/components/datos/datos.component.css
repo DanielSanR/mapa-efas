@@ -1,348 +1,289 @@
- .example-form {
-     min-width: 150px;
-     max-width: 700px;
-     width: 100%;
-     background-color: rgb(202, 248, 255);
- }
- 
- .demo-full-width {
-     width: 100%;
-     font-size: 12px !important;
- }
- 
- .contenedor {
-     width: 100%;
-     margin-top: 35px;
-     padding-top: 16px;
-     padding-bottom: 16px;
-     margin-bottom: 12px;
- }
- 
- .center {
-     width: 75%;
-     margin: 10px auto;
- }
- 
- .mat-card {
-     padding: 0 !important;
- }
- 
- .titulo-u-datos {
-     font-weight: 500;
-     font-size: 22px;
- }
- 
- .contenedor-u-datos-viento {
-     margin-bottom: 13px;
-     padding: 8px;
-     background-color: rgb(0, 175, 215);
-     border-radius: 1em;
- }
- 
- .contenedor-u-datos-viento img {
-     padding-top: 10px;
-     width: 25px;
-     height: auto;
- }
- 
- .temp-u-datos {
-     font-size: 11px;
-     font-weight: 200;
- }
- 
- .header-u-datos {
-     margin-left: 10px;
- }
- 
- .material-icons {
-     font-size: 14px;
- }
- 
- .viento-u-datos {
-     font-size: 17px;
-     font-weight: 500;
-     margin-bottom: 0px;
- }
- 
- .sub-u-datos {
-     font-size: 18px;
-     font-weight: 500;
-     padding-bottom: 7px;
-     margin-bottom: 10px;
-     color: rgb(45, 85, 110);
- }
- 
- .sub-u-datos-p-a {
-     font-weight: 500;
-     font-size: 18px;
-     color: white;
-     margin-bottom: 16px;
- }
- 
- .sub-u-datos-p-a-l {
-     font-size: 18px;
-     font-weight: 500;
-     color: white;
-     margin-bottom: 16px;
- }
- 
- .content-a-p {
-     padding: 5px !important;
- }
- 
- .sub-u-datos-l {
-     padding-bottom: 16px;
-     font-size: 18px;
-     font-weight: 500;
-     margin-top: 0px;
-     margin-bottom: 1px;
-     color: rgb(45, 85, 110);
- }
- 
- .sub-u-datos-d {
-     margin-bottom: 10px;
-     margin-right: 16px;
-     font-size: 18px;
-     color: rgb(45, 85, 110);
- }
- 
- .sub-u-datos-a-p {
-     margin-bottom: 10px;
-     margin-right: 16px;
-     font-size: 18px;
-     color: white
- }
- 
- .sub-u-datos-l-d {
-     margin-bottom: 10px;
-     margin-right: 16px;
-     font-size: 18px;
-     color: rgb(45, 85, 110);
- }
- 
+.contenedor {
+    width: 100%;
+    margin-top: 35px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-bottom: 12px;
+}
+
+.mat-card {
+    padding: 0 !important;
+}
+
+
+/* Titulo y sub titulo de mat-info -card ultimos datos*/
+
+.mat-info {
+    margin-top: 7px !important;
+}
+
+.header-u-datos {
+    margin-left: 10px;
+}
+
+.prototipo-u-datos {
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.localidad-u-datos {
+    font-size: 11px;
+    font-weight: 200;
+}
+
+
+/* Nombre del Sensor y valor  del sensor T-H-V-P-D **/
+
+.sub-u-datos {
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 6px;
+    padding-bottom: 2px;
+    color: rgb(45, 85, 110);
+}
+
+.sub-u-datos-d {
+    padding-top: 7px;
+    margin-bottom: 10px;
+    margin-right: 16px;
+    font-size: 18px;
+    color: rgb(45, 85, 110);
+}
+
+.content-items {
+    padding: 8px;
+    border: 2px solid rgb(45, 85, 110);
+    border-radius: 1em;
+    margin: 6px;
+}
+
+.content-items img {
+    float: left;
+    padding: 0px 10px;
+    width: 25px;
+    height: auto;
+}
+
+
+/* contenedor  y Datos puesta de sol y amanecer  **/
+
+.amanecer-atardecer-content {
+    padding: 5px !important;
+    margin: 0px 10px;
+}
+
+.sub-u-datos-am-at {
+    font-size: 18px;
+    font-weight: 500;
+    padding-top: 6px;
+    padding-bottom: 2px;
+    color: white;
+}
+
+.sub-u-datos-am-at-d {
+    padding-top: 7px;
+    margin-bottom: 10px;
+    margin-right: 16px;
+    font-size: 18px;
+    color: white
+}
+
+.content-items-p {
+    padding: 8px;
+    background-color: rgb(45, 85, 110);
+    border-radius: 1em;
+    margin: 6px;
+}
+
+.content-items-p img {
+    float: left;
+    padding: 0px 10px;
+    width: 25px;
+    height: auto;
+}
+
+
+/* Contenedor del Mat Tab */
+
+.mat-tab-content {
+    min-height: 370px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0em;
+    padding-bottom: 10px;
+}
+
+
+/*Texto y valor de Ultima actualizacion */
+
+.content-u-act {
+    margin-right: 5px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.sub-u-act {
+    padding-left: 5px;
+    padding-right: 16px;
+    font-size: 11px;
+    font-weight: 200;
+}
+
+
+/*titulo,sub y bordes de mat card header y content*/
+
  ::ng-deep mat-card-header.mat-card-header {
-     border-top-left-radius: 1em;
-     border-top-right-radius: 1em;
-     background-color: rgba(45 85 110)!important;
-     padding-top: 8px !important;
-     padding-bottom: 0px !important;
- }
- 
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    background-color: rgba(45 85 110)!important;
+    padding-top: 8px !important;
+    padding-bottom: 0px !important;
+}
+
  ::ng-deep mat-card-title.mat-card-title {
-     text-align: center;
-     padding: 0em;
-     margin-bottom: 5px;
- }
- 
+    text-align: center;
+    padding: 0em;
+    margin-bottom: 5px;
+}
+
  ::ng-deep .mat-card-header-text {
-     width: 100% !important;
-     margin: 0em !important;
- }
- 
- .mat-card-content {
-     padding: 15px !important;
-     margin-bottom: 0px;
-     font-size: 12px !important;
- }
- 
- .mat-card-title {
-     text-align: -webkit-center !important;
-     font-size: 18px;
-     color: white;
- }
- 
- .checkbox {
-     max-height: 0px;
- }
- 
- .card-form {
-     text-align: -webkit-left;
-     max-width: 680px;
-     margin: 2em auto;
-     margin-left: 18px;
-     margin-right: 18px;
-     border-radius: 1em/1em;
-     width: 90%;
- }
- 
- .btn-form {
-     justify-content: flex-end !important;
- }
- 
- .mat-card-subtitle {
-     text-align: left;
-     font-size: 10px;
- }
- 
- .grafico {
-     min-height: 370px;
-     margin-left: 10px;
-     margin-right: 10px;
-     padding: 0em;
-     padding-bottom: 10px;
- }
- 
- .content-u-act {
-     margin-right: 5px;
-     font-weight: 500;
-     font-size: 13px;
- }
- 
- .sub-u-act {
-     padding-left: 5px;
-     padding-right: 16px;
-     font-size: 11px;
-     font-weight: 200;
- }
- 
- .contenedor-grafico {
-     justify-content: center;
- }
- 
- .mat-card-action {
-     max-height: 0px;
-     width: 100%;
-     font-size: 12px !important;
- }
- 
+    width: 100% !important;
+    margin: 0em !important;
+}
+
+.mat-card-content {
+    padding: 15px !important;
+    margin-bottom: 0px;
+    font-size: 12px !important;
+}
+
+.checkbox {
+    max-height: 0px;
+}
+
+
+/*  formulario,btn ,tit y subtitulo */
+
+.card-form {
+    text-align: -webkit-left;
+    max-width: 680px;
+    margin: 2em auto;
+    margin-left: 18px;
+    margin-right: 18px;
+    border-radius: 1em/1em;
+    width: 90%;
+}
+
+.btn-form {
+    justify-content: flex-end !important;
+}
+
+.mat-card-title {
+    text-align: -webkit-center !important;
+    font-size: 18px;
+    color: white;
+}
+
+.mat-card-subtitle {
+    text-align: left;
+    font-size: 10px;
+}
+
+
+/* Cambia el color del input del form en focus, warning, etc*/
+
  ::ng-deep .mat-step-header .mat-step-icon-selected,
- .mat-step-header .mat-step-icon-state-done,
- .mat-step-header .mat-step-icon-state-edit {
-     background-color: rgb(0, 175, 215) !important;
- }
- 
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+    background-color: rgb(0, 175, 215) !important;
+}
+
  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-     color: rgb(0, 175, 215) !important;
- }
- 
- ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
-     color: rgb(0, 175, 215) !important;
-     opacity: 0.8!important;
- }
- 
+    color: rgb(0, 175, 215) !important;
+}
+
  ::ng-deep .mat-input-element {
-     caret-color: rgb(0, 175, 215) !important;
- }
- 
+    caret-color: rgb(0, 175, 215) !important;
+}
+
  ::ng-deep .mat-form-field-invalid .mat-input-element,
- .mat-warn .mat-input-element {
-     caret-color: rgb(0, 175, 215) !important;
- }
- 
- ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-     color: rgb(0, 175, 215) !important;
- }
- 
- ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
-     color: rgb(0, 175, 215) !important;
- }
- 
- .mat-info {
-     margin-top: 7px !important;
- }
- 
- .grid-title {
-     font-size: 15px;
-     color: black;
- }
- 
- .content-items {
-     padding: 8px;
-     border: 2px solid rgb(45, 85, 110);
-     border-radius: 1em;
-     margin: 6px;
- }
- 
- .content-items-p {
-     padding: 8px;
-     background-color: rgb(45, 85, 110);
-     border-radius: 1em;
-     margin: 6px;
- }
- 
- .content-items-p img {
-     padding: 0px 10px;
-     width: 25px;
-     height: auto;
-     color: white
- }
- 
- .content-items img {
-     padding: 0px 10px;
-     width: 25px;
-     height: auto;
-     color: rgb(45, 85, 110);
- }
- 
- @keyframes fade-in {
-     0% {
-         opacity: 0;
-     }
-     50% {
-         opacity: 0;
-     }
-     100% {
-         opacity: 1;
-     }
- }
- 
- @keyframes fade-out {
-     0% {
-         opacity: 1;
-     }
-     50% {
-         opacity: 0;
-     }
-     100% {
-         opacity: 0;
-     }
- }
- 
- @media screen and (min-width: 60em) {
-     .card {
-         flex: 0 1 calc(100% - 1em);
-         flex-wrap: wrap;
-     }
- }
- 
- @media screen and (min-width: 40em) {
-     .cards {
-         display: flex;
-         flex-wrap: wrap;
-         justify-content: row;
-     }
-     .card {
-         flex: 0 1 calc(100% - 1em);
-     }
- }
- 
- .mat-toolbar-row {
-     justify-content: space-between;
-     padding: 0 5px;
- }
- 
+.mat-warn .mat-input-element {
+    caret-color: rgb(0, 175, 215) !important;
+}
+
+
+/*vel de animacion*/
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* C*/
+
+@media screen and (min-width: 60em) {
+    .card {
+        flex: 0 1 calc(100% - 1em);
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (min-width: 40em) {
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: row;
+    }
+    .card {
+        flex: 0 1 calc(100% - 1em);
+    }
+}
+
+
+/* Custom para mat tab label*/
+
  ::ng-deep .mat-tab-label {
-     height: 30px !important;
-     min-height: 15px!important;
-     margin: 5px!important;
-     width: 150px!important;
-     min-width: 15px!important;
-     font-size: 17px;
-     font-family: Roboto, sans-serif;
-     font-weight: 400;
-     padding-left: 0px;
-     padding-right: 0px;
- }
- 
- .mat-toolbar.mat-primary {
-     background: rgb(0, 175, 215);
-     color: #fff;
- }
- 
- .mat-flat-button,
- .mat-raised-button,
- .mat-fab,
- .mat-mini-fab {
-     background: rgba(45, 85, 110, .91);
-     color: white;
- }
+    height: 30px !important;
+    min-height: 15px!important;
+    margin: 5px!important;
+    width: 150px!important;
+    min-width: 15px!important;
+    font-size: 17px;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.mat-toolbar.mat-primary {
+    background: rgb(0, 175, 215);
+    color: #fff;
+}
+
+.mat-flat-button,
+.mat-raised-button,
+.mat-fab,
+.mat-mini-fab {
+    background: rgba(45, 85, 110, .91);
+    color: white;
+}

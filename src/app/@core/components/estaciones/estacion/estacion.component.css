@@ -62,7 +62,7 @@ span.unity-data {
 
 @media only screen and (max-width: 500px) {
     ::ng-deep .mat-dialog-container {
-        padding: 12px !important;
+        padding: 12px 5px !important;
     }
 
     ::ng-deep .cdk-overlay-pane {

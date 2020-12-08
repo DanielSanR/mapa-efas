@@ -25,6 +25,7 @@ export class EstacionComponent implements OnInit {
   datas_prototype: any[] = [];
   array_data:any[];
   last_data_day:any = [];
+  icon_d_wind: string = 'icon-nwe-w';
   
   constructor(  private _estacionService: EstacionService,
                 private router: Router,

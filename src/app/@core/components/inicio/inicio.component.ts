@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ImgSrcDirective } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+
 }
+
+
+
+

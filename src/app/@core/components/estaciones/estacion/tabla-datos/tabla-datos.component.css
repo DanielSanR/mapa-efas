@@ -4,7 +4,7 @@ table {
 
 th.mat-header-cell {
   text-align: center;
-  padding-left: 10px!important;
+  padding-left: 0px!important;
 }
   
 td {
@@ -12,3 +12,10 @@ td {
   padding: 0px!important;
 }
 
+span.unity-data-t {
+  font-size: 12px;
+}
+
+span.date-t {
+  font-size: 14px;
+}

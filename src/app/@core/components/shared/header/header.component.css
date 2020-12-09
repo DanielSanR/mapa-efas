@@ -1,7 +1,7 @@
 .mat-toolbar-header {
     padding: 8px 0px;
     height: 70px;
-    background-color: rgb(0, 175, 215); 
+    background-color: rgb(0, 175, 215);
     color: white;
     z-index: 1;
     position: fixed;
@@ -36,10 +36,17 @@ a {
 
 @media(max-width: 800px) {
     #img-logo {
-        max-width: 130px;
+        max-width: 170px;
     }
+
     #icon-header {
         margin-bottom: 0px;
         margin-top: 11px;   
     }
+
+    .mat-toolbar-header {
+        background: url(../../../../../assets/images/logo/header.png) no-repeat center center;
+        background-size: cover;
+    }
 }
+

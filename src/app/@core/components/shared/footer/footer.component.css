@@ -32,3 +32,10 @@ li {
 .mat-toolbar-footer {
     justify-content: center;
 }
+
+@media(max-width: 800px) {
+    .mat-toolbar-footer {
+        background: url(../../../../../assets/images/logo/footer.png) no-repeat center center;
+        background-size: cover;
+    }
+}

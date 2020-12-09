@@ -8,7 +8,8 @@ a:hover a:active {
 
 #sidenav-toolbar {
     height: 70px;
-    background-color: rgb(0, 175, 215);
+    background: url(../../../../../assets/images/logo/header.png) no-repeat center center;
+    background-size: cover;
     color: white; 
 }
 

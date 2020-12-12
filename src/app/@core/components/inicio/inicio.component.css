@@ -17,20 +17,36 @@
         left: 35%;
     }
 
-    a img#logo_i_crep {
-        display: none!important;
+    .logo-content {
+        display: inline-flex;
+        bottom: 23%;
+        left: 45%;
+        margin-right: auto;
+        margin-left: auto;
+        position: absolute;
     }
 
-    a img#logo_i_lab {
-       display: none!important;
+    a #logo_i_crep {
+        width: 160px;
     }
+
+    #logo_i_silicon {
+        width: 187px;
+        top: 20%;
+        left: 45%;
+        margin-left: auto;
+        margin-right: auto;
+        position: absolute;
+    }
+
 }
 
 .div-content-img {
     height: 100%;
     display: flex;
     justify-content: center;
-    background-color: rgb(202, 248, 255);
+    background: url(../../../../assets/images/logo/logo_inicio.png) no-repeat center center;
+    background-size: cover;
 }
 
 .container-inicio {
@@ -45,8 +61,6 @@
     .div-content-img {
         height: 100%;
         display: flex;
-        background: url(../../../../assets/images/logo/logo_inicio.png) no-repeat center center;
-        background-size: cover;
     }
 
     .logo-content {

@@ -50,11 +50,13 @@ export class EstacionComponent implements OnInit {
       this.datas_prototype.forEach( dato => {
         var data_weather = {}
         data_weather = {
-              fecha: this.datePipe.transform(dato.datoxFecha.fecha,"yyyy-MM-dd HH:mm"),
+              fecha: this.datePipe.transform(dato.datoxFecha.fecha,"dd-MM-yyyy HH:mm"),
               temperatura: dato.datoxFecha.datosAmbientales.temperatura,
-              humedad: 50,
+              humedad_ambiente: 30,
+              humedad_suelo: 50,
               viento: dato.datoxFecha.datosAmbientales.viento,
-              precipitacion: dato.datoxFecha.datosAmbientales.precipitacion
+              precipitacion: dato.datoxFecha.datosAmbientales.precipitacion,
+              radiacion: 1
         }
 
         this.array_data.push(data_weather);

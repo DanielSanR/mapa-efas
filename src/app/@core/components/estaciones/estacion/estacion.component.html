@@ -47,12 +47,12 @@
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-fc" >
                             <img src="assets/images/icons_modal/hum_icon_w.png" alt="icono_porc_humedad">
-                            <strong>HUMEDAD</strong>
+                            <strong>HUMEDAD<br><span style="font-size: 12px; color: white;">Ambiente/Suelo</span></strong>
                         </figure>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            {{last_data_day['humedad']}}%
+                            {{last_data_day['humedad_ambiente']}}% / {{last_data_day['humedad_suelo']}}%
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
@@ -88,6 +88,25 @@
                     </mat-grid-tile>
                 </mat-grid-list>
             </mat-card>
+            <mat-card style="margin-top: 5px;">
+                <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <mat-icon id="icon_uv">wb_sunny</mat-icon>
+                            <strong>ÍNDICE UV</strong>
+                        </figure>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            {{last_data_day['radiacion']}} de 10
+                        </figure>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
+            <div fxflex class="content-u-act"> Ultima Actualización : </div>
+            <div fxflex class="sub-u-act"> {{ last_data_day['fecha'] }} </div>
         </div>
     </mat-tab>
     <mat-tab label="DATOS DEL DÍA"> 

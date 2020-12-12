@@ -19,23 +19,92 @@
 
 .header-u-datos {
     margin-left: 10px;
+    text-align: -webkit-center !important;
+}
+
+.header-datos {
+    color: rgb(45, 85, 110) !important;
+    margin-left: 22px;
+    margin-right: 16px;
+    margin-bottom: 12px;
 }
 
 .prototipo-u-datos {
     font-weight: 500;
-    font-size: 22px;
+    font-size: 16px;
+    height: 22px;
+    align-items: center;
+    margin-bottom: 0px !important;
+}
+
+.temp-u-datos {
+    font-size: 35px;
+    padding-right: 10px;
+    color: rgb(45, 85, 110);
+    margin-bottom: 0px !important;
 }
 
 .localidad-u-datos {
     font-size: 11px;
     font-weight: 200;
+    align-items: left;
+    margin: 0px 0px;
+    padding-bottom: 15px;
+}
+
+.humedad-u-datos {
+    font-size: 11px;
+    font-weight: 200;
+    align-items: left;
+    margin: 0px 0px;
+    height: 15px;
+}
+
+.humedad-u-datos img {
+    float: left;
+    width: 15px;
+    padding-right: 5px;
+    padding-top: 2px;
+}
+
+.viento-u-datos {
+    font-size: 11px;
+    font-weight: 200;
+    align-items: left;
+    margin: 0px 0px;
+    height: 15px;
+    padding-left: 2px;
+    margin-bottom: 3px;
+}
+
+.viento-u-datos img {
+    float: left;
+    width: 15px;
+    padding-right: 5px;
+    padding-top: 2px;
+}
+
+.contenedor-proto-localidad {
+    font-size: 13px;
+    font-weight: 400;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    color: rgb(45, 85, 110);
+}
+
+.contenedor-datos-sup {
+    font-size: 12px;
+    font-weight: 400;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    color: rgb(45, 85, 110);
 }
 
 
 /* Nombre del Sensor y valor  del sensor T-H-V-P-D **/
 
 .sub-u-datos {
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 500;
     padding-top: 6px;
     padding-bottom: 2px;
@@ -45,9 +114,44 @@
 .sub-u-datos-d {
     padding-top: 7px;
     margin-bottom: 10px;
-    margin-right: 16px;
-    font-size: 18px;
+    margin-right: 5px;
+    font-size: 13px;
     color: rgb(45, 85, 110);
+}
+
+.container-img-u-datos img {
+    float: left;
+    padding: 0px 10px;
+    width: 75px;
+    height: auto;
+    color: white;
+}
+
+.sub-u-datos-d-viento {
+    padding-top: 7px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    font-size: 13px;
+    color: rgb(45, 85, 110);
+}
+
+.sub-u-datos-d-viento img {
+    float: left;
+    padding: 0px 2px;
+    width: 19.45px;
+    height: auto;
+    color: white;
+}
+
+.estado-tiempo {
+    color: rgb(45, 85, 110);
+}
+
+.estado-tiempo img {
+    float: left;
+    width: 15px;
+    padding-right: 5px;
+    padding-top: 2px;
 }
 
 .content-items {
@@ -55,9 +159,10 @@
     border: 2px solid rgb(45, 85, 110);
     border-radius: 1em;
     margin: 6px;
+    background-color: white !important;
 }
 
-.content-items img {
+.sub-u-datos img {
     float: left;
     padding: 0px 10px;
     width: 25px;
@@ -69,11 +174,11 @@
 
 .amanecer-atardecer-content {
     padding: 5px !important;
-    margin: 0px 10px;
+    margin: 0px 5px;
 }
 
 .sub-u-datos-am-at {
-    font-size: 18px;
+    font-size: 13px;
     font-weight: 500;
     padding-top: 6px;
     padding-bottom: 2px;
@@ -83,8 +188,8 @@
 .sub-u-datos-am-at-d {
     padding-top: 7px;
     margin-bottom: 10px;
-    margin-right: 16px;
-    font-size: 18px;
+    margin-right: 7px;
+    font-size: 13px;
     color: white
 }
 
@@ -152,7 +257,7 @@
 }
 
 .mat-card-content {
-    padding: 15px !important;
+    padding: 10px !important;
     margin-bottom: 0px;
     font-size: 12px !important;
 }
@@ -186,7 +291,11 @@
 
 .mat-card-subtitle {
     text-align: left;
-    font-size: 10px;
+    font-size: 12px;
+}
+
+.mat-divider {
+    border-top-color: rgb(45, 85, 110);
 }
 
 
@@ -269,7 +378,6 @@
     width: 150px!important;
     min-width: 15px!important;
     font-size: 17px;
-    font-family: Roboto, sans-serif;
     font-weight: 400;
     padding-left: 0px;
     padding-right: 0px;

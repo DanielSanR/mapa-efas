@@ -16,9 +16,11 @@ export class TablaComponent implements AfterViewInit {
   displayedColumns: string[] = [
   'datoxFecha',
   'temperatura',
-  'humedad',
+  'humedad_ambiente',
+  'humedad_suelo',
   'viento',
-  'precipitacion'];
+  'precipitacion',
+  'radiacion'];
 
   // tslint:disable-next-line: variable-name
 @Input() set dato_form(prototipo: any){

@@ -22,9 +22,7 @@ import { GraficoComponent } from './grafico/grafico.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
 
-export interface ITile {
-  componentName: string;
-}
+ 
 
 export interface Institucion {
   descripcion: string;
@@ -51,7 +49,7 @@ export interface Institucion {
 export class DatosComponent implements OnInit {
  
 @Input()selectedIndex: number | null;
-tiles: Array<ITile>;
+ 
  
   fixedDias = Array();
 
@@ -66,7 +64,7 @@ tiles: Array<ITile>;
   filteredOptions: Observable<Institucion[]>;
   formulario: FormGroup ;
   datos: any; // array de datos ambientales
-  institution_id:number;
+  institucion_id:number;
   prototype_id:number;
   prototipo_nombre: string;
   constructor(private formBuilder: FormBuilder, private _DATOSXFECHA: DatosService, private cdref: ChangeDetectorRef,
@@ -82,35 +80,14 @@ tiles: Array<ITile>;
 
                 // this.simulargetDatosEstacion();
                       this.activatedRoute.params.subscribe(params => {
-                        this.institution_id = params['inst_id'];
+                        this.institucion_id = params['inst_id'];
                         this.prototype_id = params['protype_id'];
-                })
+                       
+                });
+                     
                 }
-setComponents() {
-  this.tiles = new Array<ITile>();
-  let components = [];
-  components.push('grafico');
-  components.push('tabla');
-  console.log (components);
-  components.forEach(component => {
-  if (component === 'grafico') {
-          this.setTile(component);
-                    }
-  if (component === 'tabla') {
-          this.setTile(component);
-                    }
-
-                  });
-                }
-
- setTile( componentName) {
-        const tile = {
-        componentName
-                  };
-
-        this.tiles.push(tile);
-        console.log(JSON.stringify(this.tiles));
-  }
+ 
+ 
   ngOnInit(): void {
 
 
@@ -123,9 +100,13 @@ setComponents() {
         map(value => typeof value === 'string' ? value : value.descripcion),
         map(descripcion => descripcion ? this._filter(descripcion) : this.options.slice())
       );
-    this.setComponents();
+      if (this.institucion_id > 0 ){
+        this.simulargetDatosEstacion();
+        
+
+}
+     
   }
- 
 
 get prototipoNoValido(): boolean{
     return this.formulario.get('prototipoControl').hasError('required');
@@ -252,24 +233,28 @@ limpiar(result: any, fecha1: string, fecha2: string){
         datos2.push(datos[j]);
         }
     }
-}
+} 
   return datos2;
-
+  
+ 
 
 }
 // institucionId: number, prototipoId: number
 simulargetDatosEstacion( ): void{
-  // llamamos al service institucion   this.obtenerPrototipo(institucionId);
 
-  // seteamos la institucion traida  de Estacion
-  this.formulario.controls.institutoControl.patchValue({
-    descripcion: 'San Pedro',
-    id: 2
+   console.log(typeof(Number(this.institucion_id)));
+   const institucion = this.options.map(x => x.id).indexOf(Number(this.institucion_id));
+
+   console.log(this.options[institucion]);
+   this.formulario.controls.institutoControl.patchValue({
+    descripcion: this.options[institucion].descripcion,
+    id: this.options[institucion].id
 });
-  this.obtenerPrototipo(this.formulario.get('institutoControl').value);
+   this.obtenerPrototipo(this.formulario.get('institutoControl').value);
+   const prototipo  = this.prototiposArr.map(x => x.id).indexOf(Number(this.prototype_id));
+   this.selected = this.prototiposArr[prototipo];
 
-  // seteamos el prototipo enviado, y agregamos al arr los prototipos de esa institucion
-  this.selected = this.prototiposArr[0];
+
 }
 
 

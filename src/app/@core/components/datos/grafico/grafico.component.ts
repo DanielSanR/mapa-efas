@@ -53,8 +53,10 @@ export class GraficoComponent  {
             if (this.arrFech[i] === datoc){
               mDatos[i][0] = this.datos[j].datoxFecha.datosAmbientales.viento;
               mDatos[i][1] = this.datos[j].datoxFecha.datosAmbientales.temperatura;
-              mDatos[i][2] = this.datos[j].datoxFecha.datosAmbientales.luz;
+              mDatos[i][2] = this.datos[j].datoxFecha.datosAmbientales.radiacion;
               mDatos[i][3] = this.datos[j].datoxFecha.datosAmbientales.precipitacion;
+              mDatos[i][4] = this.datos[j].datoxFecha.datosAmbientales.humedad_ambiente;
+              mDatos[i][5] = this.datos[j].datoxFecha.datosAmbientales.humedad_suelo;
             }
         }
  }
@@ -72,17 +74,25 @@ export class GraficoComponent  {
 
 crearGrafico(datos: any, dias: any[]): void{
   // tomar la fecha del json
+  console.log(datos);
     const arrViento = [];
     const arrTemperatura = [];
-    const arrLuz = [];
+    const arrHumedad_ambiente = [];
+    const arrHumedad_suelo = [];
+    const arrRadiacion = [];
     const arrPrecipitacion = [];
     for ( let i = 0; i < this.arrFech.length; i++){
       arrViento.push(datos[i][0]);
       arrTemperatura.push(datos[i][1]);
-      arrLuz.push(datos[i][2]);
+      arrRadiacion.push(datos[i][2])
       arrPrecipitacion.push(datos[i][3]);
+      arrHumedad_ambiente.push(datos[i][4]);
+      arrHumedad_suelo.push(datos[i][5]);
+      
     }
-
+  console.log(arrRadiacion);
+  console.log(arrHumedad_ambiente);
+  console.log(arrHumedad_suelo);
     this.optionsC = {
       chart: {
         type: 'spline',
@@ -91,14 +101,14 @@ crearGrafico(datos: any, dias: any[]): void{
         renderTo: 'container'
       },
       title: {
-        text: 'Gráfico de datos agrometeorológicos de la EFA  Prototipo 1'
+        text: 'Gráfico de datos agrometeorológicos'
       },
       credits: {
         enabled: false
       },
       yAxis: {
         title: {
-          text: 'Datos Agrupados por fecha'
+          text: 'Datos por fecha'
         }
       },
       xAxis: {
@@ -126,25 +136,37 @@ crearGrafico(datos: any, dias: any[]): void{
         name: 'Viento',
         data: arrViento,
         tooltip: {
-          pointFormat: 'Vel. Viento 2m(km/h) {point.y:.1f}km/h'
+          pointFormat: 'Vel. Viento {point.y:.1f}km/h'
       },
       }, {
         name: 'Temperatura',
         data: arrTemperatura,
         tooltip: {
-          pointFormat: 'Temperatura : {point.y} ºC'
+          pointFormat: 'Temperatura : {point.y}ºC'
       }
       }, {
-        name: 'Humedad',
-        data: arrLuz,
+        name: 'Radiacion',
+        data: arrRadiacion,
         tooltip: {
-          pointFormat: 'Humedad {point.y:.0f}%'
+          pointFormat: 'Radiación {point.y:.0f} de 10'
       }
       }, {
         name: 'Precipitación',
         data: arrPrecipitacion,
         tooltip: {
           pointFormat: 'Precipitación  {point.y:.0f}mm'
+      }
+    }, {
+        name: 'Humedad Ambiente',
+        data: arrHumedad_ambiente,
+        tooltip: {
+          pointFormat: 'Humedad A.{point.y:.0f}%'
+      }
+      }, {
+        name: 'Humedad Suelo',
+        data: arrHumedad_suelo,
+        tooltip: {
+          pointFormat: 'Humedad S. {point.y:.0f}%'
       }
       }],
       responsive: {

@@ -97,46 +97,60 @@
             <mat-tab label="Ultimos Datos">
                 <div class="content">
                     <mat-card class="mat-info">
-                        <div class="header-u-datos" fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="0px" fxLayoutGap.lt-md="0px">
-                            <h1 class="prototipo-u-datos" fxFlex>{{prototipo_nombre}}</h1>
-                            <p fxFlex class="localidad-u-datos"> Localidad</p>
-                        </div>
+                        <div class="header-datos">
+                            <div fxFlex fxLayout="row" fxLayout.sm="row" fxLayout.xs="row" fxLayout.lg="row" fxLayoutAlign="space-between center">
+                                <div fxFlex fxLayoutAlign="none">
+                                    <div fxflex class="contenedor-datos-sup" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                        <h2 fxflex class="temp-u-datos">30°C</h2>
+                                        <p fxFlex class="viento-u-datos"> <img src="assets/images/icons_modal/icons_dire_wind/icons-blue/icon-nwe.png" alt="icono vel viento"> 6km/h</p>
+                                        <p fxFlex class="humedad-u-datos"><img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento"> 30% </p>
 
+
+                                    </div>
+
+                                    <div fxflex class="contenedor-proto-localidad" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                        <h1 class="prototipo-u-datos" fxFlex>{{prototipo_nombre}}</h1>
+                                        <p fxFlex class="localidad-u-datos"> San Ignacio de Loyola</p>
+                                    </div>
+                                </div>
+                                <div fxflex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                    <div fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/rain.png" alt="icono del sol"></div>
+                                    <!--  <p fxFlex class="estado-tiempo">1</p> -->
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <mat-divider></mat-divider>
                         <mat-card-content fxLayout="row" class="ultimos-datos-mat" fxLayout.lt-md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="row">
 
 
                             <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+
                                 <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/temp_icon_w_2.png" alt="icono temperatura ambiente"> TEMPERATURA </div>
-                                    <div fxflex class="sub-u-datos-d"> 30°C</div>
-                                </div>
-                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/hum_icon_w_2.png" alt="icono humedad"> HUMEDAD </div>
-                                    <div fxflex class="sub-u-datos-d"> 15%</div>
+                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/hum_icon_w_2.png" alt="icono humedad"> HUMEDAD SUELO </div>
+                                    <div fxflex class="sub-u-datos-d"> 50%</div>
                                 </div>
 
 
                                 <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
                                     <div fxflex class="sub-u-datos"><img src="assets/images/icons_modal/pp_icon_w_2.png" alt="icono precipitacion"> PRECIPITACIÓN </div>
-                                    <div fxflex class="sub-u-datos-d"> 0.3(mm)</div>
+                                    <div fxflex class="sub-u-datos-d"> 110(mm)</div>
                                 </div>
 
                             </div>
                             <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                <!--  <div fxflex fxLayout="row" class="contenedor-u-datos-viento" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/uv.png" alt="icono  uv"> INDICE UV </div>
+                                    <div fxflex class="sub-u-datos-d"> BAJO ( 1 )</div>
+                                </div>
 
-                                    <div  fxflex> <img src="assets/images/icons_modal/wind_icon_w.png" alt="icono vel viento">VIENTO</div>
-
+                                <!--   <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/temp_icon_w_2.png" alt="icono temperatura ambiente"> l </div>
+                                    <div fxflex class="sub-u-datos-d"> 0</div>
                                 </div> -->
-                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/wind_icon_w_2.png" alt="icono vel viento">DIRECCION VIENTO </div>
-                                    <div fxflex class="sub-u-datos-d"> Este </div>
-                                </div>
-                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/wind_icon_w_2.png" alt="icono vel viento">VELOCIDAD </div>
-                                    <div fxflex class="sub-u-datos-d"> 10km/h</div>
-                                </div>
-                                <mat-divider></mat-divider>
+
                             </div>
 
 
@@ -161,30 +175,13 @@
                             </div>
                         </div>
 
-                        <!--  <div class="content-a-p" fxLayout="row" fxLayout.lt-md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="row">
-                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                <div fxflex class="content-items" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos-p-a"> <img src="assets/images/icons_modal/pp_icon_w.png" alt="icono vel viento">LLUVIA HR </div>
-                                    <div fxflex class="sub-u-datos-d"> 0.3 (mm)</div>
-                                </div>
 
-
-                            </div>
-                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                <div fxflex class="content-items" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos-p-a-l"> <img src="assets/images/icons_modal/pp_icon_w.png" alt="icono vel viento">LLUVIA HOY </div>
-                                    <div fxflex class="sub-u-datos-d"> 0.4 (mm)</div>
-                                </div>
-
-
-                            </div>
-                        </div> -->
                         <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
 
                             <div fxflex class="content-u-act"> Ultima Actualización : </div>
-                            <div fxflex class="sub-u-act"> {{ dateMin | date:'medium' }} </div>
+                            <div fxflex class="sub-u-act"> 07-11-2020 12:00 </div>
                         </div>
-
+                        <!--  {{ dateMin | date:'medium' }} -->
                     </mat-card>
 
                 </div>

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable  } from 'rxjs';
 import { Prototipo } from '@core/models/prototipo';
-
+import * as moment from 'moment';
+import { default as _rollupMoment, Moment } from 'moment';
+ 
 @Injectable({
   providedIn: 'root'
 })
 export class DatosService {
-
+ 
   url: string;
 
 
@@ -24,8 +26,16 @@ export class DatosService {
   }
 
   getProtoipoByID(id: number): Observable<Prototipo[]> {
-     // simulamos la API usando 2 json distintos
+ 
+
     return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
+}
+
+getDatos(id: number ): Observable<Prototipo[]> {
+  return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
+}
+getDatosRangeDate(id: number ): Observable<Prototipo[]> {
+  return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
 }
 
 }

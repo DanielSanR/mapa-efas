@@ -1,45 +1,48 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
-    margin: 5px;
-}
-
-.mat-table {
-    max-height: 250px;
-}
-
 table {
-    width: 100%;
+    display: block;
 }
 
 th.mat-header-cell {
     text-align: center;
-    padding-left: 10px!important;
 }
 
 td {
     text-align: center;
-    padding: 0px!important;
+    padding: 3px!important;
 }
 
-mat-row {
-    min-height: 20px;
-    font-family: Verdana, sans-serif;
-    font-size: 11px;
-    color: #1a084c;
+span.unity-data-t {
+    font-size: 12px;
 }
 
-@media only screen and (max-width: 736px) and (orientation:portrait) {
-    mat-header-row,
-    mat-row {
-        width: 200%;
-    }
+span.date-t {
+    font-size: 14px;
 }
 
-@media only screen and (max-width: 375px) {
-    .mat-paginator {
-        display: block;
-        width: 100%;
-    }
+.mat-table {
+    overflow-x: scroll;
+}
+
+.mat-cell,
+.mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 10px;
+    line-break: unset;
+    width: fit-content;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.mat-row,
+.mat-header-row {
+    display: table-row;
+    min-height: 36px !important;
+}
+
+mat-paginator {
+    width: 100%;
+    display: block;
 }

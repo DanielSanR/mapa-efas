@@ -14,12 +14,12 @@
                 <mat-divider></mat-divider>
                 <mat-list-item>
                     <span mat-line class="m-t-dataStations"> Localidad </span>
-                    <span mat-subheader class="m-t-dataStations-attribute" >San Vicente</span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData['localidad']}}</span>
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item>
                     <span mat-line class="m-t-dataStations"> Departamento </span>
-                    <span mat-subheader class="m-t-dataStations-attribute" >Guaraní</span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData['departamento']}}</span>
                 </mat-list-item>
                 <mat-divider></mat-divider>    
             </mat-list>
@@ -105,8 +105,7 @@
             </mat-card>
         </div>
         <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
-            <div fxflex class="content-u-act"> Ultima Actualización : </div>
-            <div fxflex class="sub-u-act"> {{ last_data_day['fecha'] }} </div>
+            <div fxflex class="content-u-act"> Ultima Actualización : {{ last_data_day['fecha'] | date:'dd/MM/yy HH:mm':'UTC'}}</div>
         </div>
     </mat-tab>
     <mat-tab label="DATOS DEL DÍA"> 

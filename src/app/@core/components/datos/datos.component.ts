@@ -64,6 +64,7 @@ export class DatosComponent implements OnInit {
   filteredOptions: Observable<Institucion[]>;
   formulario: FormGroup ;
   datos: any; // array de datos ambientales
+ 
   institucion_id:number;
   prototype_id:number;
   prototipo_nombre: string;
@@ -90,8 +91,9 @@ export class DatosComponent implements OnInit {
  
   ngOnInit(): void {
 
+   
 
-
+    
     this.breakpoint = (window.innerWidth <= 480) ? 1 : 6;
 
     this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
@@ -168,10 +170,10 @@ crearFormulario(): void{
             ]
     });
 
-
   }
 
 buscarDatos(): void{
+ 
  // Falta verificar si es por rango o no
      this.selectedIndex = 0;
      if  (this.formulario.invalid){
@@ -181,6 +183,10 @@ buscarDatos(): void{
        });
      }
      else {
+     
+       
+      /* this.addData(); */
+      
       this._DATOSXFECHA.getProtoipoByID(this.selected.id
                                         ).subscribe(
         result => {
@@ -209,22 +215,23 @@ limpiar(result: any, fecha1: string, fecha2: string){
   const datos: any = result;
   const datos2: any = [];
 
-
-
-  const mySet = new Set();
+  const mySet = new Set(); 
+ // if que evalua el checkbox, para filtrar manualmente los datos.
+ //si es verdadero, mostramos los datos de dicho rango de fechas
+ if   (this.checkStatus === true) {
+      
+      
   for (let i =  0; i <= dias ; i++) {
     arrDias.push((moment(new Date(f1)).add(i , 'days')).format('YYYY-MM-DD'));
- }
-  datos.forEach( (dato: { datoxFecha: { fecha: string | number | Date; }; }) => {
-  const datoc = moment(new Date(dato.datoxFecha.fecha)).format('YYYY-MM-DD');
-  if ( arrDias.indexOf(datoc) !==  -1){
-    mySet.add(datoc);
   }
- });
-  this.fixedDias = Array.from(mySet);
-
-  // tslint:disable-next-line: prefer-for-of
-  for ( let i = 0; i < this.fixedDias.length; i++){
+  datos.forEach( (dato: { datoxFecha: { fecha: string | number | Date; }; }) => {
+    const datoc = moment(new Date(dato.datoxFecha.fecha)).format('YYYY-MM-DD');
+    if ( arrDias.indexOf(datoc) !==  -1){
+      mySet.add(datoc);
+    }
+   });
+   this.fixedDias = Array.from(mySet);
+   for ( let i = 0; i < this.fixedDias.length; i++){
 
     // tslint:disable-next-line: prefer-for-of
     for ( let j = 0; j < datos.length; j++){
@@ -234,6 +241,22 @@ limpiar(result: any, fecha1: string, fecha2: string){
         }
     }
 } 
+
+// caso de que el checkbox sea false, mostramos solo los datos del dia elegído
+ } else 
+     {  for ( let j = 0; j < datos.length; j++){
+      const datoc = moment(new Date(datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
+      if ( (moment(new Date(f1)).format('YYYY-MM-DD') === datoc)){
+      datos2.push(datos[j]);
+     
+      }
+  }
+  //simulo el primer dato y envio a graf horario
+  mySet.add(moment(new Date(f1)).format('YYYY-MM-DD 00:00'))
+  this.fixedDias = Array.from(mySet);
+  console.log(this.fixedDias);
+ }
+ 
   return datos2;
   
  
@@ -241,11 +264,9 @@ limpiar(result: any, fecha1: string, fecha2: string){
 }
 // institucionId: number, prototipoId: number
 simulargetDatosEstacion( ): void{
-
-   console.log(typeof(Number(this.institucion_id)));
+ 
    const institucion = this.options.map(x => x.id).indexOf(Number(this.institucion_id));
-
-   console.log(this.options[institucion]);
+ 
    this.formulario.controls.institutoControl.patchValue({
     descripcion: this.options[institucion].descripcion,
     id: this.options[institucion].id
@@ -254,10 +275,7 @@ simulargetDatosEstacion( ): void{
    const prototipo  = this.prototiposArr.map(x => x.id).indexOf(Number(this.prototype_id));
    this.selected = this.prototiposArr[prototipo];
 
-
 }
-
-
 
 ngAfterContentChecked() {
   this.cdref.detectChanges();

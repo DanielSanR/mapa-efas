@@ -38,4 +38,7 @@ getDatosRangeDate(id: number ): Observable<Prototipo[]> {
   return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
 }
 
+getDatosHorarios(): Observable<Prototipo[]> {
+  return this._http.get<any>('assets/jsons/datos_horarios_prototipo1.json');
+}
 }

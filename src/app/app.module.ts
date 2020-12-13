@@ -18,7 +18,7 @@ import { FooterComponent } from './@core/components/shared/footer/footer.compone
 import { EstacionesComponent } from './@core/components/estaciones/estaciones.component';
 import { DatosComponent } from './@core/components/datos/datos.component';
 import { InicioComponent } from './@core/components/inicio/inicio.component';
-
+ 
 //Modulos
 import { MaterialModule } from './material.module';
 import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
@@ -29,10 +29,11 @@ import { GraficoComponent } from './@core/components/datos/grafico/grafico.compo
 import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
 import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
-import { ChartsModule } from 'ng2-charts';
+ 
 import * as Highcharts from 'highcharts';
 
-import { HighchartsChartModule } from 'highcharts-angular';
+import { HighchartsChartModule } from 'highcharts-angular'; 
+import { GraficoHorarioComponent } from './@core/components/datos/grafico-horario/grafico-horario.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     TablaDatosComponent,
     InicioComponent,
     TablaComponent,
-    GraficoComponent
+    GraficoComponent,
+    GraficoHorarioComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +65,6 @@ import { HighchartsChartModule } from 'highcharts-angular';
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    ChartsModule,
     HighchartsChartModule
   ],
   providers: [

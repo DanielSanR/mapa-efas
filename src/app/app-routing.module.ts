@@ -6,7 +6,6 @@ import { InstitucionComponent } from './@core/components/institucion/institucion
 import { EstacionesComponent } from './@core/components/estaciones/estaciones.component';
 import { DatosComponent } from './@core/components/datos/datos.component';
 import { InicioComponent } from './@core/components/inicio/inicio.component';
- 
 
 const routes: Routes = [
 		{path: '', component: InicioComponent},
@@ -15,6 +14,7 @@ const routes: Routes = [
 		{path: 'datos', component: DatosComponent},
 		{path: 'datos/:inst_id/:protype_id', component: DatosComponent},
 		{path: '**', component: InicioComponent},
+		
 ];
 
 @NgModule({

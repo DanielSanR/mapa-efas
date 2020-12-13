@@ -194,12 +194,23 @@
 
 
             </mat-tab>
-            <mat-tab label="Gráfico Diario">
+            <mat-tab *ngIf="checkStatus" label="Gráfico Diario">
                 <div fxFlex="100%" fxFill>
                     <div fxLayout="column">
                         <ng-template matTabContent>
                             <!--  <div class="card" *ngIf="chartOptions && !flag && checkStatus "> -->
                             <app-grafico *ngIf="tablaStatus" [datos]="datos" [fechas]="fixedDias"></app-grafico>
+                        </ng-template>
+                    </div>
+                    <!--  </div> -->
+                </div>
+            </mat-tab>
+            <mat-tab *ngIf="!checkStatus" label="Gráfico Horario">
+                <div fxFlex="100%" fxFill>
+                    <div fxLayout="column">
+                        <ng-template matTabContent>
+                            <!--  <div class="card" *ngIf="chartOptions && !flag && checkStatus "> -->
+                            <app-grafico-horario *ngIf="tablaStatus" [fechas]="fixedDias"></app-grafico-horario>
                         </ng-template>
                     </div>
                     <!--  </div> -->

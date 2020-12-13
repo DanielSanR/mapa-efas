@@ -4,15 +4,14 @@ import { default as _rollupMoment, Moment } from 'moment';
 import * as Highcharts from 'highcharts';
 import more from 'highcharts/highcharts-more';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { DatosService } from '../../../services/datos.service';
 
 @Component({
-  selector: 'app-grafico',
-  templateUrl: './grafico.component.html',
-  styleUrls: ['./grafico.component.css']
+  selector: 'app-grafico-horario',
+  templateUrl: './grafico-horario.component.html',
+  styleUrls: ['./grafico-horario.component.css']
 })
-export class GraficoComponent  {
-
+export class GraficoHorarioComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts; // required
   chartOptions: Highcharts.Options; // required
   updateFlag: boolean; // optional boolean
@@ -20,48 +19,44 @@ export class GraficoComponent  {
   flag: boolean;
   optionsC: any;
   arrFech : any;
-@Input() datos: any[] = [];
+  datos: any;
 @Input() fechas: any;
- 
-  constructor(private cdref: ChangeDetectorRef) { }
 
-
+  constructor(private cdref: ChangeDetectorRef,private _DATOSHORARIOS: DatosService) { 
+    
+      
+    
+  }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.addData();
- 
-}
+   
+    this._DATOSHORARIOS.getDatosHorarios().subscribe( result => {
+      this.datos=result; 
+      this.addData();
+     });
 
-
- addData(){
-  
+  }
+addData(){ 
    this.arrFech = Object.values(this.fechas);
   const checkbox   = true;
+ 
   if (checkbox){
-    const mDatos = new Array(this.arrFech.length);
-    for ( let i = 0; i < this.arrFech.length; i++){
+    const mDatos = new Array(25);
+    for ( let i = 0; i < 25; i++){
       mDatos[i] = new Array(3);
-    }
-    // matriz para almacenar  los datosAmbientales, guarda el ultimo dato ambiental de cada fecha
-    // se hara mediante lastIndexOf y una funcion proximamente.
-    for ( let i = 0; i < this.arrFech.length; i++){
-
-        // tslint:disable-next-line: prefer-for-of
-        for ( let j = 0; j < this.datos.length; j++){
-            const datoc = moment(new Date(this.datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
-            if (this.arrFech[i] === datoc){
-              mDatos[i][0] = this.datos[j].datoxFecha.datosAmbientales.viento;
-              mDatos[i][1] = this.datos[j].datoxFecha.datosAmbientales.temperatura;
-              mDatos[i][2] = this.datos[j].datoxFecha.datosAmbientales.radiacion;
-              mDatos[i][3] = this.datos[j].datoxFecha.datosAmbientales.precipitacion;
-              mDatos[i][4] = this.datos[j].datoxFecha.datosAmbientales.humedad_ambiente;
-              mDatos[i][5] = this.datos[j].datoxFecha.datosAmbientales.humedad_suelo;
-            }
-        }
+    } 
+    for ( let i = 0; i < this.datos.length; i++){
+             
+              mDatos[i][0] = this.datos[i].datoxFecha.datosAmbientales.viento;
+              mDatos[i][1] = this.datos[i].datoxFecha.datosAmbientales.temperatura;
+              mDatos[i][2] = this.datos[i].datoxFecha.datosAmbientales.radiacion;
+              mDatos[i][3] = this.datos[i].datoxFecha.datosAmbientales.precipitacion;
+              mDatos[i][4] = this.datos[i].datoxFecha.datosAmbientales.humedad_ambiente;
+              mDatos[i][5] = this.datos[i].datoxFecha.datosAmbientales.humedad_suelo;
+        
+       
  }
-    if (this.arrFech.length > 0 ){
+    if (this.datos.length > 0 ){
     this.crearGrafico(mDatos, this.fechas);
 
     this.flag = false;
@@ -81,7 +76,7 @@ crearGrafico(datos: any, dias: any[]): void{
     const arrHumedad_suelo = [];
     const arrRadiacion = [];
     const arrPrecipitacion = [];
-    for ( let i = 0; i < this.arrFech.length; i++){
+    for ( let i = 0; i < 25; i++){
       arrViento.push(datos[i][0]);
       arrTemperatura.push(datos[i][1]);
       arrRadiacion.push(datos[i][2])
@@ -89,7 +84,7 @@ crearGrafico(datos: any, dias: any[]): void{
       arrHumedad_ambiente.push(datos[i][4]);
       arrHumedad_suelo.push(datos[i][5]);
       
-    } 
+    }  
     this.optionsC = {
       chart: {
         type: 'spline',
@@ -126,7 +121,7 @@ crearGrafico(datos: any, dias: any[]): void{
             connectorAllowed: false
           },
           pointStart: moment.utc(this.arrFech[0]).valueOf(),
-          pointInterval: 24 * 3600 * 1000 * 1,
+          pointInterval: 3600 * 1000 * 1,
         }
       },
       series: [{
@@ -191,4 +186,3 @@ crearGrafico(datos: any, dias: any[]): void{
     
    }
 }
-

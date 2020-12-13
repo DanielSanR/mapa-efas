@@ -12,9 +12,10 @@ export class PopUpService {
   makeInstitutionsPopup(element: any): string {
     return `` +
       `<div style="font-weight: bold; text-align: center;">INSTITUCIONES</div><hr>` +
-      `<strong>Institución: </strong>${ element.nombre } <br>` +
-      `<strong>Localidad: </strong><br>` +
-      `<strong>Departamento: </strong><br><hr>` +
+      `<strong>Institución: </strong>${ element.nombre }<br>` +
+      `<strong>CUE: </strong>${ element.cue }<br>` +
+      `<strong>Localidad: </strong>${ element.localidad }<br>` +
+      `<strong>Departamento: </strong>${ element.departamento }<br><hr>` +
       `<button id="btnRedirectStation" 
           style="width:190px; height:30px; background-color:rgb(0,175,215); border-bottom-color: white; border: none; border-radius: 4px; font-weight: bold;">
             <span style="color:white;">ESTACIONES</span>
@@ -26,8 +27,8 @@ export class PopUpService {
     return `` +
       `<div style="font-weight: bold; text-align: center;">ESTACIONES</div><hr>` +
       `<strong>Estacion: </strong>${ element.nombre }<br>` +
-      `<strong>Localidad: </strong><br>` +
-      `<strong>Departamento: </strong><br><hr>` +
+      `<strong>Localidad: </strong>${ element.localidad }<br>` +
+      `<strong>Departamento: </strong>${ element.departamento }<br><hr>` +
       `<button id="btnOpenDialogStation"  
           style="width:195px; height:35px; background-color:rgb(0,175,215); border-bottom-color: white; border: none; border-radius: 4px; font-weight: bold;">
             <span style="color:white;">VER DATOS</span>

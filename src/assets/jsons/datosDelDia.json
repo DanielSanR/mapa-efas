@@ -5,12 +5,14 @@
         "lat": "-26.29844",
         "long": "-54.57436",
         "datoxFecha": {
-            "fecha": "2020-11-07T08:00:00.000Z",
+            "fecha": "2020-12-13T08:00:00.000Z",
             "datosAmbientales": {
                 "viento": 15,
-                "temperatura": 51,
-                "luz": 23,
-                "precipitacion": 52
+                "temperatura": 20,
+                "radiacion": 1,
+                "precipitacion": 0.5,
+                "humedad_ambiente": 56,
+                "humedad_suelo": 35
             }
         }
     },
@@ -20,12 +22,14 @@
         "lat": "-26.29844",
         "long": "-54.57436",
         "datoxFecha": {
-            "fecha": "2020-11-07T10:00:00.000Z",
+            "fecha": "2020-12-13T10:00:00.000Z",
             "datosAmbientales": {
-                "viento": 77,
-                "temperatura": 27,
-                "luz": 7,
-                "precipitacion": 33
+                "viento": 20,
+                "temperatura": 25,
+                "radiacion": 3,
+                "precipitacion": 0,
+                "humedad_ambiente": 35,
+                "humedad_suelo": 20
             }
         }
     },
@@ -35,12 +39,14 @@
         "lat": "-26.29844",
         "long": "-54.57436",
         "datoxFecha": {
-            "fecha": "2020-11-07T13:00:00.000Z",
+            "fecha": "2020-12-13T13:00:00.000Z",
             "datosAmbientales": {
-                "viento": 46,
-                "temperatura": 20,
-                "luz": 11,
-                "precipitacion": 120
+                "viento": 18,
+                "temperatura": 30,
+                "radiacion": 5,
+                "precipitacion": 1.2,
+                "humedad_ambiente": 56,
+                "humedad_suelo": 20
             }
         }
     },
@@ -50,12 +56,14 @@
         "lat": "-26.29844",
         "long": "-54.57436",
         "datoxFecha": {
-            "fecha": "2020-11-07T15:00:00.000Z",
+            "fecha": "2020-12-13T15:00:00.000Z",
             "datosAmbientales": {
-                "viento": 36,
-                "temperatura": 31,
-                "luz": 76,
-                "precipitacion": 110
+                "viento": 23,
+                "temperatura": 32,
+                "radiacion": 4,
+                "precipitacion": 0.4,
+                "humedad_ambiente": 47,
+                "humedad_suelo": 30
             }
         }
     }

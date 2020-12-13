@@ -2,6 +2,8 @@
     {
         "nombre": "San Ignacio de Loyola",
         "id": 1,
+        "localidad": "San Ignacio",
+        "departamento": "San Ignacio",
         "cue": "540079600",
         "lat": "-27.2432456",
         "lng": "-55.536243"
@@ -9,6 +11,8 @@
     {
         "nombre": "San Pedro",
         "id": 2,
+        "localidad": "San Pedro",
+        "departamento": "San Pedro",
         "cue": "540091700",
         "lat": "-26.6245283",
         "lng": "-54.1234783"
@@ -16,6 +20,8 @@
     {
         "nombre": "Santa Rita",
         "id": 3,
+        "localidad": "Santa Rita",
+        "departamento": "Veinticinco de Mayo",
         "cue": "540059600",
         "lat": "-27.5178749",
         "lng": "-54.7334307"
@@ -23,6 +29,8 @@
     {
         "nombre": "Cristo Rey",
         "id": 4,
+        "localidad": "Los Helechos",
+        "departamento": "Oberá",
         "cue": "540135600",
         "lat": "-27.6011642",
         "lng": "-55.1291049"
@@ -30,6 +38,8 @@
     {
         "nombre": "Concepción de la Virgen María",
         "id": 5,
+        "localidad": "Santa María",
+        "departamento": "Concepción",
         "cue": "540108200",
         "lat": "-27.9321899",
         "lng": "-55.4454453"
@@ -37,6 +47,8 @@
     {
         "nombre": "San Conrado",
         "id": 6,
+        "localidad": "9 de Julio",
+        "departamento": "Eldorado",
         "cue": "540037100",
         "lat": "-26.411087",
         "lng": "-54.5260595"
@@ -44,6 +56,8 @@
     {
         "nombre": "Santísima Trinidad",
         "id": 7,
+        "localidad": "Colonia Alicia",
+        "departamento": "Veinticinco de Mayo",
         "cue": "540133800",
         "lat": "-27.3768842",
         "lng": "-54.3439078"
@@ -51,6 +65,8 @@
     {
         "nombre": "San Antonio",
         "id": 8,
+        "localidad": "Azara",
+        "departamento": "Apóstoles",
         "cue": "540161900",
         "lat": "-28.0214259",
         "lng": "-55.7045835"
@@ -58,6 +74,8 @@
     {
         "nombre": "San Bonifacio",
         "id": 9,
+        "localidad": "Aristóbulo del Valle",
+        "departamento": "Cainguás",
         "cue": "540092800",
         "lat": "-27.1337252",
         "lng": "-54.9094609"
@@ -65,6 +83,8 @@
     {
         "nombre": "Jesús de Galilea",
         "id": 10,
+        "localidad": "Dos de Mayo",
+        "departamento": "Cainguás",
         "cue": "540126200",
         "lat": "-27.0256514",
         "lng": "-54.6765797"
@@ -72,6 +92,8 @@
     {
         "nombre": "Santos Mártires",
         "id": 11,
+        "localidad": "Mártires",
+        "departamento": "Candelaria",
         "cue": "540175700",
         "lat": "-27.4228906",
         "lng": "-55.3731775"
@@ -79,6 +101,8 @@
     {
         "nombre": "San Cristóbal",
         "id": 12,
+        "localidad": "Fachinal",
+        "departamento": "Capital",
         "cue": "540130900",
         "lat": "-27.632927",
         "lng": "-55.7315713"
@@ -86,6 +110,8 @@
     {
         "nombre": "Anexo San Roque Gonzalez",
         "id": 13,
+        "localidad": "Pozo Azul",
+        "departamento": "San Pedro",
         "cue": "540037101",
         "lat": "-26.3740079",
         "lng": "-53.9331881"
@@ -93,6 +119,8 @@
     {
         "nombre": "Santa María Goretti",
         "id": 14,
+        "localidad": "Comandante Andresito",
+        "departamento": "General Manuel Belgrano",
         "cue": "540078100",
         "lat": "-25.682168",
         "lng": "-54.0434459"
@@ -100,6 +128,8 @@
     {
         "nombre": "San Bernardo",
         "id": 15,
+        "localidad": "Bernardo de Irigoyen",
+        "departamento": "General Manuel Belgrano",
         "cue": "540116800",
         "lat": "-26.1985554",
         "lng": "-53.6750973"
@@ -107,6 +137,8 @@
     {
         "nombre": "San Vicente de Paúl",
         "id": 16,
+        "localidad": "San Vicente",
+        "departamento": "Guaraní",
         "cue": "540061700",
         "lat": "-27.0042119",
         "lng": "-54.5006758"
@@ -114,6 +146,8 @@
     {
         "nombre": "Espíritu Santo",
         "id": 17,
+        "localidad": "El Soberbio",
+        "departamento": "Guaraní",
         "cue": "540057800",
         "lat": "-27.2995476",
         "lng": "-54.1994410"
@@ -121,6 +155,8 @@
     {
         "nombre": "San Arnoldo Janssen",
         "id": 18,
+        "localidad": "Puerto Esperanza",
+        "departamento": "Iguazú",
         "cue": "540131100",
         "lat": "-26.0307059",
         "lng": "-54.5965812"
@@ -128,6 +164,8 @@
     {
         "nombre": "Santa Teresita",
         "id": 19,
+        "localidad": "Leandro N. Alem",
+        "departamento": "Leandro N. Alem",
         "cue": "540055100",
         "lat": "-27.5980947",
         "lng": "-55.2948843"
@@ -135,6 +173,8 @@
     {
         "nombre": "San Wendelino",
         "id": 20,
+        "localidad": "Capioví",
+        "departamento": "Libertador General San Martín",
         "cue": "540090800",
         "lat": "-26.890669",
         "lng": "-55.0598638"
@@ -142,6 +182,8 @@
     {
         "nombre": "San José Freinademetz",
         "id": 21,
+        "localidad": "Caraguatay",
+        "departamento": "Montecarlo",
         "cue": "540131400",
         "lat": "-26.6556368",
         "lng": "-54.7407134"
@@ -149,6 +191,8 @@
     {
         "nombre": "Anexo Perutí",
         "id": 22,
+        "localidad": "Montecarlo",
+        "departamento": "Montecarlo",
         "cue": "540131401",
         "lat": "-26.5674207",
         "lng": "-54.7590379"
@@ -156,6 +200,8 @@
     {
         "nombre": "Padre José Marx",
         "id": 23,
+        "localidad": "Campo Viera",
+        "departamento": "Oberá",
         "cue": "540175600",
         "lat": "-27.3339405",
         "lng": "-55.074667"
@@ -163,6 +209,8 @@
     {
         "nombre": "Padre Antonio Sepp",
         "id": 24,
+        "localidad": "25 de Mayo",
+        "departamento": "Veinticinco de Mayo",
         "cue": "540003800",
         "lat": "-27.3562452",
         "lng": "-54.7539306"

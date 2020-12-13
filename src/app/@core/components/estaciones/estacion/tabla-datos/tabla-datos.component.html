@@ -3,7 +3,7 @@
     <ng-container matColumnDef="fecha">
       <th mat-header-cell *matHeaderCellDef>Fecha.</th>
       <td mat-cell *matCellDef="let element"> 
-        <span class="date-t">{{element.fecha}}</span>
+        <span class="date-t">{{element.fecha | date:'dd/MM/yy HH:mm':'UTC'}}</span>
       </td>
     </ng-container>
     <ng-container matColumnDef="temperatura">

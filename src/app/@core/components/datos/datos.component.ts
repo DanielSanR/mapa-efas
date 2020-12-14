@@ -52,7 +52,7 @@ export class DatosComponent implements OnInit {
  
  
   fixedDias = Array();
-
+ 
   breakpoint: number;
   dateMax = moment(); // variable para almacenar fecha actual
   dateMin  = moment(); // var para definir el rango minimo del datapicker, en este caso fecha actual -1 año
@@ -185,24 +185,33 @@ buscarDatos(): void{
      else {
      
        
-      /* this.addData(); */
+      if  (this.checkStatus === true) {
+        this._DATOSXFECHA.getProtoipoByID(this.selected.id
+                                                ).subscribe(
+                result => {
+                  this.datos = this.limpiar(result, this.formulario.controls.fechaInicio.value,
+                    this.formulario.controls.fechaFin.value);
+                  this.prototipo_nombre = this.selected.nombre;
+              }),
+             error => {
+              console.log(error as any);
+             
+         }
       
-      this._DATOSXFECHA.getProtoipoByID(this.selected.id
-                                        ).subscribe(
-        result => {
-          this.datos = this.limpiar(result, this.formulario.controls.fechaInicio.value,
-            this.formulario.controls.fechaFin.value);
-          this.prototipo_nombre = this.selected.nombre;
+       
 
-
-     },
-     error => {
-      console.log(error as any);
-     }
-   );
-      this.tablaStatus = true;
-
-  }
+    }
+  else {
+    this._DATOSXFECHA.getDatosHorarios().subscribe(
+result => { this.datos = this.cambiarFecha(result,this.formulario.controls.fechaInicio.value); 
+      
+      
+  });
+  //para que coincidan las fechas del json y del formulario, reemplazamos la del json
+  
+ }
+}
+    this.tablaStatus = true;
 }
 
 // funcion que limpia el json, deja solamente los dias que son consultados por el form
@@ -244,6 +253,7 @@ limpiar(result: any, fecha1: string, fecha2: string){
 
 // caso de que el checkbox sea false, mostramos solo los datos del dia elegído
  } else 
+   
      {  for ( let j = 0; j < datos.length; j++){
       const datoc = moment(new Date(datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
       if ( (moment(new Date(f1)).format('YYYY-MM-DD') === datoc)){
@@ -261,6 +271,30 @@ limpiar(result: any, fecha1: string, fecha2: string){
   
  
 
+}
+
+cambiarFecha (result: any, fecha1: string) {
+ let mySet =new Set()
+  let f1 = moment(fecha1).format('YYYY-MM-DD');
+  let f2 = moment(f1).toDate(); 
+  console.log(f2);
+  let datos: any = result;
+   mySet.add(moment(f2).format('YYYY-MM-DD 00:00'));
+  let h= 0
+  for ( let i =0 ; i <= 20; i++){
+     
+      let hora = moment(datos[i].datoxFecha.fecha).format('HH');
+      f2.setHours(Number(hora));
+     /*  console.log(hora); */
+    
+       
+      
+      datos[i].datoxFecha.fecha =moment(new Date(f2)).format('YYYY-MM-DD '+h+':mm');
+      h=h+1
+
+  }
+  this.fixedDias = Array.from(mySet);
+      return datos
 }
 // institucionId: number, prototipoId: number
 simulargetDatosEstacion( ): void{

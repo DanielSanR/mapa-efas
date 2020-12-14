@@ -275,6 +275,7 @@ limpiar(result: any, fecha1: string, fecha2: string){
 
 cambiarFecha (result: any, fecha1: string) {
  let mySet =new Set()
+ const datos2: any = [];
   let f1 = moment(fecha1).format('YYYY-MM-DD');
   let f2 = moment(f1).toDate(); 
   console.log(f2);
@@ -291,10 +292,11 @@ cambiarFecha (result: any, fecha1: string) {
       
       datos[i].datoxFecha.fecha =moment(new Date(f2)).format('YYYY-MM-DD '+h+':mm');
       h=h+1
+      datos2.push(datos[i]);
 
   }
   this.fixedDias = Array.from(mySet);
-      return datos
+      return datos2
 }
 // institucionId: number, prototipoId: number
 simulargetDatosEstacion( ): void{

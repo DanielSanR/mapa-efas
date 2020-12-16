@@ -232,6 +232,7 @@ limpiar(result: any, fecha1: string, fecha2: string){
       
   for (let i =  0; i <= dias ; i++) {
     arrDias.push((moment(new Date(f1)).add(i , 'days')).format('YYYY-MM-DD'));
+     
   }
   datos.forEach( (dato: { datoxFecha: { fecha: string | number | Date; }; }) => {
     const datoc = moment(new Date(dato.datoxFecha.fecha)).format('YYYY-MM-DD');
@@ -245,7 +246,9 @@ limpiar(result: any, fecha1: string, fecha2: string){
     // tslint:disable-next-line: prefer-for-of
     for ( let j = 0; j < datos.length; j++){
         const datoc = moment(new Date(datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
+         
         if ( this.fixedDias[i] === datoc){
+        
         datos2.push(datos[j]);
         }
     }
@@ -257,6 +260,7 @@ limpiar(result: any, fecha1: string, fecha2: string){
      {  for ( let j = 0; j < datos.length; j++){
       const datoc = moment(new Date(datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
       if ( (moment(new Date(f1)).format('YYYY-MM-DD') === datoc)){
+       
       datos2.push(datos[j]);
      
       }
@@ -264,7 +268,7 @@ limpiar(result: any, fecha1: string, fecha2: string){
   //simulo el primer dato y envio a graf horario
   mySet.add(moment(new Date(f1)).format('YYYY-MM-DD 00:00'))
   this.fixedDias = Array.from(mySet);
-  console.log(this.fixedDias);
+ 
  }
  
   return datos2;
@@ -278,15 +282,16 @@ cambiarFecha (result: any, fecha1: string) {
  const datos2: any = [];
   let f1 = moment(fecha1).format('YYYY-MM-DD');
   let f2 = moment(f1).toDate(); 
-  console.log(f2);
   let datos: any = result;
    mySet.add(moment(f2).format('YYYY-MM-DD 00:00'));
   let h= 0
-  for ( let i =0 ; i <= 20; i++){
+  let hora_actual = moment(this.formulario.controls.fechaInicio.value).format('HH')
+   
+  for ( let i =0 ; i <= Number(hora_actual); i++){
      
       let hora = moment(datos[i].datoxFecha.fecha).format('HH');
       f2.setHours(Number(hora));
-     /*  console.log(hora); */
+     
     
        
       

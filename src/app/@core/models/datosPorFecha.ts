@@ -1,5 +1,5 @@
 import { DatoAmbiental } from './datoAmbiental';
 export class datoPorFecha  {
-    DatosAmbientales: DatoAmbiental[];
+    datosAmbientales: DatoAmbiental[];
     fecha:string;
 }

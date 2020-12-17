@@ -4,7 +4,8 @@ import { default as _rollupMoment, Moment } from 'moment';
 import * as Highcharts from 'highcharts';
 import more from 'highcharts/highcharts-more';
 import { ChangeDetectorRef } from '@angular/core';
-import { DatosService } from '../../../services/datos.service';
+import { datoPorFecha } from '@core/models/datosPorFecha';
+import { PrototipoDatos } from '@core/models/prototipoDatos';
 
 @Component({
   selector: 'app-grafico-horario',
@@ -15,49 +16,47 @@ export class GraficoHorarioComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts; // required
   chartOptions: Highcharts.Options; // required
   updateFlag: boolean; // optional boolean
-
   flag: boolean;
   optionsC: any;
   arrFech : any;
-  datos: any;
-@Input() fechas: any;
+  datosGrafico : datoPorFecha[]
+  @Input() datos: PrototipoDatos;
+  @Input() fechas: any;
 
-  constructor(private cdref: ChangeDetectorRef,private _DATOSHORARIOS: DatosService) { 
+  constructor(private cdref: ChangeDetectorRef) { 
     
       
     
   }
 
   ngOnInit(): void {
-   
-    this._DATOSHORARIOS.getDatosHorarios().subscribe( result => {
-      this.datos=result; 
-      this.addData();
-     });
+    this.addData();
+    
 
   }
 addData(){ 
    this.arrFech = Object.values(this.fechas);
   const checkbox   = true;
- 
+  let arrFechas = []
+  this.datosGrafico = this.datos.datosPorFecha
   if (checkbox){
     const mDatos = new Array(25);
     for ( let i = 0; i < 25; i++){
       mDatos[i] = new Array(3);
     } 
-    for ( let i = 0; i < this.datos.length; i++){
-             
-              mDatos[i][0] = this.datos[i].datoxFecha.datosAmbientales.viento;
-              mDatos[i][1] = this.datos[i].datoxFecha.datosAmbientales.temperatura;
-              mDatos[i][2] = this.datos[i].datoxFecha.datosAmbientales.radiacion;
-              mDatos[i][3] = this.datos[i].datoxFecha.datosAmbientales.precipitacion;
-              mDatos[i][4] = this.datos[i].datoxFecha.datosAmbientales.humedad_ambiente;
-              mDatos[i][5] = this.datos[i].datoxFecha.datosAmbientales.humedad_suelo;
+    for ( let i = 0; i < this.datosGrafico.length; i++){
+      arrFechas.push(this.datosGrafico[i].fecha);      
+      mDatos[i][0] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
+      mDatos[i][1] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
+      mDatos[i][2] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
+      mDatos[i][3] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
+      mDatos[i][4] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
+      mDatos[i][5] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
         
        
  }
-    if (this.datos.length > 0 ){
-    this.crearGrafico(mDatos, this.fechas);
+    if (this.datosGrafico.length > 0 ){
+    this.crearGrafico(mDatos,arrFechas);
 
     this.flag = false;
 }
@@ -88,8 +87,10 @@ crearGrafico(datos: any, dias: any[]): void{
     this.optionsC = {
       chart: {
         type: 'spline',
+        alignTicks: false,
         height: 300,
         zoomType: 'x',
+        animation: true,
         renderTo: 'container'
       },
       title: {
@@ -120,11 +121,12 @@ crearGrafico(datos: any, dias: any[]): void{
           label: {
             connectorAllowed: false
           },
-          pointStart: moment.utc(this.arrFech[0]).valueOf(),
-          pointInterval: 3600 * 1000 * 1,
+          pointStart: moment.utc(dias[0]).valueOf(),
+          pointInterval:  ( 60 * 1/12 ) * 1000 * 1,
         }
       },
       series: [{
+        
         name: 'Viento',
         data: arrViento,
         tooltip: {

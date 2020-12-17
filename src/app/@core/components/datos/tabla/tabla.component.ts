@@ -3,7 +3,8 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Prototipo } from '../../../models/prototipo';
+import { PrototipoDatos } from '../../../models/prototipoDatos';
+import { datoPorFecha } from '../../../models/datosPorFecha';
  
 @Component({
   selector: 'app-tabla',
@@ -11,28 +12,37 @@ import { Prototipo } from '../../../models/prototipo';
   styleUrls: ['./tabla.component.css']
 })
 // 'position', 'desc',
-export class TablaComponent implements AfterViewInit {
-  dataSource: MatTableDataSource<Prototipo[]>;
+export class TablaComponent implements OnInit,AfterViewInit {
+  datosPrototipo : PrototipoDatos;
+  dataSource: MatTableDataSource<datoPorFecha>;
   displayedColumns: string[] = [
-  'datoxFecha',
-  'temperatura',
-  'humedad_ambiente',
-  'humedad_suelo',
+  'fecha',
+  'temperaturaAmbiente',
+  'humedadAmbiente',
+  'humedadSuelo',
   'viento',
-  'precipitacion',
-  'radiacion'];
+  'precipitaciones',
+  'luz'];
 
   // tslint:disable-next-line: variable-name
-@Input() set dato_form(prototipo: any){
-    this.dataSource = new MatTableDataSource<any>(prototipo); // console.log(this.dataSource.data);
+  // []
+ @Input() set dato_form(prototipo: PrototipoDatos){
  
-    this.dataSource.paginator = this.paginator;
-    }
+    const arr = prototipo.datosPorFecha
+ 
+    this.dataSource = new MatTableDataSource<datoPorFecha>(arr); // console.log(this.dataSource.data);
+  
+  
+    } 
 
 
 constructor() { }
+  ngOnInit(): void {
+  
+  }
 @ViewChild(MatPaginator) paginator: MatPaginator;
 ngAfterViewInit() {
+  this.dataSource.paginator = this.paginator;
     
   }
 

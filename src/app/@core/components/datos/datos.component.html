@@ -101,16 +101,16 @@
                             <div fxFlex fxLayout="row" fxLayout.sm="row" fxLayout.xs="row" fxLayout.lg="row" fxLayoutAlign="space-between center">
                                 <div fxFlex fxLayoutAlign="none">
                                     <div fxflex class="contenedor-datos-sup" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                        <h2 fxflex class="temp-u-datos">30°C</h2>
-                                        <p fxFlex class="viento-u-datos"> <img src="assets/images/icons_modal/icons_dire_wind/icons-blue/icon-nwe.png" alt="icono vel viento"> 6km/h</p>
-                                        <p fxFlex class="humedad-u-datos"><img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento"> 30% </p>
+                                        <h2 fxflex class="temp-u-datos">{{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}°C</h2>
+                                        <p fxFlex class="viento-u-datos"> <img src="assets/images/icons_modal/icons_dire_wind/icons-blue/icon-nwe.png" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}km/h</p>
+                                        <p fxFlex class="humedad-u-datos"><img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}% </p>
 
 
                                     </div>
 
                                     <div fxflex class="contenedor-proto-localidad" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
                                         <h1 class="prototipo-u-datos" fxFlex>Prototipo1</h1>
-                                        <p fxFlex class="localidad-u-datos"> San Ignacio de Loyola</p>
+                                        <p fxFlex class="localidad-u-datos"> {{selected.nombre}}</p>
                                     </div>
                                 </div>
                                 <div fxflex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
@@ -130,20 +130,20 @@
 
                                 <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
                                     <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/hum_icon_w_2.png" alt="icono humedad"> HUMEDAD SUELO </div>
-                                    <div fxflex class="sub-u-datos-d"> 50%</div>
+                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}%</div>
                                 </div>
 
 
                                 <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
                                     <div fxflex class="sub-u-datos"><img src="assets/images/icons_modal/pp_icon_w_2.png" alt="icono precipitacion"> PRECIPITACIÓN </div>
-                                    <div fxflex class="sub-u-datos-d"> 110(mm)</div>
+                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}(mm)</div>
                                 </div>
 
                             </div>
                             <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
                                 <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
                                     <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/uv.png" alt="icono  uv"> INDICE UV </div>
-                                    <div fxflex class="sub-u-datos-d"> BAJO ( 1 )</div>
+                                    <div fxflex class="sub-u-datos-d"> BAJO ( {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}})</div>
                                 </div>
 
                                 <!--   <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
@@ -188,9 +188,13 @@
 
             </mat-tab>
             <mat-tab label="Listado de Datos">
-
-
-                <app-tabla *ngIf="tablaStatus" [dato_form]="datos"></app-tabla>
+                <!--  va a servir para ver como envio los datos a tablaComponent mas adelante. -->
+                <div *ngIf="tablaStatus && single === false">
+                    <app-tabla [dato_form]="datosPrototipo"></app-tabla>
+                </div>
+                <div *ngIf="tablaStatus && single === true">
+                    <app-tabla [dato_form]="datosPorfecha"></app-tabla>
+                </div>
 
 
             </mat-tab>
@@ -198,22 +202,22 @@
                 <div fxFlex="100%" fxFill>
                     <div fxLayout="column">
                         <ng-template matTabContent>
-                            <!--  <div class="card" *ngIf="chartOptions && !flag && checkStatus "> -->
-                            <app-grafico *ngIf="tablaStatus" [datos]="datos" [fechas]="fixedDias"></app-grafico>
+
+                            <app-grafico *ngIf="tablaStatus" [datos]="datosPrototipo" [fechas]="fixedDias"></app-grafico>
                         </ng-template>
                     </div>
-                    <!--  </div> -->
+
                 </div>
             </mat-tab>
             <mat-tab *ngIf="!checkStatus" label="Gráfico Horario">
                 <div fxFlex="100%" fxFill>
                     <div fxLayout="column">
                         <ng-template matTabContent>
-                            <!--  <div class="card" *ngIf="chartOptions && !flag && checkStatus "> -->
-                            <app-grafico-horario *ngIf="tablaStatus" [fechas]="fixedDias"></app-grafico-horario>
+
+                            <app-grafico-horario *ngIf="tablaStatus" [datos]="datosPrototipo" [fechas]="fixedDias"></app-grafico-horario>
                         </ng-template>
                     </div>
-                    <!--  </div> -->
+
                 </div>
             </mat-tab>
 

@@ -4,6 +4,8 @@ import { default as _rollupMoment, Moment } from 'moment';
 import * as Highcharts from 'highcharts';
 import more from 'highcharts/highcharts-more';
 import { ChangeDetectorRef } from '@angular/core';
+import { PrototipoDatos } from '@core/models/prototipoDatos';
+import { datoPorFecha } from '@core/models/datosPorFecha';
 
 
 @Component({
@@ -20,7 +22,8 @@ export class GraficoComponent  {
   flag: boolean;
   optionsC: any;
   arrFech : any;
-@Input() datos: any[] = [];
+  datosGrafico : datoPorFecha[]
+@Input() datos: PrototipoDatos;
 @Input() fechas: any;
  
   constructor(private cdref: ChangeDetectorRef) { }
@@ -39,6 +42,7 @@ export class GraficoComponent  {
   
    this.arrFech = Object.values(this.fechas);
   const checkbox   = true;
+  this.datosGrafico = this.datos.datosPorFecha
   if (checkbox){
     const mDatos = new Array(this.arrFech.length);
     for ( let i = 0; i < this.arrFech.length; i++){
@@ -49,19 +53,20 @@ export class GraficoComponent  {
     for ( let i = 0; i < this.arrFech.length; i++){
 
         // tslint:disable-next-line: prefer-for-of
-        for ( let j = 0; j < this.datos.length; j++){
-            const datoc = moment(new Date(this.datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
+        for ( let j = 0; j < this.datosGrafico.length; j++){
+            const datoc = moment(new Date(this.datosGrafico[j].fecha)).format('YYYY-MM-DD');
             if (this.arrFech[i] === datoc){
-              mDatos[i][0] = this.datos[j].datoxFecha.datosAmbientales.viento;
-              mDatos[i][1] = this.datos[j].datoxFecha.datosAmbientales.temperatura;
-              mDatos[i][2] = this.datos[j].datoxFecha.datosAmbientales.radiacion;
-              mDatos[i][3] = this.datos[j].datoxFecha.datosAmbientales.precipitacion;
-              mDatos[i][4] = this.datos[j].datoxFecha.datosAmbientales.humedad_ambiente;
-              mDatos[i][5] = this.datos[j].datoxFecha.datosAmbientales.humedad_suelo;
+              mDatos[i][0] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
+              mDatos[i][1] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
+              mDatos[i][2] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
+              mDatos[i][3] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
+              mDatos[i][4] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
+              mDatos[i][5] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
             }
         }
  }
     if (this.arrFech.length > 0 ){
+     
     this.crearGrafico(mDatos, this.fechas);
 
     this.flag = false;

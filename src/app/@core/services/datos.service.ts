@@ -4,6 +4,8 @@ import { Observable  } from 'rxjs';
 import { Prototipo } from '@core/models/prototipo';
 import * as moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
+import { PrototipoDatos } from '../models/prototipoDatos';
+import { datoPorFecha } from '../models/datosPorFecha';
  
 @Injectable({
   providedIn: 'root'
@@ -11,11 +13,11 @@ import { default as _rollupMoment, Moment } from 'moment';
 export class DatosService {
  
   url: string;
-
+  
 
   constructor(private _http: HttpClient) {
     /* //TODO */
-    this.url = '';
+    this.url = 'http://192.168.10.116:50000/api';
 
   }
 
@@ -28,17 +30,21 @@ export class DatosService {
   getProtoipoByID(id: number): Observable<Prototipo[]> {
  
 
-    return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
+    return this._http.get<any>(this.url);
 }
 
 getDatos(id: number ): Observable<Prototipo[]> {
   return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
 }
-getDatosRangeDate(id: number ): Observable<Prototipo[]> {
-  return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
+getByRange(id: number,start: Date, end : Date ): Observable<PrototipoDatos> {
+  return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/1/'+start+'/'+end);
+}
+getByDay(id: number,start: Date): Observable<PrototipoDatos> {
+  return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/1/'+start+'/'+start);
 }
 
-getDatosHorarios(): Observable<Prototipo[]> {
-  return this._http.get<any>('assets/jsons/datos_horarios_prototipo1.json');
+getDatosHorarios(id: number): Observable<datoPorFecha[]> {
+  return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/'+id);
 }
+
 }

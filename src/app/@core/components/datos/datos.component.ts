@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, AfterViewInit, ViewChild, ViewChildren, Input } from '@angular/core';
+import { Component, OnInit, QueryList, AfterViewInit, ViewChild, ViewChildren, Input, ɵConsole } from '@angular/core';
 import instituciones from '../../../../assets/jsons/instituciones_nombres.json';
 import Prototipos from '../../../../assets/jsons/prototipos.json';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,6 +21,9 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import { GraficoComponent } from './grafico/grafico.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
+import { PrototipoDatos } from '../../models/prototipoDatos';
+import { datoPorFecha } from '@core/models/datosPorFecha';
+ 
 
  
 
@@ -52,12 +55,16 @@ export class DatosComponent implements OnInit {
  
  
   fixedDias = Array();
- 
+  single : boolean;
   breakpoint: number;
   dateMax = moment(); // variable para almacenar fecha actual
   dateMin  = moment(); // var para definir el rango minimo del datapicker, en este caso fecha actual -1 año
   hasta = new Date();
   prototiposArr: Prototipo[];
+  datosPrototipo : PrototipoDatos; // datos con rangos de fecha
+  datosPorfecha : datoPorFecha[] // datos diarios, sin rango de fecha
+  ultimosDatos : datoPorFecha;
+  datosAmib
   selected: Prototipo;
   tablaStatus = false;
   options: Institucion[] = instituciones;
@@ -176,6 +183,8 @@ buscarDatos(): void{
  
  // Falta verificar si es por rango o no
      this.selectedIndex = 0;
+     this.tablaStatus = false;
+     let delay = 0
      if  (this.formulario.invalid){
        return Object.values(this.formulario.controls).forEach(control => {
         this.tablaStatus = false;
@@ -184,14 +193,17 @@ buscarDatos(): void{
      }
      else {
      
-       
+       //datos por rango de fechas
       if  (this.checkStatus === true) {
-        this._DATOSXFECHA.getProtoipoByID(this.selected.id
+        this.single = false;
+        delay= 12000 
+        console.log(this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD'))
+        this._DATOSXFECHA.getByRange(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD'),this.formulario.controls.fechaFin.value.format('YYYY-MM-DD')
                                                 ).subscribe(
                 result => {
-                  this.datos = this.limpiar(result, this.formulario.controls.fechaInicio.value,
-                    this.formulario.controls.fechaFin.value);
-                  this.prototipo_nombre = this.selected.nombre;
+                
+                this.datosPrototipo=result;
+                  this.prototipo_nombre = this.selected.nombre; 
               }),
              error => {
               console.log(error as any);
@@ -201,83 +213,60 @@ buscarDatos(): void{
        
 
     }
-  else {
-    this._DATOSXFECHA.getDatosHorarios().subscribe(
-result => { this.datos = this.cambiarFecha(result,this.formulario.controls.fechaInicio.value); 
+    //datos por una sola fecha
+  else
+   {    this.single = false;
+        delay= 12000
+         
+        this._DATOSXFECHA.getByDay(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD')
+                                                ).subscribe(
+                result => {
+                
+                this.datosPrototipo=result;
+                  this.prototipo_nombre = this.selected.nombre; 
+              }),
+             error => {
+              console.log(error as any);
+             
+         }
       
-      
-  });
-  //para que coincidan las fechas del json y del formulario, reemplazamos la del json
+       
+
+    }
+}
+setTimeout(() => {
+  this.ultimosDatos = this.datosPrototipo.datosPorFecha[this.datosPrototipo.datosPorFecha.length - 1]
   
- }
-}
-    this.tablaStatus = true;
+  this.tablaStatus = true;
+  this.calculateDayDiff(this.datosPrototipo.datosPorFecha, this.formulario.controls.fechaInicio.value,
+    this.formulario.controls.fechaFin.value)
+}, delay);
+    
 }
 
-// funcion que limpia el json, deja solamente los dias que son consultados por el form
 
-limpiar(result: any, fecha1: string, fecha2: string){
+calculateDayDiff(result: any, fecha1: string, fecha2: string){
+ 
   const f1 = fecha1;
   const f2 = moment(fecha2);
   const dias = f2.diff(f1, 'days');
   const arrDias = [];
   const datos: any = result;
-  const datos2: any = [];
-
-  const mySet = new Set(); 
- // if que evalua el checkbox, para filtrar manualmente los datos.
- //si es verdadero, mostramos los datos de dicho rango de fechas
- if   (this.checkStatus === true) {
-      
-      
+  const mySet = new Set();
   for (let i =  0; i <= dias ; i++) {
     arrDias.push((moment(new Date(f1)).add(i , 'days')).format('YYYY-MM-DD'));
      
   }
-  datos.forEach( (dato: { datoxFecha: { fecha: string | number | Date; }; }) => {
-    const datoc = moment(new Date(dato.datoxFecha.fecha)).format('YYYY-MM-DD');
+  datos.forEach( dato => {
+    const datoc = moment(new Date(dato.fecha)).format('YYYY-MM-DD');
     if ( arrDias.indexOf(datoc) !==  -1){
       mySet.add(datoc);
     }
    });
    this.fixedDias = Array.from(mySet);
-   for ( let i = 0; i < this.fixedDias.length; i++){
-
-    // tslint:disable-next-line: prefer-for-of
-    for ( let j = 0; j < datos.length; j++){
-        const datoc = moment(new Date(datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
-         
-        if ( this.fixedDias[i] === datoc){
-        
-        datos2.push(datos[j]);
-        }
-    }
-} 
-
-// caso de que el checkbox sea false, mostramos solo los datos del dia elegído
- } else 
-   
-     {  for ( let j = 0; j < datos.length; j++){
-      const datoc = moment(new Date(datos[j].datoxFecha.fecha)).format('YYYY-MM-DD');
-      if ( (moment(new Date(f1)).format('YYYY-MM-DD') === datoc)){
-       
-      datos2.push(datos[j]);
-     
-      }
-  }
-  //simulo el primer dato y envio a graf horario
-  mySet.add(moment(new Date(f1)).format('YYYY-MM-DD 00:00'))
-  this.fixedDias = Array.from(mySet);
- 
- }
- 
-  return datos2;
-  
- 
-
 }
 
-cambiarFecha (result: any, fecha1: string) {
+/* cambiarFecha (result: any, fecha1: string) {
  let mySet =new Set()
  const datos2: any = [];
   let f1 = moment(fecha1).format('YYYY-MM-DD');
@@ -302,7 +291,7 @@ cambiarFecha (result: any, fecha1: string) {
   }
   this.fixedDias = Array.from(mySet);
       return datos2
-}
+} */
 // institucionId: number, prototipoId: number
 simulargetDatosEstacion( ): void{
  

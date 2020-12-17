@@ -12,10 +12,10 @@ import { Prototipo } from '@core/models/prototipo';
 })
 export class TablaDatosComponent implements AfterViewInit {
   
-  displayedColumns: string[] = ['fecha', 'temperatura', 'humedad_ambiente', 'humedad_suelo', 'viento', 'precipitacion', 'radiacion'];
+  displayedColumns: string[] = ['fecha', 'temperatura', 'humedad_ambiente', 'humedad_suelo', 'viento', 'direccion_viento', 'lluvia', 'precipitacion', 'radiacion'];
   dataSource: MatTableDataSource<any> ;
 
-  @Input() set array_data(arr:any[]){
+  @Input() set array_data_weather(arr:any[]){
     this.dataSource = new MatTableDataSource<any>(arr);
   };
 

@@ -67,8 +67,9 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            <img src="assets/images/icons_modal/icons_dire_wind/icons-w/{{icon_d_wind}}.png" alt="icono_dire_viento" style="margin-right: 3px;">
-                            {{last_data_day['viento']}}<span class="unity-data">km/h</span>
+                            <img src="assets/images/icons_modal/icons_dire_wind/icons-w/{{icon_d_wind}}.png" alt="icono_dire_viento" style="margin-right: 3px; width: 21px!important;">
+                            {{last_data_day['viento']}}
+                            <span class="unity-data">km/h</span>
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
@@ -105,11 +106,11 @@
             </mat-card>
         </div>
         <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
-            <div fxflex class="content-u-act"> Ultima Actualización : {{ last_data_day['fecha'] | date:'dd/MM/yy HH:mm':'UTC'}}</div>
+            <div fxflex class="content-u-act"> Ultima Actualización : {{ last_data_day['fecha'] | date:'dd/MM/yyyy HH:mm':'UTC'}}</div>
         </div>
     </mat-tab>
     <mat-tab label="DATOS DEL DÍA"> 
-        <app-tabla-datos [array_data]="array_data"></app-tabla-datos>
+        <app-tabla-datos [array_data_weather]="array_data_weather"></app-tabla-datos>
     </mat-tab>
     <mat-tab label="MÁS DATOS"> 
         <button mat-raised-button id="btn-advance-search" (click)="redirectDatos()">BUSCAR MÁS DATOS</button>

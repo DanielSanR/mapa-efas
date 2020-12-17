@@ -11,13 +11,12 @@ export class InstitucionesService{
 	
 
 	constructor( private _http: HttpClient ) {
-		//TODO: agregar url
-		this.url = 'http://educaciondigitalmisiones.com:50000/';
+		this.url = 'http://ambient.siliconmisiones.gob.ar/api/institucion/';
 	}
 
 	//TODO: descomentar
 	/* getInstitucion():Observable<Institucion[]> {
-		return this._http.get<Institucion[]>(this.url+'institucion/');
+		return this._http.get<Institucion[]>(this.url);
 	} */
 
 	//TODO: DATOS LOCALES 'assets/jsons/*'

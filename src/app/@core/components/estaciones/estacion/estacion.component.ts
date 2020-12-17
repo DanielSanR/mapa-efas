@@ -6,26 +6,26 @@ import { DatePipe } from '@angular/common';
 import { EstacionService } from '@core/services/estacion.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-estacion',
   templateUrl: './estacion.component.html',
   styleUrls: ['./estacion.component.css']
 })
 
-
 export class EstacionComponent implements OnInit {
 
-  institution_id:number;
+  institution_id: number;
   stationData: Prototipo;
   latest_environmental_data: any;
   current_date: Date = new Date();
   current_date_formatted: any;
   prototype_id: number;
+  data_prototype: any[] = [];
   last_data_prototype: any;
-  datas_prototype: any[] = [];
-  array_data:any[];
+  array_data_weather:any[];
   last_data_day:any = [];
-  icon_d_wind: string = 'icon-nwe-w';
+  icon_d_wind: string = 'icon-north-w';
   
   constructor(  private _estacionService: EstacionService,
                 private router: Router,
@@ -42,31 +42,43 @@ export class EstacionComponent implements OnInit {
     this.getDataPrototype(this.prototype_id, this.current_date_formatted);
   }
 
-
   private getDataPrototype(prototype_id:number, current_date_formatted:any) {
+    //TODO:sacar datos estaticos
+    prototype_id = 1;
+    current_date_formatted = '2020-01-31'; 
     this.last_data_prototype = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(result => {
-      this.datas_prototype = result;
-      this.array_data = [];
-      this.datas_prototype.forEach( dato => {
-        var data_weather = {}
-        data_weather = {
-              fecha: dato.datoxFecha.fecha,
-              temperatura: dato.datoxFecha.datosAmbientales.temperatura,
-              humedad_ambiente: dato.datoxFecha.datosAmbientales.humedad_ambiente,
-              humedad_suelo: dato.datoxFecha.datosAmbientales.humedad_suelo,
-              viento: dato.datoxFecha.datosAmbientales.viento,
-              precipitacion: dato.datoxFecha.datosAmbientales.precipitacion,
-              radiacion: dato.datoxFecha.datosAmbientales.radiacion,
-        }
+      const array_aux_result = new Array(result);
+      this.array_data_weather = [];
+      array_aux_result.forEach(dato => {
 
-        this.array_data.push(data_weather);
+        var data_weather = {}
+        let obj_datosAmbientales = dato['datosAmbientales'];
+
+        data_weather = {
+          fecha: dato['fecha'],
+          temperatura: obj_datosAmbientales.temperaturaAmbiente,
+          humedad_ambiente: obj_datosAmbientales.humedadAmbiente,
+          humedad_suelo: obj_datosAmbientales.humedadSuelo,
+          radiacion: obj_datosAmbientales.luz,
+          viento: obj_datosAmbientales.viento,
+          direccion_viento: 'NORTE',
+          lluvia: obj_datosAmbientales.lluvia,
+          precipitacion: obj_datosAmbientales.precipitaciones
+        }
+        this.array_data_weather.push(data_weather);
       });
-      
-      this.last_data_day = this.array_data[this.array_data.length - 1];
+
+      if(this.array_data_weather.length > 1) {
+        this.last_data_day = this.array_data_weather[this.array_data_weather.length - 1]
+      } else  {
+        this.last_data_day = this.array_data_weather[0];
+      } 
+
     });
     
   }
   
+
   public redirectDatos() {
     this.dialogRef.close();
     this.router.navigate(['/datos',{ inst_id: this.institution_id, protype_id: this.prototype_id }]);

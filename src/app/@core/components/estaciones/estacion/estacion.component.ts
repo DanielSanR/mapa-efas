@@ -62,9 +62,9 @@ export class EstacionComponent implements OnInit {
         const useContext = ({temperaturaAmbiente= 0, 
                              humedadAmbiente= 0,
                              humedadSuelo= 0,
-                             luz= 97,
+                             luz= 0,
                              viento= 0,
-                             direccionViento= 5,
+                             direccionViento= 0,
                              lluvia= 0, 
                              precipitaciones= 0 }) => {
 

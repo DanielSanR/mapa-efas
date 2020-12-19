@@ -27,8 +27,9 @@ export class EstacionComponent implements OnInit {
   last_data_prototype: any;
   array_data_weather:any[]= [];
   last_data_day:any = [];
-  array_d_wind:any[] = [ ['NORTE','icon-north-w.png'],['NORESTE','icon-ne-w.png'],['ESTE','icon-east-w.png'],['SURESTE','icon-se-w.png'],['SUR','icon-south-w.png'],['SUROESTE','icon-swe-w.png'],['OESTE','icon-west-w.png'],['NOROESTE','icon-nwe-w.png'] ];
-  icon_d_wind:string;
+  array_d_wind:any[] = [ ['NORTE','icon-north-w'],['NORESTE','icon-ne-w'],['ESTE','icon-east-w'],['SURESTE','icon-se-w'],['SUR','icon-south-w'],['SUROESTE','icon-swe-w'],['OESTE','icon-west-w'],['NOROESTE','icon-nwe-w'] ];
+  icon_d_wind:string = 'icon-north-w';
+  src_d_wind:string;
 
   constructor(  private _estacionService: EstacionService,
                 private router: Router,
@@ -63,7 +64,7 @@ export class EstacionComponent implements OnInit {
                              humedadSuelo= 0,
                              luz= 97,
                              viento= 0,
-                             direccionViento= 0,
+                             direccionViento= 5,
                              lluvia= 0, 
                              precipitaciones= 0 }) => {
 
@@ -90,6 +91,7 @@ export class EstacionComponent implements OnInit {
       if(this.array_data_weather.length > 1) {
         this.last_data_day = this.array_data_weather[this.array_data_weather.length - 1];
         this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1];
+        this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-w/'+ this.icon_d_wind +'.png';
       } else {
         this.last_data_day = this.array_data_weather[0];
       }

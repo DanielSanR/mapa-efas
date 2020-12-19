@@ -32,8 +32,8 @@ export class MarkerService {
   makeInstitutionsMarkers(map: L.map ,institutionsArray:Institucion[] ) {
 
     institutionsArray.forEach(element => {
-      
-      let marker = L.marker([element.lat, element.lng]);//TODO: CAMBIAR NOMBRE DE LAS COORDENADAS
+
+      let marker = L.marker([element.latitud, element.longitud]);
 
       marker.bindPopup(this._popupService.makeInstitutionsPopup(element));
 
@@ -58,7 +58,7 @@ export class MarkerService {
 
     stationsArray.forEach(element => {
       
-      let marker = L.marker([element.lat, element.lng]);//TODO: CAMBIAR NOMBRE DE LAS COORDENADAS
+      let marker = L.marker([element.latitud, element.longitud]);
 
       marker.bindPopup(this._popupService.makeStationsPopup(element));
 

@@ -3,7 +3,7 @@ export class Prototipo {
     nombre: string;
     localidad: string;
     departamento: string;
-    lat: string;
-    lng: string;
+    latitud: string;
+    longitud: string;
 }
 

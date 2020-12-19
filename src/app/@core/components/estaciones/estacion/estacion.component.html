@@ -37,7 +37,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            {{last_data_day['temperatura']}}°C
+                            {{last_data_day['temperaturaAmbiente']}}°C
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
@@ -52,7 +52,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            {{last_data_day['humedad_ambiente']}}% / {{last_data_day['humedad_suelo']}}%
+                            {{last_data_day['humedadAmbiente']}}% / {{last_data_day['humedadSuelo']}}%
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
@@ -67,9 +67,24 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            <img src="assets/images/icons_modal/icons_dire_wind/icons-w/{{icon_d_wind}}.png" alt="icono_dire_viento" style="margin-right: 3px; width: 21px!important;">
+                            <img src="assets/images/icons_modal/icons_dire_wind/icons-w/{{icon_d_wind}}" alt="icono_dire_viento" style="margin-right: 3px; width: 21px!important;">
                             {{last_data_day['viento']}}
                             <span class="unity-data">km/h</span>
+                        </figure>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-card>
+            <mat-card style="margin-top: 5px;">
+                <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <img src="assets/images/icons_modal/lluvia.png" alt="icono_lluvia">
+                            <strong>LLUVIA</strong>
+                        </figure>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            {{last_data_day['lluvia']}}<span class="unity-data">%</span>
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
@@ -84,7 +99,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            {{last_data_day['precipitacion']}}<span class="unity-data">(mm)</span>
+                            {{last_data_day['precipitaciones']}}<span class="unity-data">(mm)</span>
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
@@ -94,12 +109,12 @@
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-fc" >
                             <mat-icon id="icon_uv">wb_sunny</mat-icon>
-                            <strong>ÍNDICE UV</strong>
+                            <strong>LUZ</strong>
                         </figure>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            {{last_data_day['radiacion']}} de 10
+                            {{last_data_day['luz'] / 10}}
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
@@ -110,7 +125,7 @@
         </div>
     </mat-tab>
     <mat-tab label="DATOS DEL DÍA"> 
-        <app-tabla-datos [array_data_weather]="array_data_weather"></app-tabla-datos>
+        <app-tabla-datos [array_data]="array_data_weather"></app-tabla-datos>
     </mat-tab>
     <mat-tab label="MÁS DATOS"> 
         <button mat-raised-button id="btn-advance-search" (click)="redirectDatos()">BUSCAR MÁS DATOS</button>

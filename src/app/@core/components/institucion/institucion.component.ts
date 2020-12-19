@@ -16,9 +16,9 @@ export class InstitucionComponent implements OnInit {
   public map;
 
 	//public Instituciones:  Array<Institucion>;
-  public institutionsArray: Institucion[] = [];
+  institutionsArray: Institucion[] = [];
   zoom = 16;
-  public usersArray: Institucion[] = [];
+  /* public usersArray: Institucion[] = []; */
   
 
   constructor(private _institucionesService: InstitucionesService, private _markerService: MarkerService) { }
@@ -49,12 +49,13 @@ export class InstitucionComponent implements OnInit {
       result => {
 
         this.institutionsArray = result;
+        /* console.log(this.institutionsArray); */
         this._markerService.makeInstitutionsMarkers(this.map, this.institutionsArray);  
 
       },
       error => {
 
-        console.log(<any>error)
+        console.log('error _institucionesService.getInstitucion: ',<any>error)
 
       }
     );

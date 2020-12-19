@@ -5,6 +5,7 @@ import { TablaDatosComponent } from '@core/components/estaciones/estacion/tabla-
 import { DatePipe } from '@angular/common';
 import { EstacionService } from '@core/services/estacion.service';
 import { Router } from '@angular/router';
+import { PrototipoDatos } from '@core/models/prototipoDatos';
 
 
 @Component({
@@ -21,12 +22,14 @@ export class EstacionComponent implements OnInit {
   current_date: Date = new Date();
   current_date_formatted: any;
   prototype_id: number;
-  data_prototype: any[] = [];
+
+  data_prototype: any;
   last_data_prototype: any;
-  array_data_weather:any[];
+  array_data_weather:any[]= [];
   last_data_day:any = [];
-  icon_d_wind: string = 'icon-north-w';
-  
+  array_d_wind:any[] = [ ['NORTE','icon-north-w.png'],['NORESTE','icon-ne-w.png'],['ESTE','icon-east-w.png'],['SURESTE','icon-se-w.png'],['SUR','icon-south-w.png'],['SUROESTE','icon-swe-w.png'],['OESTE','icon-west-w.png'],['NOROESTE','icon-nwe-w.png'] ];
+  icon_d_wind:string;
+
   constructor(  private _estacionService: EstacionService,
                 private router: Router,
                 private datePipe: DatePipe, public dialogRef: MatDialogRef<EstacionComponent>,
@@ -42,38 +45,55 @@ export class EstacionComponent implements OnInit {
     this.getDataPrototype(this.prototype_id, this.current_date_formatted);
   }
 
-  private getDataPrototype(prototype_id:number, current_date_formatted:any) {
-    //TODO:sacar datos estaticos
+  public getDataPrototype(prototype_id:number, current_date_formatted:any) {
+    //TODO: sacar
     prototype_id = 1;
-    current_date_formatted = '2020-01-31'; 
-    this.last_data_prototype = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(result => {
-      const array_aux_result = new Array(result);
-      this.array_data_weather = [];
-      array_aux_result.forEach(dato => {
+    current_date_formatted = '2020-02-04'; 
 
-        var data_weather = {}
-        let obj_datosAmbientales = dato['datosAmbientales'];
+    this.last_data_prototype = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(res => {
 
-        data_weather = {
-          fecha: dato['fecha'],
-          temperatura: obj_datosAmbientales.temperaturaAmbiente,
-          humedad_ambiente: obj_datosAmbientales.humedadAmbiente,
-          humedad_suelo: obj_datosAmbientales.humedadSuelo,
-          radiacion: obj_datosAmbientales.luz,
-          viento: obj_datosAmbientales.viento,
-          direccion_viento: 'NORTE',
-          lluvia: obj_datosAmbientales.lluvia,
-          precipitacion: obj_datosAmbientales.precipitaciones
+      this.data_prototype = res;
+      this.data_prototype.datosPorFecha.forEach( dato_por_fecha => {
+        
+        let fecha = dato_por_fecha.fecha
+        let datosambientales = dato_por_fecha.datosAmbientales;
+        
+        const useContext = ({temperaturaAmbiente= 0, 
+                             humedadAmbiente= 0,
+                             humedadSuelo= 0,
+                             luz= 97,
+                             viento= 0,
+                             direccionViento= 0,
+                             lluvia= 0, 
+                             precipitaciones= 0 }) => {
+
+              return {
+                  temperaturaAmbiente: temperaturaAmbiente,
+                  humedadAmbiente: humedadAmbiente, 
+                  humedadSuelo: humedadSuelo,
+                  luz: luz,           
+                  viento: viento,
+                  direccionViento: direccionViento,
+                  lluvia: lluvia, 
+                  precipitaciones: precipitaciones,
+              }
         }
+
+        let data_weather = {};
+        data_weather = useContext(datosambientales);
+        data_weather['fecha'] = fecha;
+        data_weather['stringDireccionViento'] = this.array_d_wind[`${data_weather['direccionViento']}`][0];
         this.array_data_weather.push(data_weather);
+        
       });
 
       if(this.array_data_weather.length > 1) {
-        this.last_data_day = this.array_data_weather[this.array_data_weather.length - 1]
-      } else  {
+        this.last_data_day = this.array_data_weather[this.array_data_weather.length - 1];
+        this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1];
+      } else {
         this.last_data_day = this.array_data_weather[0];
-      } 
-
+      }
+      
     });
     
   }
@@ -84,4 +104,7 @@ export class EstacionComponent implements OnInit {
     this.router.navigate(['/datos',{ inst_id: this.institution_id, protype_id: this.prototype_id }]);
   }
 
+
 }
+
+

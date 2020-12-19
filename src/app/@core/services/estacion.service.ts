@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { datoPorFecha } from '@core/models/datosPorFecha';
+import { PrototipoDatos } from '@core/models/prototipoDatos';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,11 @@ export class EstacionService {
 
 
   //TODO: descomentar
-  getPrototypeLastData(prototype_id:number, current_date_formatted:any):Observable<datoPorFecha[]> {
-    return this._http.get<datoPorFecha[]>(this.url+prototype_id+'/'+current_date_formatted);
+  getPrototypeLastData(prototype_id:number, current_date_formatted:any):Observable<PrototipoDatos> {
+    /* return this._http.get<any>(this.url+prototype_id+'/'+current_date_formatted); */
+    return this._http.get<PrototipoDatos>('assets/jsons/datosDelDia.json');
   }
 
-  //TODO: DATOS LOCALES 'assets/jsons/*'
-  /* getPrototypeLastData(prototype_id:number, current_date_formatted:any):Observable<any[]> {
-    return this._http.get<any[]>('assets/jsons/datosDelDia.json');
-  } */
-
-
+ 
 
 }

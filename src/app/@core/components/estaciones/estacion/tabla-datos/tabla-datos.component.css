@@ -4,7 +4,6 @@ table {
 
 th.mat-header-cell {
   text-align: center;
-
 }
   
 td {
@@ -49,3 +48,6 @@ mat-paginator{
   display: block;
 }
 
+th.mat-header-cell:last-of-type {
+  padding-right: 12px;
+}

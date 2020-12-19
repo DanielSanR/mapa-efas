@@ -2,9 +2,9 @@
     {
         "id": 1,
         "nombre": "prototipo1",
-        "localidad":"San Vicente",
-        "departamento":"Guaraní",
-        "lat": "-27.0052128",
-        "lng": "-54.5005841"
+        "longitud": "-54.5005841",
+        "latitud": "-27.0052128",
+        "departamento": "San Ignacio",
+        "localidad": "San Ignacio"
     }
 ]

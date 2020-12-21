@@ -16,14 +16,12 @@ export class TablaDatosComponent implements AfterViewInit {
 
   @Input() set array_data(arr:any){
     this.dataSource = new MatTableDataSource(arr);
-    
   }
 
-
+ 
   ngAfterViewInit() {
-    setTimeout(() => this.dataSource.paginator = this.paginator);
+    setTimeout(() => {this.dataSource.paginator = this.paginator}, 1000);
   }
-  
   
   
 }

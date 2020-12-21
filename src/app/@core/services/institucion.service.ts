@@ -16,8 +16,8 @@ export class InstitucionesService{
 
 	
 	getInstitucion():Observable<Institucion[]> {
-		/* return this._http.get<Institucion[]>(this.url); */
-		return this._http.get<Institucion[]>('assets/jsons/instituciones.json');
+		return this._http.get<Institucion[]>(this.url);
+		/* return this._http.get<Institucion[]>('assets/jsons/instituciones.json'); */
 	}
 
 

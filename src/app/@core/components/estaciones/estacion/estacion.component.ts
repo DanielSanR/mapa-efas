@@ -47,58 +47,60 @@ export class EstacionComponent implements OnInit {
   }
 
   public getDataPrototype(prototype_id:number, current_date_formatted:any) {
-    //TODO: sacar
-    prototype_id = 1;
-    current_date_formatted = '2020-02-04'; 
-
+    
     this.last_data_prototype = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(res => {
 
       this.data_prototype = res;
-      this.data_prototype.datosPorFecha.forEach( dato_por_fecha => {
-        
-        let fecha = dato_por_fecha.fecha
-        let datosambientales = dato_por_fecha.datosAmbientales;
-        
-        const useContext = ({temperaturaAmbiente= 0, 
-                             humedadAmbiente= 0,
-                             humedadSuelo= 0,
-                             luz= 0,
-                             viento= 0,
-                             direccionViento= 0,
-                             lluvia= 0, 
-                             precipitaciones= 0 }) => {
+  
+      if(this.data_prototype.datosPorFecha === 0) {
+            this.data_prototype.datosPorFecha.forEach( dato_por_fecha => {
+              let fecha = dato_por_fecha.fecha;
+              let datosambientales = dato_por_fecha.datosAmbientales;
+              const useContext = ({temperaturaAmbiente= 0, 
+                                  humedadAmbiente= 0,
+                                  humedadSuelo= 0,
+                                  luz= 0,
+                                  viento= 0,
+                                  direccionViento= 0,
+                                  lluvia= 0, 
+                                  precipitaciones= 0 }) => {
 
-              return {
-                  temperaturaAmbiente: temperaturaAmbiente,
-                  humedadAmbiente: humedadAmbiente, 
-                  humedadSuelo: humedadSuelo,
-                  luz: luz,           
-                  viento: viento,
-                  direccionViento: direccionViento,
-                  lluvia: lluvia, 
-                  precipitaciones: precipitaciones,
+                    return {
+                        temperaturaAmbiente: temperaturaAmbiente,
+                        humedadAmbiente: humedadAmbiente, 
+                        humedadSuelo: humedadSuelo,
+                        luz: luz,           
+                        viento: viento,
+                        direccionViento: direccionViento,
+                        lluvia: lluvia, 
+                        precipitaciones: precipitaciones,
+                    }
               }
-        }
 
-        let data_weather = {};
-        data_weather = useContext(datosambientales);
-        data_weather['fecha'] = fecha;
+              let data_weather = {};
+              data_weather = useContext(datosambientales);
+              data_weather['fecha'] = fecha;
+              data_weather['stringDireccionViento'] = this.array_d_wind[`${data_weather['direccionViento']}`][0];
+              this.array_data_weather.push(data_weather);
+            });
+
+      } else {
+        let data_weather = {temperaturaAmbiente: 0,humedadAmbiente: 0,humedadSuelo: 0,luz: 0,viento: 0,direccionViento: 0,lluvia: 0, precipitaciones: 0,};
+        data_weather['fecha'] = current_date_formatted;
         data_weather['stringDireccionViento'] = this.array_d_wind[`${data_weather['direccionViento']}`][0];
         this.array_data_weather.push(data_weather);
-        
-      });
+      }
 
       this.array_data_weather.length > 1 
         ? this.last_data_day = this.array_data_weather[this.array_data_weather.length - 1]
         : this.last_data_day = this.array_data_weather[0];
       
-        
+      
       this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1];
       this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-w/'+ this.icon_d_wind +'.png';
-      
-    });
-    
-  }
+        
+    });//endsubscribe
+  }//endFunction
   
 
   public redirectDatos() {

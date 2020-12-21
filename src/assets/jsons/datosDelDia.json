@@ -1,70 +1,28 @@
-[
-    {
-        "id": 1,
-        "descripcion": "prototipo1",
-        "lat": "-26.29844",
-        "long": "-54.57436",
-        "datoxFecha": {
-            "fecha": "2020-12-13T08:00:00.000Z",
+{
+    "id": 1,
+    "nombre": "prototipo1",
+    "lat": "-27.0052128",
+    "long": "-54.5005841",
+    "datosPorFecha": [
+        {
+            "fecha": "2020-02-04T13:47:14.000Z",
             "datosAmbientales": {
-                "viento": 15,
-                "temperatura": 20,
-                "radiacion": 1,
-                "precipitacion": 0.5,
-                "humedad_ambiente": 56,
-                "humedad_suelo": 35
+                "temperaturaAmbiente": 25,
+                "humedadAmbiente": 95,
+                "humedadSuelo": 5,
+                "luz": 97,
+                "lluvia": 41,
+                "viento": 0,
+                "precipitaciones": 210
+            }
+        },
+        {
+            "fecha": "2020-02-04T13:47:15.000Z",
+            "datosAmbientales": {
+                "humedadAmbiente": 95,
+                "humedadSuelo": 5,
+                "viento": 0
             }
         }
-    },
-    {
-        "id": 2,
-        "descripcion": "prototipo1",
-        "lat": "-26.29844",
-        "long": "-54.57436",
-        "datoxFecha": {
-            "fecha": "2020-12-13T10:00:00.000Z",
-            "datosAmbientales": {
-                "viento": 20,
-                "temperatura": 25,
-                "radiacion": 3,
-                "precipitacion": 0,
-                "humedad_ambiente": 35,
-                "humedad_suelo": 20
-            }
-        }
-    },
-    {
-        "id": 3,
-        "descripcion": "prototipo1",
-        "lat": "-26.29844",
-        "long": "-54.57436",
-        "datoxFecha": {
-            "fecha": "2020-12-13T13:00:00.000Z",
-            "datosAmbientales": {
-                "viento": 18,
-                "temperatura": 30,
-                "radiacion": 5,
-                "precipitacion": 1.2,
-                "humedad_ambiente": 56,
-                "humedad_suelo": 20
-            }
-        }
-    },
-    {
-        "id": 4,
-        "descripcion": "prototipo1",
-        "lat": "-26.29844",
-        "long": "-54.57436",
-        "datoxFecha": {
-            "fecha": "2020-12-13T15:00:00.000Z",
-            "datosAmbientales": {
-                "viento": 23,
-                "temperatura": 32,
-                "radiacion": 4,
-                "precipitacion": 0.4,
-                "humedad_ambiente": 47,
-                "humedad_suelo": 30
-            }
-        }
-    }
-]
+    ]
+}

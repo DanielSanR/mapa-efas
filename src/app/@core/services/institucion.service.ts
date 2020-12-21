@@ -11,17 +11,20 @@ export class InstitucionesService{
 	
 
 	constructor( private _http: HttpClient ) {
-		this.url = 'http://ambient.siliconmisiones.gob.ar/api/institucion/';
+		this.url = 'http://ambient.siliconmisiones.gob.ar/api/institucionTemporal'
 	}
 
-	//TODO: descomentar
-	/* getInstitucion():Observable<Institucion[]> {
-		return this._http.get<Institucion[]>(this.url);
-	} */
-
-	//TODO: DATOS LOCALES 'assets/jsons/*'
-	getInstitucion():Observable<Institucion[]> {
-		return this._http.get<Institucion[]>('assets/jsons/instituciones.json');
-	}
 	
+	getInstitucion():Observable<Institucion[]> {
+		return this._http.get<Institucion[]>(this.url);
+		/* return this._http.get<Institucion[]>('assets/jsons/instituciones.json'); */
+	}
+
+
 }
+
+
+
+
+
+

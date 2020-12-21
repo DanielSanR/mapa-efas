@@ -1,9 +1,6 @@
 import { Component, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Prototipo } from '@core/models/prototipo';
-
-
 
 @Component({
   selector: 'app-tabla-datos',
@@ -12,22 +9,22 @@ import { Prototipo } from '@core/models/prototipo';
 })
 export class TablaDatosComponent implements AfterViewInit {
   
-  displayedColumns: string[] = ['fecha', 'temperatura', 'humedad_ambiente', 'humedad_suelo', 'viento', 'direccion_viento', 'lluvia', 'precipitacion', 'radiacion'];
-  dataSource: MatTableDataSource<any> ;
+  dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = ['fecha','temperaturaAmbiente','humedadAmbiente','humedadSuelo','viento','direccionViento','lluvia','precipitaciones','luz'];
 
-  @Input() set array_data_weather(arr:any[]){
-    this.dataSource = new MatTableDataSource<any>(arr);
-  };
+  @ViewChild(MatPaginator) paginator: MatPaginator;  
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Input() set array_data(arr:any){
+    this.dataSource = new MatTableDataSource(arr);
+  }
+
+ 
+  ngAfterViewInit() {
+    setTimeout(() => {this.dataSource.paginator = this.paginator}, 1000);
+  }
   
-    ngAfterViewInit() {
-      this.dataSource.paginator = this.paginator;
-    }
   
 }
-
-
 
 
 

@@ -51,38 +51,38 @@ export class EstacionComponent implements OnInit {
     this.last_data_prototype = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(res => {
 
       this.data_prototype = res;
-  
-      if(this.data_prototype.datosPorFecha === 0) {
-            this.data_prototype.datosPorFecha.forEach( dato_por_fecha => {
-              let fecha = dato_por_fecha.fecha;
-              let datosambientales = dato_por_fecha.datosAmbientales;
-              const useContext = ({temperaturaAmbiente= 0, 
-                                  humedadAmbiente= 0,
-                                  humedadSuelo= 0,
-                                  luz= 0,
-                                  viento= 0,
-                                  direccionViento= 0,
-                                  lluvia= 0, 
-                                  precipitaciones= 0 }) => {
+      
+      if(this.data_prototype.datosPorFecha.length > 0) {
+        this.data_prototype.datosPorFecha.forEach( dato_por_fecha => {
+          let fecha = dato_por_fecha.fecha;
+          let datosambientales = dato_por_fecha.datosAmbientales;
+          const useContext = ({temperaturaAmbiente= 0, 
+                              humedadAmbiente= 0,
+                              humedadSuelo= 0,
+                              luz= 0,
+                              viento= 0,
+                              direccionViento= 0,
+                              lluvia= 0, 
+                              precipitaciones= 0 }) => {
 
-                    return {
-                        temperaturaAmbiente: temperaturaAmbiente,
-                        humedadAmbiente: humedadAmbiente, 
-                        humedadSuelo: humedadSuelo,
-                        luz: luz,           
-                        viento: viento,
-                        direccionViento: direccionViento,
-                        lluvia: lluvia, 
-                        precipitaciones: precipitaciones,
-                    }
-              }
+                return {
+                    temperaturaAmbiente: temperaturaAmbiente,
+                    humedadAmbiente: humedadAmbiente, 
+                    humedadSuelo: humedadSuelo,
+                    luz: luz,           
+                    viento: viento,
+                    direccionViento: direccionViento,
+                    lluvia: lluvia, 
+                    precipitaciones: precipitaciones,
+                }
+          }
 
-              let data_weather = {};
-              data_weather = useContext(datosambientales);
-              data_weather['fecha'] = fecha;
-              data_weather['stringDireccionViento'] = this.array_d_wind[`${data_weather['direccionViento']}`][0];
-              this.array_data_weather.push(data_weather);
-            });
+          let data_weather = {};
+          data_weather = useContext(datosambientales);
+          data_weather['fecha'] = fecha;
+          data_weather['stringDireccionViento'] = this.array_d_wind[`${data_weather['direccionViento']}`][0];
+          this.array_data_weather.push(data_weather);
+        });
 
       } else {
         let data_weather = {temperaturaAmbiente: 0,humedadAmbiente: 0,humedadSuelo: 0,luz: 0,viento: 0,direccionViento: 0,lluvia: 0, precipitaciones: 0,};

@@ -5,5 +5,6 @@ export class PrototipoDatos {
     id: number;
     nombre: string;
     datosPorFecha: datoPorFecha[];
+    
 }
 

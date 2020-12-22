@@ -1,13 +1,14 @@
-import { Component, OnInit, QueryList, AfterViewInit, ViewChild, ViewChildren, Input, ɵConsole } from '@angular/core';
-import instituciones from '../../../../assets/jsons/instituciones_nombres.json';
+import { Component, OnInit, QueryList, AfterViewInit, ViewChild, ViewChildren, Input, ɵConsole, OnDestroy } from '@angular/core';
 import Prototipos from '../../../../assets/jsons/prototipos.json';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {empty, Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {empty, Observable, Subscription} from 'rxjs';
+import {map, retryWhen, startWith} from 'rxjs/operators';
 import { DatosService } from '../../services/datos.service';
+ 
+import { InstitucionesService } from '@core/services/institucion.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { Prototipo } from '@core/models/prototipo';
-
+import { Institucion } from '@core/models/institucion';
 import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import * as moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
@@ -20,17 +21,42 @@ import {
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { GraficoComponent } from './grafico/grafico.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PrototipoDatos } from '../../models/prototipoDatos';
 import { datoPorFecha } from '@core/models/datosPorFecha';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PrototiposService } from '../../services/prototipos.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DatoAmbiental } from '../../models/datoAmbiental';
+import { debounceTime } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
+import { delayWhen } from 'rxjs/operators';
+import { timer } from 'rxjs'; 
  
+/* Falta por hacer : 
+Setear el ultimo dato traido en Ultima act. 
+manejo de errores en dialog 
+fixear el form de instituciones ---
+definir un preload para form ---
+definir preload para datos tabla/gráfico --- */
 
- 
-
-export interface Institucion {
-  descripcion: string;
-  id: number;
+interface Error {
+  titulo: string
+  mensaje : string
+  color: string
 }
+
+interface DefInstitucion {
+  nombre: string;
+  id: number;
+  cue: string;
+  longitud: number;
+  latitud: number;
+  
+}
+
 @Component({
   selector: 'app-datos',
   templateUrl: './datos.component.html',
@@ -49,37 +75,53 @@ export interface Institucion {
 
 
 
-export class DatosComponent implements OnInit {
- 
+export class DatosComponent implements OnInit,OnDestroy {
+  default :  DefInstitucion = {
+    id : 0,
+    nombre: 'Seleccione una Institucion valida',
+    cue: "000000000",
+    longitud:1,
+    latitud:1
+  };
+ error$ : Error;
 @Input()selectedIndex: number | null;
- 
- 
+  flagChartMatTab: boolean;
+  error : boolean
+  
   fixedDias = Array();
-  single : boolean;
-  breakpoint: number;
   dateMax = moment(); // variable para almacenar fecha actual
   dateMin  = moment(); // var para definir el rango minimo del datapicker, en este caso fecha actual -1 año
-  hasta = new Date();
   prototiposArr: Prototipo[];
-  datosPrototipo : PrototipoDatos; // datos con rangos de fecha
   datosPorfecha : datoPorFecha[] // datos diarios, sin rango de fecha
   ultimosDatos : datoPorFecha;
-  datosAmib
   selected: Prototipo;
   tablaStatus = false;
-  options: Institucion[] = instituciones;
+  options: Institucion[] = [];
   filteredOptions: Observable<Institucion[]>;
   formulario: FormGroup ;
-  datos: any; // array de datos ambientales
- 
+ //variables para datos traidos del modal
   institucion_id:number;
   prototype_id:number;
   prototipo_nombre: string;
+
+  //Suscribes
+  DatosbyRangeSub$ = new Subscription;
+  DatosDailySub$ = new Subscription;
+  InstitucionSub$ = new Subscription();
+  PrototipoService$ = new Subscription();
+  //para errores de la API institucion y prototipo
+
+  isLoadingPrototype = false;
+  isLoading = false;
+  
   constructor(private formBuilder: FormBuilder, private _DATOSXFECHA: DatosService, private cdref: ChangeDetectorRef,
               private _VALIDADORES: ValidadoresService,
               private _ADAPTER: DateAdapter<any>,
-              private activatedRoute: ActivatedRoute) {
-
+              private activatedRoute: ActivatedRoute,
+              private _INSTITUCIONES: InstitucionesService,
+              private _PROTOTIPOS: PrototiposService,
+              private router : Router, public dialog : MatDialog) {
+               
                       this._ADAPTER.setLocale('es');
                       const moment1 = _rollupMoment || moment;
                       const year = this.dateMax.get('year');
@@ -87,6 +129,7 @@ export class DatosComponent implements OnInit {
                       this.crearFormulario();
 
                 // this.simulargetDatosEstacion();
+                
                       this.activatedRoute.params.subscribe(params => {
                         this.institucion_id = params['inst_id'];
                         this.prototype_id = params['protype_id'];
@@ -97,23 +140,40 @@ export class DatosComponent implements OnInit {
  
  
   ngOnInit(): void {
-
    
-
+    this.isLoading = true;
+    this.InstitucionSub$.add(this._INSTITUCIONES.getInstitucion().pipe(
+      tap(() => console.log("HTTP request executed")), 
+      shareReplay(),
+      retryWhen(errors => {
+          return errors
+                  .pipe(delayWhen(() => timer(5000)),
+                      tap(() => console.log('Reintentando...'))
+                  );
+      } )
+    ).subscribe(
+      result => {
+            this.options=result;
+            this.isLoading = false;  
+          
+          })) 
+        this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.nombre),
+          map(nombre => nombre ? this._filter(nombre) : this.options.slice())
+        );
+        if (this.institucion_id > 0 ){
+          setTimeout(() => {
+            this.simulargetDatosEstacion();
+          }, 1500);
+          
+          
+  
+  }
+ 
     
-    this.breakpoint = (window.innerWidth <= 480) ? 1 : 6;
-
-    this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => typeof value === 'string' ? value : value.descripcion),
-        map(descripcion => descripcion ? this._filter(descripcion) : this.options.slice())
-      );
-      if (this.institucion_id > 0 ){
-        this.simulargetDatosEstacion();
-        
-
-}
+ 
      
   }
 
@@ -142,24 +202,47 @@ get outRangeMin(): boolean {
 get checkStatus(): boolean {
   return this.formulario.get('checkbox').value;
 }
+cambiar(){
+  this.flagChartMatTab = false;
+  
+}
   // funcion para mostrar las instituciones en el autocomplete
 displayInstitucion(institucion: Institucion): string {
-    return institucion && institucion.descripcion ? institucion.descripcion : '';
+    return institucion && institucion.nombre ? institucion.nombre : '';
   }
   // funcion para filtrar las instituciones
-  private _filter(descripcion: string): Institucion[] {
-    const filterValue = descripcion.toLowerCase();
+  private _filter(nombre: string): Institucion[] {
+    const filterValue = nombre.toLowerCase();
 
-    return this.options.filter(option => option.descripcion.toLowerCase().indexOf(filterValue) === 0);
+    return this.options.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 
-obtenerPrototipo( institucionId: { id: number; }): any{
-    // aca iria el service que trae los prototipos de dicha institucion
 
-    if ( institucionId.id !== 0){this.prototiposArr =  Prototipos; }
-    // vaciamos el array, en caso de q no sea de San Pedro
-    else{ this.selected = null, this.prototiposArr = [];
-    }
+
+ 
+obtenerPrototipo( institucionId: { id: number; }): any{
+       this.isLoadingPrototype = true;
+    this.PrototipoService$.add(this._PROTOTIPOS.getInstitucion(institucionId.id).pipe(
+      tap(() => console.log("HTTP request executed")), 
+      shareReplay(),
+      retryWhen(errors => {
+          return errors
+                  .pipe(delayWhen(() => timer(5000)),
+                      tap(() => console.log('Reintentando...'))
+                  );
+      } )
+    ).subscribe(
+      result  => { 
+        this.isLoadingPrototype = false;  
+        this.prototiposArr = result
+        if  (typeof(result) === 'undefined') {this.selected = null, this.prototiposArr = [];console.log("No hay prototipos para la Institucion seleccionada"); }
+     
+        
+
+    })
+
+    )
+    
   }
   // funcion que vamos a usar para recibir los datos de EstacionesComponent
 crearFormulario(): void{
@@ -179,8 +262,14 @@ crearFormulario(): void{
 
   }
 
-buscarDatos(): void{
- 
+buscarDatos(): void{ 
+  this.error$ = {
+    titulo: 'Buscando datos',
+    mensaje: 'Buscando...',
+    color: 'primary'
+  };
+     this.error= true;
+  
  // Falta verificar si es por rango o no
      this.selectedIndex = 0;
      this.tablaStatus = false;
@@ -195,56 +284,156 @@ buscarDatos(): void{
      
        //datos por rango de fechas
       if  (this.checkStatus === true) {
-        this.single = false;
-        delay= 12000 
-        console.log(this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD'))
-        this._DATOSXFECHA.getByRange(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD'),this.formulario.controls.fechaFin.value.format('YYYY-MM-DD')
+        
+         let datoamb = DatoAmbiental;
+          this.DatosbyRangeSub$=  this._DATOSXFECHA.getByRange(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD'),this.formulario.controls.fechaFin.value.format('YYYY-MM-DD')
+                                                ).pipe(
+                                                  tap(() =>console.log("peticion ejecutada")), 
+                                                  map(result => result ),
+                                                  shareReplay(),
+                                                  retryWhen(errors => {
+                                                      return errors
+                                                              .pipe(delayWhen(() => timer(5000)),
+                                                                  tap(() => {
+                                                                    this.error$ = {
+                                                                      titulo: 'Error en la conexion a la API',
+                                                                      mensaje: 'No se pudo conectar a internet, compruebe su conexión.',
+                                                                      color: 'warn'
+                                                                    };
+                                                                    console.log("Reintentando ")})
+                                                              );
+                                                  } )
                                                 ).subscribe(
-                result => {
-                
-                this.datosPrototipo=result;
-                  this.prototipo_nombre = this.selected.nombre; 
-              }),
-             error => {
-              console.log(error as any);
-             
-         }
+                                                  result => {
+                                                    if((typeof(result.datosPorFecha[0]) === 'undefined'))
+                                                    {
+                                                      this.error$ = {
+                                                        titulo: 'Fechas sin datos',
+                                                        mensaje: 'No se encontrarón datos en el rango seleccionado.',
+                                                        color: 'warn'
+                                                      };
+                                                      this.error = true;
+                                                   
+                                                      
+                                  
+                                                    }
+                                  
+                                                    else {
+                                                      this.error=false;
+                                                      this.datosPorfecha = result.datosPorFecha
+                                                      console.log(this.datosPorfecha)
+                                                      this.procesarDatos();
+                                                      
+                                                    }
+                                  
+                                                      
+                                                }, 
+                                                err => console.log("Ocurrio un error conectandose a la API"),
+                                                () => console.log("Petición completada.")
+                                                )
       
        
 
     }
     //datos por una sola fecha
   else
-   {    this.single = false;
-        delay= 12000
+   {     
+        
          
-        this._DATOSXFECHA.getByDay(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD')
+        this.DatosDailySub$= this._DATOSXFECHA.getByDay(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD')
+                                                ).pipe(
+                                                  tap(() => console.log("peticion ejecutada")),
+                                                  map(result => result ), 
+                                                  shareReplay(),
+                                                  retryWhen(errors => {
+                                                      return errors
+                                                              .pipe(delayWhen(() => timer(5000)),
+                                                                  tap(() => {
+                                                                    this.error$ = {
+                                                                      titulo: 'Error en la conexion a la API',
+                                                                      mensaje: 'No se pudo conectar a internet, compruebe su conexión.',
+                                                                      color: 'warn'
+                                                                    };
+                                                                   
+                                                                    console.log("Reintentando ...")})
+                                                              );
+                                                  } )
                                                 ).subscribe(
                 result => {
-                
-                this.datosPrototipo=result;
-                  this.prototipo_nombre = this.selected.nombre; 
-              }),
-             error => {
-              console.log(error as any);
-             
-         }
-      
+                  if((typeof(result.datosPorFecha[0]) === 'undefined'))
+                  { 
+                    this.error$ = {
+                      titulo: 'Fecha sin datos',
+                      mensaje: 'No se encontrarón datos para la fecha seleccionada.',
+                      color: 'warn'
+                    };
+                    this.error = true;
+              
+                    
+
+                  }
+
+                  else {
+                    this.datosPorfecha = result.datosPorFecha
+                   
+                    this.procesarDatos();
+                    
+                  }
+
+                    
+              }, 
+              //var q muestra el error de API
+              err => console.log("Ocurrio un error conectandose a la API"),
+              () => console.log("Petición  completada")) 
        
 
     }
-}
-setTimeout(() => {
-  this.ultimosDatos = this.datosPrototipo.datosPorFecha[this.datosPrototipo.datosPorFecha.length - 1]
+}  
   
-  this.tablaStatus = true;
-  this.calculateDayDiff(this.datosPrototipo.datosPorFecha, this.formulario.controls.fechaInicio.value,
-    this.formulario.controls.fechaFin.value)
-}, delay);
     
 }
 
-
+procesarDatos(){
+  this.ultimosDatos = this.datosPorfecha[this.datosPorfecha.length - 1]
+                 
+                    this.error=false;
+                
+                    this.datosPorfecha.forEach(element => {
+                    const useContex: any = 
+                                    ({
+                                    humedadAmbiente =  0,
+                                    humedadSuelo =  0,
+                                    lluvia =  0,
+                                    luz=  0,
+                                    precipitaciones=  0,
+                                    temperaturaAmbiente=  0,
+                                    viento=  0
+                                    }) => {
+                  return {
+                          humedadAmbiente:humedadAmbiente,
+                          humedadSuelo:humedadSuelo,
+                          lluvia:lluvia,
+                          luz:luz,
+                          precipitaciones:precipitaciones,
+                          temperaturaAmbiente:temperaturaAmbiente,
+                          viento:viento
+                        }
+    
+                    }
+                    let test  :DatoAmbiental[];
+                    test =useContex(element.datosAmbientales);
+                    element.datosAmbientales =  test
+                 
+                    
+                    
+                  }); 
+                  this.prototipo_nombre = this.selected.nombre; 
+                   
+                    this.tablaStatus = true;
+                    this.calculateDayDiff(this.datosPorfecha, this.formulario.controls.fechaInicio.value,
+                    this.formulario.controls.fechaFin.value)
+                    this.flagChartMatTab = true
+}
 calculateDayDiff(result: any, fecha1: string, fecha2: string){
  
   const f1 = fecha1;
@@ -266,44 +455,25 @@ calculateDayDiff(result: any, fecha1: string, fecha2: string){
    this.fixedDias = Array.from(mySet);
 }
 
-/* cambiarFecha (result: any, fecha1: string) {
- let mySet =new Set()
- const datos2: any = [];
-  let f1 = moment(fecha1).format('YYYY-MM-DD');
-  let f2 = moment(f1).toDate(); 
-  let datos: any = result;
-   mySet.add(moment(f2).format('YYYY-MM-DD 00:00'));
-  let h= 0
-  let hora_actual = moment(this.formulario.controls.fechaInicio.value).format('HH')
-   
-  for ( let i =0 ; i <= Number(hora_actual); i++){
-     
-      let hora = moment(datos[i].datoxFecha.fecha).format('HH');
-      f2.setHours(Number(hora));
-     
-    
-       
-      
-      datos[i].datoxFecha.fecha =moment(new Date(f2)).format('YYYY-MM-DD '+h+':mm');
-      h=h+1
-      datos2.push(datos[i]);
-
-  }
-  this.fixedDias = Array.from(mySet);
-      return datos2
-} */
-// institucionId: number, prototipoId: number
 simulargetDatosEstacion( ): void{
- 
    const institucion = this.options.map(x => x.id).indexOf(Number(this.institucion_id));
- 
    this.formulario.controls.institutoControl.patchValue({
-    descripcion: this.options[institucion].descripcion,
+    nombre: this.options[institucion].nombre,
     id: this.options[institucion].id
 });
-   this.obtenerPrototipo(this.formulario.get('institutoControl').value);
-   const prototipo  = this.prototiposArr.map(x => x.id).indexOf(Number(this.prototype_id));
-   this.selected = this.prototiposArr[prototipo];
+ 
+this.obtenerPrototipo(this.formulario.get('institutoControl').value);
+   setTimeout(() => {
+    
+     
+    if  (typeof(this.prototiposArr) === 'undefined') {this.selected = null, this.prototiposArr = [] }
+
+    else {  const prototipo  = this.prototiposArr.map(x => x.id).indexOf(Number(this.prototype_id));
+      this.selected = this.prototiposArr[prototipo];}
+  
+    
+   }, 1500);
+
 
 }
 
@@ -311,7 +481,13 @@ ngAfterContentChecked() {
   this.cdref.detectChanges();
  }
 
-
+ngOnDestroy(): void {
+  //Called once, before the instance is destroyed.
+  //Add 'implements OnDestroy' to the class.
+  this.DatosbyRangeSub$.unsubscribe();
+  this.DatosDailySub$.unsubscribe();
+  this.InstitucionSub$.unsubscribe();
+}
 
 
 }

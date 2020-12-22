@@ -14,6 +14,7 @@ import { datoPorFecha } from '../../../models/datosPorFecha';
 // 'position', 'desc',
 export class TablaComponent implements OnInit,AfterViewInit {
   datosPrototipo : PrototipoDatos;
+  tempor : datoPorFecha
   dataSource: MatTableDataSource<datoPorFecha>;
   displayedColumns: string[] = [
   'fecha',
@@ -26,10 +27,10 @@ export class TablaComponent implements OnInit,AfterViewInit {
 
   // tslint:disable-next-line: variable-name
   // []
- @Input() set dato_form(prototipo: PrototipoDatos){
+ @Input() set dato_form(prototipo: datoPorFecha[]){
  
-    const arr = prototipo.datosPorFecha
- 
+    const arr: datoPorFecha[] = prototipo;
+  
     this.dataSource = new MatTableDataSource<datoPorFecha>(arr); // console.log(this.dataSource.data);
   
   

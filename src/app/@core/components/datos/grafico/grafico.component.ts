@@ -23,7 +23,7 @@ export class GraficoComponent  {
   optionsC: any;
   arrFech : any;
   datosGrafico : datoPorFecha[]
-@Input() datos: PrototipoDatos;
+@Input() datos: datoPorFecha[];
 @Input() fechas: any;
  
   constructor(private cdref: ChangeDetectorRef) { }
@@ -42,7 +42,10 @@ export class GraficoComponent  {
   
    this.arrFech = Object.values(this.fechas);
   const checkbox   = true;
-  this.datosGrafico = this.datos.datosPorFecha
+  this.datosGrafico = this.datos 
+ 
+   
+  console.log(this.datosGrafico)
   if (checkbox){
     const mDatos = new Array(this.arrFech.length);
     for ( let i = 0; i < this.arrFech.length; i++){
@@ -56,12 +59,12 @@ export class GraficoComponent  {
         for ( let j = 0; j < this.datosGrafico.length; j++){
             const datoc = moment(new Date(this.datosGrafico[j].fecha)).format('YYYY-MM-DD');
             if (this.arrFech[i] === datoc){
-              mDatos[i][0] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
-              mDatos[i][1] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
-              mDatos[i][2] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
-              mDatos[i][3] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
-              mDatos[i][4] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
-              mDatos[i][5] = this.datosGrafico[j].datosAmbientales['temperaturaAmbiente'];
+              mDatos[i][0] = this.datosGrafico[i].datosAmbientales['viento'];
+              mDatos[i][1] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
+              mDatos[i][2] = this.datosGrafico[i].datosAmbientales['luz'];
+              mDatos[i][3] = this.datosGrafico[i].datosAmbientales['precipitaciones'];
+              mDatos[i][4] = this.datosGrafico[i].datosAmbientales['humedadAmbiente'];
+              mDatos[i][5] = this.datosGrafico[i].datosAmbientales['humedadSuelo'];
             }
         }
  }
@@ -80,6 +83,8 @@ export class GraficoComponent  {
 
 crearGrafico(datos: any, dias: any[]): void{
   // tomar la fecha del json 
+/*   console.log(datos)
+  console.log(this.arrFech); */
     const arrViento = [];
     const arrTemperatura = [];
     const arrHumedad_ambiente = [];
@@ -95,6 +100,14 @@ crearGrafico(datos: any, dias: any[]): void{
       arrHumedad_suelo.push(datos[i][5]);
       
     } 
+    const fecha2= []
+    
+
+    for(let j=0; j<this.arrFech.length; j++){
+      fecha2.push(moment.utc(this.arrFech[j]).valueOf());
+     
+     
+  } 
     this.optionsC = {
       chart: {
         type: 'spline',
@@ -118,7 +131,7 @@ crearGrafico(datos: any, dias: any[]): void{
           rangeDescription: 'Rango de Datos :'
 
         },
-        type: 'datetime'
+        categories: this.arrFech
       },
       legend: {
         layout: 'vertical',
@@ -127,11 +140,9 @@ crearGrafico(datos: any, dias: any[]): void{
       },
       plotOptions: {
         series: {
-          label: {
-            connectorAllowed: false
+          marker: {
+            enabled: false
           },
-          pointStart: moment.utc(this.arrFech[0]).valueOf(),
-          pointInterval: 24 * 3600 * 1000 * 1,
         }
       },
       series: [{

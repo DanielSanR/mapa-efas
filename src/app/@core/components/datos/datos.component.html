@@ -8,7 +8,7 @@
             <mat-card-content>
                 <form fxLayout="column" [formGroup]="formulario" (ngSubmit)="buscarDatos()">
                     <p>
-                        <mat-checkbox formControlName="checkbox" class="checkbox">Consultar por rango de fechas</mat-checkbox>
+                        <mat-checkbox formControlName="checkbox" (click)="cambiar()" class="checkbox">Consultar por rango de fechas</mat-checkbox>
                     </p>
                     <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
 
@@ -16,9 +16,13 @@
                             <mat-label>Instituciones</mat-label>
                             <input matInput type="text" formControlName="institutoControl" [matAutocomplete]="auto">
                             <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstitucion" (optionSelected)='obtenerPrototipo(formulario.get("institutoControl").value)'>
-                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                    {{option.descripcion}}
-                                </mat-option>
+                                <mat-option *ngIf="isLoading" [value]="default" class="is-loading">Cargando datos...</mat-option>
+                                <ng-container *ngIf="!isLoading">
+
+                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                        {{option.nombre}}
+                                    </mat-option>
+                                </ng-container>
                             </mat-autocomplete>
                             <mat-error *ngIf="institutoNoValido">
                                 Seleccionar instituto
@@ -31,9 +35,12 @@
                         <mat-form-field appearance="outline" fxFlex>
                             <mat-label>Prototipos</mat-label>
                             <mat-select #mats matInput [(ngModel)]="selected" formControlName="prototipoControl">
-                                <mat-option *ngFor="let prototipo of prototiposArr" [value]="prototipo">
-                                    {{prototipo.nombre}}
-                                </mat-option>
+                                <mat-option *ngIf="isLoadingPrototype" class="is-loading">Cargando datos...</mat-option>
+                                <ng-container *ngIf="!isLoadingPrototype">
+                                    <mat-option *ngFor="let prototipo of prototiposArr" [value]="prototipo">
+                                        {{prototipo.nombre}}
+                                    </mat-option>
+                                </ng-container>
                             </mat-select>
                             <mat-error *ngIf="prototipoNoValido">
                                 Seleccionar un prototipo
@@ -86,13 +93,14 @@
             <mat-card-actions></mat-card-actions>
         </mat-card>
     </div>
+    <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center">
+        <span *ngIf="(error)"> {{ error$.mensaje }} </span>
 
-
-
+    </div>
 
     <mat-card class="mat-tab-content" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column" *ngIf="tablaStatus">
 
-        <mat-tab-group id="tab-group" headerPosition="above" [(selectedIndex)]="selectedIndex" dynamicHeight="true">
+        <mat-tab-group *ngIf="!error" id="tab-group" headerPosition="above" [(selectedIndex)]="selectedIndex" dynamicHeight="true">
 
             <mat-tab label="Ultimos Datos">
                 <div class="content">
@@ -102,8 +110,8 @@
                                 <div fxFlex fxLayoutAlign="none">
                                     <div fxflex class="contenedor-datos-sup" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
                                         <h2 fxflex class="temp-u-datos">{{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}°C</h2>
-                                        <p fxFlex class="viento-u-datos"> <img src="assets/images/icons_modal/icons_dire_wind/icons-blue/icon-nwe.png" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}km/h</p>
-                                        <p fxFlex class="humedad-u-datos"><img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}% </p>
+                                        <p fxFlex class="viento-u-datos"> <img src="assets/images/icons_modal/icons_dire_wind/icons-blue/icon-nwe.png" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['viento']}}km/h</p>
+                                        <p fxFlex class="humedad-u-datos"><img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['humedadAmbiente']}}% </p>
 
 
                                     </div>
@@ -130,20 +138,20 @@
 
                                 <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
                                     <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/hum_icon_w_2.png" alt="icono humedad"> HUMEDAD SUELO </div>
-                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}%</div>
+                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['humedadSuelo']}}%</div>
                                 </div>
 
 
                                 <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
                                     <div fxflex class="sub-u-datos"><img src="assets/images/icons_modal/pp_icon_w_2.png" alt="icono precipitacion"> PRECIPITACIÓN </div>
-                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}(mm)</div>
+                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['precipitaciones']}}(mm)</div>
                                 </div>
 
                             </div>
                             <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
                                 <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
                                     <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/uv.png" alt="icono  uv"> INDICE UV </div>
-                                    <div fxflex class="sub-u-datos-d"> BAJO ( {{ultimosDatos.datosAmbientales['temperaturaAmbiente']}})</div>
+                                    <div fxflex class="sub-u-datos-d"> BAJO ( {{ultimosDatos.datosAmbientales['luz']}})</div>
                                 </div>
 
                                 <!--   <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
@@ -179,42 +187,41 @@
                         <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
 
                             <div fxflex class="content-u-act"> Ultima Actualización : </div>
-                            <div fxflex class="sub-u-act"> 07-11-2020 12:00 </div>
+                            <div fxflex class="sub-u-act"> {{ultimosDatos.fecha | date:'dd/MM/yy HH:mm:ss ':'UTC'}} </div>
                         </div>
-                        <!--  {{ dateMin | date:'medium' }} -->
                     </mat-card>
 
                 </div>
 
             </mat-tab>
             <mat-tab label="Listado de Datos">
-                <!--  va a servir para ver como envio los datos a tablaComponent mas adelante. -->
-                <div *ngIf="tablaStatus && single === false">
-                    <app-tabla [dato_form]="datosPrototipo"></app-tabla>
-                </div>
-                <div *ngIf="tablaStatus && single === true">
+                <div *ngIf="tablaStatus ">
                     <app-tabla [dato_form]="datosPorfecha"></app-tabla>
                 </div>
 
 
+
             </mat-tab>
-            <mat-tab *ngIf="checkStatus" label="Gráfico Diario">
+            <mat-tab *ngIf="(checkStatus) && (flagChartMatTab===true)" label="Gráfico Diario">
+
                 <div fxFlex="100%" fxFill>
                     <div fxLayout="column">
+
                         <ng-template matTabContent>
 
-                            <app-grafico *ngIf="tablaStatus" [datos]="datosPrototipo" [fechas]="fixedDias"></app-grafico>
+                            <app-grafico *ngIf="(tablaStatus)" [datos]="datosPorfecha" [fechas]="fixedDias"></app-grafico>
                         </ng-template>
                     </div>
 
                 </div>
             </mat-tab>
-            <mat-tab *ngIf="!checkStatus" label="Gráfico Horario">
+            <mat-tab *ngIf="(!checkStatus) && (flagChartMatTab===true)" label="Gráfico Horario">
                 <div fxFlex="100%" fxFill>
                     <div fxLayout="column">
+
                         <ng-template matTabContent>
 
-                            <app-grafico-horario *ngIf="tablaStatus" [datos]="datosPrototipo" [fechas]="fixedDias"></app-grafico-horario>
+                            <app-grafico-horario *ngIf="(tablaStatus)" [datos]="datosPorfecha" [fechas]="fixedDias"></app-grafico-horario>
                         </ng-template>
                     </div>
 

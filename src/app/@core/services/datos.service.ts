@@ -37,10 +37,11 @@ getDatos(id: number ): Observable<Prototipo[]> {
   return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
 }
 getByRange(id: number,start: Date, end : Date ): Observable<PrototipoDatos> {
+  console.log('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/1/'+start+'/'+end);
   return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/1/'+start+'/'+end);
 }
 getByDay(id: number,start: Date): Observable<PrototipoDatos> {
-  return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/1/'+start+'/'+start);
+  return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/1/'+start);
 }
 
 getDatosHorarios(id: number): Observable<datoPorFecha[]> {

@@ -16,10 +16,9 @@ import { Prototipo } from '@core/models/prototipo';
 export class EstacionesComponent implements OnInit {
 
   institution_id: number;
-
   public mapStation;
-
   stationsArray: Prototipo[] = [];
+  stationSubscribe:any;
 
   
   constructor(private activatedRoute: ActivatedRoute, 
@@ -37,6 +36,9 @@ export class EstacionesComponent implements OnInit {
     this.loadStations();
   }
 
+  ngOnDestroy(): void {
+    this.stationSubscribe.unsubscribe();
+  }
 
   private initMap(): void {
     
@@ -52,10 +54,9 @@ export class EstacionesComponent implements OnInit {
   
 
   private loadStations():void {
-    this._estacionesService.getPrototypeInstitution(this.institution_id).subscribe( response => {
+    this.stationSubscribe = this._estacionesService.getPrototypeInstitution(this.institution_id).subscribe( response => {
       this.stationsArray = response;
       this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray, this.institution_id);
-
     },
     error => {
       console.log(<any>error)

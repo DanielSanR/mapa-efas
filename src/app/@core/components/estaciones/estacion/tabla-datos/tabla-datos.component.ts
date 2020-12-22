@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, Input, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -7,22 +7,34 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './tabla-datos.component.html',
   styleUrls: ['./tabla-datos.component.css']
 })
-export class TablaDatosComponent implements AfterViewInit {
+export class TablaDatosComponent implements AfterViewInit, OnInit {
   
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['fecha','temperaturaAmbiente','humedadAmbiente','humedadSuelo','viento','direccionViento','lluvia','precipitaciones','luz'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;  
 
-  @Input() set array_data(arr:any){
+  /* @Input() set array_data(arr:any){
     this.dataSource = new MatTableDataSource(arr);
+  } */
+
+  @Input() array_data:any[];
+
+  constructor(private cdRef: ChangeDetectorRef) { }
+
+  addElements():void {
+    this.dataSource = new MatTableDataSource(this.array_data);
+    this.cdRef.detectChanges();
   }
 
- 
-  ngAfterViewInit() {
-    setTimeout(() => {this.dataSource.paginator = this.paginator}, 1000);
+  ngOnInit():void {
+    this.addElements();
+
   }
-  
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
   
 }
 

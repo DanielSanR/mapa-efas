@@ -18,13 +18,11 @@ export class EstacionComponent implements OnInit {
 
   institution_id: number;
   stationData: Prototipo;
-  latest_environmental_data: any;
   current_date: Date = new Date();
   current_date_formatted: any;
   prototype_id: number;
-
   data_prototype: any;
-  last_data_prototype: any;
+  last_data_prototype_subscribe: any;
   array_data_weather:any[]= [];
   last_data_day:any = [];
   array_d_wind:any[] = [ ['NORTE','icon-north-w'],['NORESTE','icon-ne-w'],['ESTE','icon-east-w'],['SURESTE','icon-se-w'],['SUR','icon-south-w'],['SUROESTE','icon-swe-w'],['OESTE','icon-west-w'],['NOROESTE','icon-nwe-w'] ];
@@ -46,9 +44,13 @@ export class EstacionComponent implements OnInit {
     this.getDataPrototype(this.prototype_id, this.current_date_formatted);
   }
 
+  ngOnDestroy(): void {
+    this.last_data_prototype_subscribe.unsubscribe();
+  }
+
   public getDataPrototype(prototype_id:number, current_date_formatted:any) {
     
-    this.last_data_prototype = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(res => {
+    this.last_data_prototype_subscribe = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(res => {
 
       this.data_prototype = res;
       
@@ -99,6 +101,9 @@ export class EstacionComponent implements OnInit {
       this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1];
       this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-w/'+ this.icon_d_wind +'.png';
         
+    },
+    error => {
+      console.log(<any>error)
     });//endsubscribe
   }//endFunction
   

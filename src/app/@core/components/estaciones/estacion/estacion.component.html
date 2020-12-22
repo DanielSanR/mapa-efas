@@ -114,7 +114,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            {{last_data_day['luz'] / 10}}
+                            {{last_data_day['luz'] / 10}} de 10
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
@@ -124,8 +124,10 @@
             <div fxflex class="content-u-act"> Ultima Actualización : {{ last_data_day['fecha'] | date:'dd/MM/yyyy HH:mm':'UTC'}}</div>
         </div>
     </mat-tab>
-    <mat-tab label="DATOS DEL DÍA"> 
-        <app-tabla-datos [array_data]="array_data_weather"></app-tabla-datos>
+    <mat-tab label="DATOS DEL DÍA">
+        <ng-template matTabContent> 
+            <app-tabla-datos [array_data]="array_data_weather"></app-tabla-datos>
+        </ng-template>
     </mat-tab>
     <mat-tab label="MÁS DATOS"> 
         <button mat-raised-button id="btn-advance-search" (click)="redirectDatos()">BUSCAR MÁS DATOS</button>

@@ -15,19 +15,19 @@ export class InstitucionComponent implements OnInit {
   
   public map;
 
-	//public Instituciones:  Array<Institucion>;
   institutionsArray: Institucion[] = [];
   zoom = 16;
-  /* public usersArray: Institucion[] = []; */
-  
+  institutionSubscribe:any;
 
   constructor(private _institucionesService: InstitucionesService, private _markerService: MarkerService) { }
 
   ngOnInit(): void {
-    
     this.initMap();
     this.cargarInstituto(); 
-    
+  }
+
+  ngOnDestroy(): void {
+    this.institutionSubscribe.unsubscribe();
   }
 
 
@@ -45,23 +45,17 @@ export class InstitucionComponent implements OnInit {
 
 
   private cargarInstituto(): void {
-    this._institucionesService.getInstitucion().subscribe(
+    this.institutionSubscribe = this._institucionesService.getInstitucion().subscribe(
       result => {
-
         this.institutionsArray = result;
-        /* console.log(this.institutionsArray); */
         this._markerService.makeInstitutionsMarkers(this.map, this.institutionsArray);  
-
       },
       error => {
-
-        console.log('error _institucionesService.getInstitucion: ',<any>error)
-
+        console.log('error _institucionesService.getInstitucion: ',<any>error);
       }
     );
   }
 
 
-  
 }
      

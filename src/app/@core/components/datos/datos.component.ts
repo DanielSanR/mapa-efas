@@ -311,7 +311,7 @@ crearFormulario(): void{
 
 buscarDatos(): void{ 
   this.error$ = {
-    titulo: 'Buscando datos',
+    titulo: 'buscar',
     mensaje: 'Buscando...',
     color: 'primary'
   };
@@ -366,6 +366,7 @@ buscarDatos(): void{
                                                     }
                                   
                                                     else {
+                                                       
                                                       this.error=false;
                                                       this.datosPorfecha = result.datosPorFecha
                                                       console.log(this.datosPorfecha)

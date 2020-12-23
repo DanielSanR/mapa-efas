@@ -36,7 +36,7 @@ import { delayWhen } from 'rxjs/operators';
 import { timer } from 'rxjs'; 
  
 /* Falta por hacer : 
-Setear el ultimo dato traido en Ultima act. 
+Setear el ultimo dato traido en Ultima act. ---
 manejo de errores en dialog 
 fixear el form de instituciones ---
 definir un preload para form ---
@@ -95,6 +95,7 @@ export class DatosComponent implements OnInit,OnDestroy {
   datosPorfecha : datoPorFecha[] // datos diarios, sin rango de fecha
   ultimosDatos : datoPorFecha;
   selected: Prototipo;
+  selectedInstitucion  : string;
   tablaStatus = false;
   options: Institucion[] = [];
   filteredOptions: Observable<Institucion[]>;
@@ -140,7 +141,13 @@ export class DatosComponent implements OnInit,OnDestroy {
  
  
   ngOnInit(): void {
-   
+    
+    this.error$ = {
+      titulo: 'Cargando datos',
+      mensaje: 'Cargando...',
+      color: 'warn'
+    };
+    this.error=true
     this.isLoading = true;
     this.InstitucionSub$.add(this._INSTITUCIONES.getInstitucion().pipe(
       tap(() => console.log("HTTP request executed")), 
@@ -148,15 +155,30 @@ export class DatosComponent implements OnInit,OnDestroy {
       retryWhen(errors => {
           return errors
                   .pipe(delayWhen(() => timer(5000)),
-                      tap(() => console.log('Reintentando...'))
+                      tap(() => {this.error$ = {
+                        
+                        titulo: 'internet',
+                        mensaje: 'No se pudo recuperar las Instituciones, compruebe su conexión.',
+                        color: 'warn'
+                      };
+                      console.log(this.error$.mensaje);
+                      console.log(this.error);
+                      console.log('Reintentando...')
+                    })
                   );
       } )
     ).subscribe(
       result => {
+        
+            this.error=false;
             this.options=result;
             this.isLoading = false;  
           
-          })) 
+          },
+          err => 
+            console.log("Ocurrio un error conectandose a la API"),
+          () => {console.log("Petición completada.")}),
+          ) 
         this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
         .pipe(
           startWith(''),
@@ -165,8 +187,9 @@ export class DatosComponent implements OnInit,OnDestroy {
         );
         if (this.institucion_id > 0 ){
           setTimeout(() => {
+            this.error = false;
             this.simulargetDatosEstacion();
-          }, 1500);
+          }, 500);
           
           
   
@@ -221,25 +244,49 @@ displayInstitucion(institucion: Institucion): string {
 
  
 obtenerPrototipo( institucionId: { id: number; }): any{
-       this.isLoadingPrototype = true;
+  this.error$ = {
+    titulo: 'Cargando...',
+    mensaje: 'Cargando...',
+    color: 'warn'
+  };
+  this.error = true;
+  this.isLoadingPrototype = true;
     this.PrototipoService$.add(this._PROTOTIPOS.getInstitucion(institucionId.id).pipe(
       tap(() => console.log("HTTP request executed")), 
       shareReplay(),
       retryWhen(errors => {
           return errors
                   .pipe(delayWhen(() => timer(5000)),
-                      tap(() => console.log('Reintentando...'))
+                      tap(() => {
+                        this.error$ = {
+                          titulo: 'internet',
+                          mensaje: 'No se pudo recuperar los Prototipos, compruebe su conexión.',
+                          color: 'warn'
+                        };
+                        console.log('Reintentando...')})
                   );
       } )
     ).subscribe(
       result  => { 
         this.isLoadingPrototype = false;  
         this.prototiposArr = result
-        if  (typeof(result) === 'undefined') {this.selected = null, this.prototiposArr = [];console.log("No hay prototipos para la Institucion seleccionada"); }
+        if  (typeof(result) === 'undefined') {
+          this.error$ = {
+            titulo: 'sinDatos',
+            mensaje: 'No hay Prototipos para la Institución seleccionada',
+            color: 'warn'
+          };
+          this.selected = null, this.prototiposArr = [];
+         } else { 
+          this.selectedInstitucion = this.formulario.controls.institutoControl.value['nombre'];
+           this.error = false}
      
         
 
-    })
+    },
+    err => console.log("Ocurrio un error conectandose a la API"),
+    () => console.log("Petición completada.")),
+    
 
     )
     
@@ -296,7 +343,7 @@ buscarDatos(): void{
                                                               .pipe(delayWhen(() => timer(5000)),
                                                                   tap(() => {
                                                                     this.error$ = {
-                                                                      titulo: 'Error en la conexion a la API',
+                                                                      titulo: 'internet',
                                                                       mensaje: 'No se pudo conectar a internet, compruebe su conexión.',
                                                                       color: 'warn'
                                                                     };
@@ -308,7 +355,7 @@ buscarDatos(): void{
                                                     if((typeof(result.datosPorFecha[0]) === 'undefined'))
                                                     {
                                                       this.error$ = {
-                                                        titulo: 'Fechas sin datos',
+                                                        titulo: 'sinDatos',
                                                         mensaje: 'No se encontrarón datos en el rango seleccionado.',
                                                         color: 'warn'
                                                       };
@@ -335,6 +382,7 @@ buscarDatos(): void{
        
 
     }
+
     //datos por una sola fecha
   else
    {     
@@ -343,14 +391,14 @@ buscarDatos(): void{
         this.DatosDailySub$= this._DATOSXFECHA.getByDay(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD')
                                                 ).pipe(
                                                   tap(() => console.log("peticion ejecutada")),
-                                                  map(result => result ), 
+                                                  map(result => result ),
                                                   shareReplay(),
                                                   retryWhen(errors => {
                                                       return errors
                                                               .pipe(delayWhen(() => timer(5000)),
                                                                   tap(() => {
                                                                     this.error$ = {
-                                                                      titulo: 'Error en la conexion a la API',
+                                                                      titulo: 'internet',
                                                                       mensaje: 'No se pudo conectar a internet, compruebe su conexión.',
                                                                       color: 'warn'
                                                                     };
@@ -363,7 +411,7 @@ buscarDatos(): void{
                   if((typeof(result.datosPorFecha[0]) === 'undefined'))
                   { 
                     this.error$ = {
-                      titulo: 'Fecha sin datos',
+                      titulo: 'sinDatos',
                       mensaje: 'No se encontrarón datos para la fecha seleccionada.',
                       color: 'warn'
                     };
@@ -375,7 +423,8 @@ buscarDatos(): void{
 
                   else {
                     this.datosPorfecha = result.datosPorFecha
-                   
+                   this.error=false;
+                  
                     this.procesarDatos();
                     
                   }
@@ -428,7 +477,7 @@ procesarDatos(){
                     
                   }); 
                   this.prototipo_nombre = this.selected.nombre; 
-                   
+                  this.ultimosDatos.datosAmbientales['lluvia'] = 70
                     this.tablaStatus = true;
                     this.calculateDayDiff(this.datosPorfecha, this.formulario.controls.fechaInicio.value,
                     this.formulario.controls.fechaFin.value)

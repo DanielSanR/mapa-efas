@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InstitucionesService } from '@core/services/institucion.service';
 import { Institucion } from '@core/models/institucion';
 import * as L from 'leaflet'; 
 import { MarkerService } from '@core/services/marker.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,13 +12,13 @@ import { MarkerService } from '@core/services/marker.service';
   styleUrls: ['./institucion.component.css'],
   providers: [InstitucionesService]
 })
-export class InstitucionComponent implements OnInit {
+export class InstitucionComponent implements OnInit, OnDestroy {
   
   public map;
 
   institutionsArray: Institucion[] = [];
   zoom = 16;
-  institutionSubscribe:any;
+  institutionSubscription:Subscription;
 
   constructor(private _institucionesService: InstitucionesService, private _markerService: MarkerService) { }
 
@@ -27,7 +28,7 @@ export class InstitucionComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.institutionSubscribe.unsubscribe();
+    this.institutionSubscription.unsubscribe();
   }
 
 
@@ -45,7 +46,7 @@ export class InstitucionComponent implements OnInit {
 
 
   private cargarInstituto(): void {
-    this.institutionSubscribe = this._institucionesService.getInstitucion().subscribe(
+    this.institutionSubscription = this._institucionesService.getInstitucion().subscribe(
       result => {
         this.institutionsArray = result;
         this._markerService.makeInstitutionsMarkers(this.map, this.institutionsArray);  

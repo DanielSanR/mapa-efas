@@ -29,7 +29,7 @@ export class TablaDatosComponent implements AfterViewInit, OnInit {
 
   ngOnInit():void {
     this.addElements();
-
+    this.paginator._intl.itemsPerPageLabel = 'Datos por pagina:';
   }
 
   ngAfterViewInit() {

@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject} from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Prototipo } from '@core/models/prototipo';
-import { TablaDatosComponent } from '@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 import { DatePipe } from '@angular/common';
 import { EstacionService } from '@core/services/estacion.service';
 import { Router } from '@angular/router';
-import { PrototipoDatos } from '@core/models/prototipoDatos';
+import { Subscription } from 'rxjs';
+
 
 
 @Component({
@@ -14,7 +14,7 @@ import { PrototipoDatos } from '@core/models/prototipoDatos';
   styleUrls: ['./estacion.component.css']
 })
 
-export class EstacionComponent implements OnInit {
+export class EstacionComponent implements OnInit, OnDestroy {
 
   institution_id: number;
   stationData: Prototipo;
@@ -22,16 +22,18 @@ export class EstacionComponent implements OnInit {
   current_date_formatted: any;
   prototype_id: number;
   data_prototype: any;
-  last_data_prototype_subscribe: any;
+  last_data_prototype_subscription: Subscription;
   array_data_weather:any[]= [];
-  last_data_day:any = [];
+  last_data_day:any[] = [];
   array_d_wind:any[] = [ ['NORTE','icon-north-w'],['NORESTE','icon-ne-w'],['ESTE','icon-east-w'],['SURESTE','icon-se-w'],['SUR','icon-south-w'],['SUROESTE','icon-swe-w'],['OESTE','icon-west-w'],['NOROESTE','icon-nwe-w'] ];
   icon_d_wind:string = 'icon-north-w';
   src_d_wind:string;
 
+
   constructor(  private _estacionService: EstacionService,
                 private router: Router,
-                private datePipe: DatePipe, public dialogRef: MatDialogRef<EstacionComponent>,
+                private datePipe: DatePipe, 
+                public dialogRef: MatDialogRef<EstacionComponent>,
                 @Inject( MAT_DIALOG_DATA) public data: any ) {
                   this.stationData = data.element;
                   this.institution_id = data.institution_id;
@@ -44,63 +46,63 @@ export class EstacionComponent implements OnInit {
     this.getDataPrototype(this.prototype_id, this.current_date_formatted);
   }
 
-  ngOnDestroy(): void {
-    this.last_data_prototype_subscribe.unsubscribe();
-  }
+  
 
   public getDataPrototype(prototype_id:number, current_date_formatted:any) {
-    
-    this.last_data_prototype_subscribe = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(res => {
+
+    this.last_data_prototype_subscription = this._estacionService.getPrototypeLastData(prototype_id, current_date_formatted).subscribe(res => {
 
       this.data_prototype = res;
       
       if(this.data_prototype.datosPorFecha.length > 0) {
         this.data_prototype.datosPorFecha.forEach( dato_por_fecha => {
           let fecha = dato_por_fecha.fecha;
-          let datosambientales = dato_por_fecha.datosAmbientales;
+          
           const useContext = ({temperaturaAmbiente= 0, 
-                              humedadAmbiente= 0,
-                              humedadSuelo= 0,
-                              luz= 0,
-                              viento= 0,
-                              direccionViento= 0,
-                              lluvia= 0, 
-                              precipitaciones= 0 }) => {
-
-                return {
-                    temperaturaAmbiente: temperaturaAmbiente,
-                    humedadAmbiente: humedadAmbiente, 
-                    humedadSuelo: humedadSuelo,
-                    luz: luz,           
-                    viento: viento,
-                    direccionViento: direccionViento,
-                    lluvia: lluvia, 
-                    precipitaciones: precipitaciones,
-                }
-          }
-
+                               humedadAmbiente= 0,
+                               humedadSuelo= 0,
+                               luz= 0,
+                               viento= 0,
+                               direccionViento= 0,
+                               lluvia= 0, 
+                               precipitaciones= 0 }) => {
+                                                            return {
+                                                                    temperaturaAmbiente: temperaturaAmbiente,
+                                                                    humedadAmbiente: humedadAmbiente, 
+                                                                    humedadSuelo: humedadSuelo,
+                                                                    luz: luz / 10,           
+                                                                    viento: viento,
+                                                                    direccionViento: direccionViento,
+                                                                    lluvia: lluvia, 
+                                                                    precipitaciones: precipitaciones,
+                                                            }
+                                                        }
+          
           let data_weather = {};
-          data_weather = useContext(datosambientales);
+          data_weather = useContext(dato_por_fecha.datosAmbientales);
           data_weather['fecha'] = fecha;
           data_weather['stringDireccionViento'] = this.array_d_wind[`${data_weather['direccionViento']}`][0];
           this.array_data_weather.push(data_weather);
+
         });
+
+        this.array_data_weather.length > 1 
+          ? this.last_data_day = this.array_data_weather[this.array_data_weather.length - 1]
+          : this.last_data_day = this.array_data_weather[0];
+        
+        
+        this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1];
+        this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-w/'+ this.icon_d_wind +'.png';
 
       } else {
         let data_weather = {temperaturaAmbiente: 0,humedadAmbiente: 0,humedadSuelo: 0,luz: 0,viento: 0,direccionViento: 0,lluvia: 0, precipitaciones: 0,};
-        data_weather['fecha'] = current_date_formatted;
-        data_weather['stringDireccionViento'] = this.array_d_wind[`${data_weather['direccionViento']}`][0];
+        data_weather['fecha'] = 0;
         this.array_data_weather.push(data_weather);
+        this.last_data_day = this.array_data_weather[0];
+        this.array_data_weather = [];
       }
-
-      this.array_data_weather.length > 1 
-        ? this.last_data_day = this.array_data_weather[this.array_data_weather.length - 1]
-        : this.last_data_day = this.array_data_weather[0];
       
       
-      this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1];
-      this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-w/'+ this.icon_d_wind +'.png';
-        
     },
     error => {
       console.log(<any>error)
@@ -113,6 +115,11 @@ export class EstacionComponent implements OnInit {
     this.router.navigate(['/datos',{ inst_id: this.institution_id, protype_id: this.prototype_id }]);
   }
 
+
+  ngOnDestroy(): void {
+    this.last_data_prototype_subscription.unsubscribe();
+  }
+  
 
 }
 

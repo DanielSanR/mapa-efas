@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as L from 'leaflet'; 
 
@@ -6,6 +6,7 @@ import * as L from 'leaflet';
 import { EstacionesService } from '@core/services/estaciones.service';
 import { MarkerService } from '@core/services/marker.service';
 import { Prototipo } from '@core/models/prototipo';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -13,12 +14,12 @@ import { Prototipo } from '@core/models/prototipo';
   templateUrl: './estaciones.component.html',
   styleUrls: ['./estaciones.component.css']
 })
-export class EstacionesComponent implements OnInit {
+export class EstacionesComponent implements OnInit, OnDestroy {
 
   institution_id: number;
   public mapStation;
   stationsArray: Prototipo[] = [];
-  stationSubscribe:any;
+  stationSubscription:Subscription;
 
   
   constructor(private activatedRoute: ActivatedRoute, 
@@ -37,7 +38,7 @@ export class EstacionesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.stationSubscribe.unsubscribe();
+    this.stationSubscription.unsubscribe();
   }
 
   private initMap(): void {
@@ -54,7 +55,7 @@ export class EstacionesComponent implements OnInit {
   
 
   private loadStations():void {
-    this.stationSubscribe = this._estacionesService.getPrototypeInstitution(this.institution_id).subscribe( response => {
+    this.stationSubscription = this._estacionesService.getPrototypeInstitution(this.institution_id).subscribe( response => {
       this.stationsArray = response;
       this._markerService.makeStationsMarkers(this.mapStation, this.stationsArray, this.institution_id);
     },

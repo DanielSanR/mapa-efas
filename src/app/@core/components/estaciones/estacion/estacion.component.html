@@ -67,7 +67,7 @@
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            <img src="{{src_d_wind}}" alt="icono_dire_viento" style="margin-right: 3px; width: 21px!important;">
+                            <img src="{{src_d_wind}}" style="margin-right: 3px; width: 21px!important;">
                             {{last_data_day['viento']}}
                             <span class="unity-data">km/h</span>
                         </figure>
@@ -113,15 +113,22 @@
                         </figure>
                     </mat-grid-tile>
                     <mat-grid-tile>
-                        <figure class="mat-figure m-g-t-ultinfo-sc" >
-                            {{last_data_day['luz'] / 10}} de 10
+                        <figure class="mat-figure m-g-t-ultinfo-sc">
+                            {{last_data_day['luz']}} de 10
                         </figure>
                     </mat-grid-tile>
                 </mat-grid-list>
             </mat-card>
         </div>
         <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
-            <div fxflex class="content-u-act"> Ultima Actualización : {{ last_data_day['fecha'] | date:'dd/MM/yyyy HH:mm':'UTC'}}</div>
+            <div fxflex class="content-u-act" *ngIf="last_data_day['fecha'] !== 0; else dateElse">
+                Ultima Actualización : {{ last_data_day['fecha'] | date:'dd/MM/yyyy HH:mm':'UTC'}}
+            </div>
+            <ng-template #dateElse>
+                <div fxflex class="content-u-act">
+                    Ultima Actualización : SIN DATOS
+                </div>
+            </ng-template>
         </div>
     </mat-tab>
     <mat-tab label="DATOS DEL DÍA">

@@ -1,10 +1,12 @@
+<div *ngIf="isLoading === false && httpErr === false">
 <mat-tab-group style="transition-duration: 5000ms;">
+
     <mat-tab label="ESTACIÓN">
         <div class="content">
             <mat-list>
                 <mat-list-item>
                     <span mat-line class="m-t-dataStations"> Estación </span>
-                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData['nombre']}}</span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData.nombre}}</span>
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item>
@@ -14,18 +16,19 @@
                 <mat-divider></mat-divider>
                 <mat-list-item>
                     <span mat-line class="m-t-dataStations"> Localidad </span>
-                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData['localidad']}}</span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData.localidad}}</span>
                 </mat-list-item>
                 <mat-divider></mat-divider>
                 <mat-list-item>
                     <span mat-line class="m-t-dataStations"> Departamento </span>
-                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData['departamento']}}</span>
+                    <span mat-subheader class="m-t-dataStations-attribute" >{{stationData.departamento}}</span>
                 </mat-list-item>
                 <mat-divider></mat-divider>    
             </mat-list>
         </div>
     </mat-tab>
-    <mat-tab label="ULTIMA INFORMACIÓN"> 
+
+    <mat-tab label="ULTIMA INFORMACIÓN" *ngIf="this.respData === true; else noData"> 
         <div class="content">
             <mat-card>
                 <mat-grid-list cols="2" rowHeight="35px" >
@@ -131,12 +134,60 @@
             </ng-template>
         </div>
     </mat-tab>
-    <mat-tab label="DATOS DEL DÍA">
-        <ng-template matTabContent> 
-            <app-tabla-datos [array_data]="array_data_weather"></app-tabla-datos>
-        </ng-template>
+    <ng-template #noData>
+        <mat-tab label="ULTIMA INFORMACIÓN">
+            <div style="padding: 4px; margin-top: 5px; height: 20vh;">
+                <div style="position: absolute; top: 45%; left: 25%; font-size: 18px; color: gray;">
+                   Sin datos disponibles
+                </div>
+            </div>
+        </mat-tab>
+    </ng-template>
+
+    <mat-tab label="DATOS DEL DÍA" *ngIf="this.respData === true; else noData">
+        <app-tabla-datos [array_data]="array_data_weather"></app-tabla-datos>
     </mat-tab>
+    <ng-template #noData> 
+        <mat-tab label="DATOS DEL DÍA">
+            <div style="padding: 4px; margin-top: 5px; height: 20vh;">
+                <div style="position: absolute; top: 45%; left: 25%; font-size: 18px; color: gray;">
+                    Sin datos disponibles
+                 </div>
+            </div>
+        </mat-tab>
+    </ng-template>
+
     <mat-tab label="MÁS DATOS"> 
         <button mat-raised-button id="btn-advance-search" (click)="redirectDatos()">BUSCAR MÁS DATOS</button>
     </mat-tab>
+
 </mat-tab-group>
+</div>
+
+
+
+<div *ngIf="isLoading === true && httpErr === false">
+    <mat-tab-group style="transition-duration: 5000ms;">
+        <mat-tab label="ESPERANDO DATOS">
+            <div style="padding: 4px; margin-top: 5px; height: 20vh;">
+                <div style="width: 25px; position: absolute; top: 35%; left: 40%;">
+                    <mat-spinner [diameter]="70"></mat-spinner>    
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+
+
+<div *ngIf="httpErr === true">
+    <mat-tab-group style="transition-duration: 5000ms;">
+        <mat-tab label="Sin Conexión">
+            <div style="padding: 4px; margin-top: 5px; height: 20vh;">
+                <div style=" position: absolute; top: 5%; left: 28%;">
+                    <img src="assets/images/offline.png" style="width: 150px;" alt="sin-conexion">
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

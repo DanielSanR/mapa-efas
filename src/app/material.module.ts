@@ -24,6 +24,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
 @NgModule({
   declarations: [],
   imports: [
@@ -47,7 +50,8 @@ import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-mome
     MatSortModule,
     MatCheckboxModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatToolbarModule,
@@ -69,7 +73,8 @@ import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-mome
     MatSelectModule,
     MatCheckboxModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressSpinnerModule
   ]
   
 })

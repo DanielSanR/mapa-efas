@@ -88,6 +88,8 @@ export class EstacionComponent implements OnInit, OnDestroy {
             ? data_weather['stringDireccionViento'] = this.array_d_wind[`${data_weather['direccionViento']}`][0]
             : data_weather['stringDireccionViento'] = this.array_d_wind[0][0];
 
+          
+          data_weather = this.verifyNegativeValues(data_weather);
           this.array_data_weather.push(data_weather);
 
         });
@@ -122,6 +124,16 @@ export class EstacionComponent implements OnInit, OnDestroy {
     this.router.navigate(['/datos',{ inst_id: this.institution_id, protype_id: this.prototype_id }]);
   }
 
+  verifyNegativeValues(data_weather:any):any {
+    if( Math.sign( data_weather['humedadAmbiente']) === -1 ) data_weather['humedadAmbiente'] = 0;
+    if( Math.sign( data_weather['humedadSuelo']) === -1 ) data_weather['humedadSuelo'] = 0;
+    if( Math.sign( data_weather['luz']) === -1 ) data_weather['luz'] = 0;
+    if( Math.sign( data_weather['viento']) === -1 ) data_weather['viento'] = 0;
+    if( Math.sign( data_weather['lluvia']) === -1 ) data_weather['lluvia'] = 0;
+    if( Math.sign( data_weather['precipitaciones']) === -1 ) data_weather['precipitaciones'] = 0;
+
+    return data_weather;
+  }
 
   ngOnDestroy(): void {
     this.last_data_prototype_subscription.unsubscribe();

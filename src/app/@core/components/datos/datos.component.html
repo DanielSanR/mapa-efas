@@ -90,6 +90,7 @@
                         <mat-error *ngIf="(error) && (error$.titulo === 'sinDatos')">
                             {{ error$.mensaje }}
                         </mat-error>
+                        <h3 *ngIf="(error$.titulo === 'buscar') && (error) " class="primary"> {{error$.mensaje}} </h3>
                     </div>
                     <div class="input-row" fxLayout="column" fxLayout.lt-md="column">
                         <button class="btn-form" mat-raised-button type="submit" [disabled]="!formulario.valid" fxFlex>CONSULTAR</button>

@@ -44,7 +44,7 @@ constructor() { }
 @ViewChild(MatPaginator) paginator: MatPaginator;
 ngAfterViewInit() {
   this.dataSource.paginator = this.paginator;
-    
+  this.paginator._intl.itemsPerPageLabel = "Datos por página : "  
   }
 
 }

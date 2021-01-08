@@ -169,7 +169,7 @@ export class DatosComponent implements OnInit,OnDestroy {
       } )
     ).subscribe(
       result => {
-        
+          
             this.error=false;
             this.options=result;
             this.isLoading = false;  
@@ -451,22 +451,25 @@ procesarDatos(){
                     this.datosPorfecha.forEach(element => {
                     const useContex: any = 
                                     ({
-                                    humedadAmbiente =  0,
-                                    humedadSuelo =  0,
-                                    lluvia =  0,
-                                    luz=  0,
-                                    precipitaciones=  0,
-                                    temperaturaAmbiente=  0,
-                                    viento=  0
+                                      temperaturaAmbiente=0,
+                                      humedadAmbiente=0,
+                                      humedadSuelo=0,
+                                      luz=0,
+                                      lluvia=0,
+                                      viento=0,
+                                      precipitaciones=0,
+                                      direcionViento=0
                                     }) => {
                   return {
+                          temperaturaAmbiente:temperaturaAmbiente,
                           humedadAmbiente:humedadAmbiente,
                           humedadSuelo:humedadSuelo,
-                          lluvia:lluvia,
                           luz:luz,
+                          lluvia:lluvia,
+                          viento:viento,
                           precipitaciones:precipitaciones,
-                          temperaturaAmbiente:temperaturaAmbiente,
-                          viento:viento
+                          direcionViento:direcionViento
+                          
                         }
     
                     }

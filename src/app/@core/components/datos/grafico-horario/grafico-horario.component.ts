@@ -42,21 +42,27 @@ addData(){
   this.datosGrafico = this.datos 
   
   if (checkbox){
-    const mDatos = new Array(25);
-    for ( let i = 0; i < 25; i++){
-      mDatos[i] = new Array(3);
-    } 
+    const mDatos = new Array(this.datosGrafico.length);
     for ( let i = 0; i < this.datosGrafico.length; i++){
+      mDatos[i] = new Array(9);
+    } 
+    console.log(this.datosGrafico)
+    for ( let i = 0; i < this.datosGrafico.length; i++){
+      console.log(this.datosGrafico[i].fecha)
       arrFechas.push(this.datosGrafico[i].fecha);      
-      mDatos[i][0] = this.datosGrafico[i].datosAmbientales['viento'];
-      mDatos[i][1] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
-      mDatos[i][2] = this.datosGrafico[i].datosAmbientales['luz'];
-      mDatos[i][3] = this.datosGrafico[i].datosAmbientales['precipitaciones'];
-      mDatos[i][4] = this.datosGrafico[i].datosAmbientales['humedadAmbiente'];
-      mDatos[i][5] = this.datosGrafico[i].datosAmbientales['humedadSuelo'];
+    
+      mDatos[i][0] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
+      mDatos[i][1] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['humedadAmbiente']);
+      mDatos[i][2] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['humedadSuelo']);
+      mDatos[i][3] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['luz']);
+      mDatos[i][4] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['lluvia']);
+      mDatos[i][5] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['viento']);
+      mDatos[i][6] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['precipitaciones']);
+      mDatos[i][7] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['direcionViento']);
         
        
  }
+ console.log(this.datosGrafico)
     if (this.datosGrafico.length > 0 ){
     this.crearGrafico(mDatos,arrFechas);
 
@@ -68,24 +74,48 @@ addData(){
  else { this.flag = true;
  }
 }
-
+limpiarValores(valor : number){
+  
+    if ((valor < 0) || (valor > 9999 )){
+      valor = 0;
+      return valor;
+    }
+    else return valor;
+  
+}
 crearGrafico(datos: any, dias: any[]): void{
   // tomar la fecha del json 
-    const arrViento = [];
-    const arrTemperatura = [];
-    const arrHumedad_ambiente = [];
-    const arrHumedad_suelo = [];
-    const arrLuz = [];
-    const arrPrecipitacion = [];
-    for ( let i = 0; i < 25; i++){
-      arrViento.push(datos[i][0]);
-      arrTemperatura.push(datos[i][1]);
-      arrLuz.push(datos[i][2])
-      arrPrecipitacion.push(datos[i][3]);
-      arrHumedad_ambiente.push(datos[i][4]);
-      arrHumedad_suelo.push(datos[i][5]);
+    let arrTemperatura = [];
+    let arrHumedad_ambiente = [];
+    let arrHumedad_suelo = [];
+    let arrLuz = [];
+    let arrLluvia = [];
+    let arrViento = [];
+    let arrPrecipitacion = [];
+    let arrDirecionViento = [];
+   
+    for ( let i = 0; i < this.datosGrafico.length; i++){
+      arrTemperatura.push(datos[i][0]);
+      arrHumedad_ambiente.push(datos[i][1]);
+      arrHumedad_suelo.push(datos[i][2]);
+      arrLuz.push(datos[i][3])
+      arrLluvia.push(datos[i][4]);
+      arrViento.push(datos[i][5]);
+      arrPrecipitacion.push(datos[i][6]);
+      arrDirecionViento.push(datos[i][7]);
       
-    }  
+      
+      
+      
+    }
+  
+    console.log(arrViento);
+    console.log(arrTemperatura);
+    console.log(arrLuz);
+    console.log(arrPrecipitacion);
+    console.log(arrHumedad_ambiente);
+    console.log(arrHumedad_suelo);
+  
     this.optionsC = {
       chart: {
         type: 'spline',

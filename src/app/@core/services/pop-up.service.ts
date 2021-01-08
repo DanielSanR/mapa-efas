@@ -18,7 +18,7 @@ export class PopUpService {
       `<strong>Localidad: </strong>${ element.localidad }<br>` +
       `<strong>Departamento: </strong>${ element.departamento }<br><hr>` +
       `<button id="btnRedirectStation" 
-          style="width:190px; height:30px; background-color:rgb(0,175,215); border-bottom-color: white; border: none; border-radius: 4px; font-weight: bold;">
+          style="width:100%; height:30px; background-color:rgb(0,175,215); border-bottom-color: white; border: none; border-radius: 4px; font-weight: bold;">
             <span style="color:white;">ESTACIONES</span>
       </button>`
   }

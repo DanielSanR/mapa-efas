@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, Input, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -14,9 +15,7 @@ export class TablaDatosComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;  
 
-  /* @Input() set array_data(arr:any){
-    this.dataSource = new MatTableDataSource(arr);
-  } */
+  @ViewChild(MatSort) sort: MatSort;
 
   @Input() array_data:any[];
 
@@ -30,6 +29,12 @@ export class TablaDatosComponent implements AfterViewInit, OnInit {
   ngOnInit():void {
     this.addElements();
     this.paginator._intl.itemsPerPageLabel = 'Datos por pagina:';
+    this.dataSource.sort = this.sort;
+
+    const sortState: Sort = {active: 'fecha', direction: 'asc'};
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
 
   ngAfterViewInit() {

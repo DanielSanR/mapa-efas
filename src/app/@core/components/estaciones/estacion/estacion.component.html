@@ -125,7 +125,7 @@
             </div>
             <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
                 <div fxflex class="content-u-act" *ngIf="last_data_day['fecha'] !== 0; else dateElse">
-                    Ultima Actualización : {{ last_data_day['fecha'] | date:'dd/MM/yyyy HH:mm':'UTC'}}
+                    Ultima Actualización : {{ last_data_day['fecha'] | date:'dd/MM/yyyy HH:mm:ss':'UTC'}}
                 </div>
                 <ng-template #dateElse>
                     <div fxflex class="content-u-act">

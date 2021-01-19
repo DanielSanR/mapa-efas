@@ -35,6 +35,21 @@ a {
     color: lightgray;
 }
 
+
+#backButton{
+    color: white;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    outline: none;
+    margin: 0px 5px 5px 5px;
+}
+
+#imgBack {
+    width: 25px;
+}
+
+
 @media(max-width: 800px) {
     #img-logo {
         max-width: 170px;
@@ -43,6 +58,19 @@ a {
     #icon-header {
         margin-bottom: 0px;
         margin-top: 11px;   
+    }
+
+    #backButton{
+        color: white;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        outline: none;
+        margin: 9px 5px 0px 5px;
+    }
+
+    #imgBack {
+        width: 25px;
     }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-header',
@@ -10,11 +11,14 @@ export class HeaderComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor() { }
+  constructor(private _location: Location) { }
 
   ngOnInit(): void {
   }
 
+  back():void {
+    this._location.back();  
+  }
 
   public onToggleSidenav = () => {
     this.sidenavToggle.emit();

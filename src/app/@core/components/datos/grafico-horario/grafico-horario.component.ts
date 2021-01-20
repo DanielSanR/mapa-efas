@@ -20,6 +20,7 @@ export class GraficoHorarioComponent implements OnInit {
   flag: boolean;
   optionsC: any;
   arrFech : any;
+  arrFechasHM= [];
   datosGrafico : datoPorFecha[]
   @Input() datos: datoPorFecha[];
   @Input() fechas: any;
@@ -48,8 +49,8 @@ addData(){
     } 
     console.log(this.datosGrafico)
     for ( let i = 0; i < this.datosGrafico.length; i++){
-      console.log(this.datosGrafico[i].fecha)
-      arrFechas.push(this.datosGrafico[i].fecha);      
+      console.log(moment(new Date(this.datosGrafico[i].fecha)).format('YYYY-MM-DD h:mm'))
+      this.arrFechasHM.push(moment(new Date(this.datosGrafico[i].fecha)).format('DD-MM-YY HH:mm'));      
     
       mDatos[i][0] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
       mDatos[i][1] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['humedadAmbiente']);
@@ -61,8 +62,7 @@ addData(){
       mDatos[i][7] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['direcionViento']);
         
        
- }
- console.log(this.datosGrafico)
+ } 
     if (this.datosGrafico.length > 0 ){
     this.crearGrafico(mDatos,arrFechas);
 
@@ -109,13 +109,7 @@ crearGrafico(datos: any, dias: any[]): void{
       
     }
   
-    console.log(arrViento);
-    console.log(arrTemperatura);
-    console.log(arrLuz);
-    console.log(arrPrecipitacion);
-    console.log(arrHumedad_ambiente);
-    console.log(arrHumedad_suelo);
-  
+    
     this.optionsC = {
       chart: {
         type: 'spline',
@@ -141,7 +135,8 @@ crearGrafico(datos: any, dias: any[]): void{
           rangeDescription: 'Rango de Datos :'
 
         },
-        type: 'datetime'
+        type:'datetime',
+        categories: this.arrFechasHM.reverse()
       },
       legend: {
         layout: 'vertical',
@@ -152,45 +147,43 @@ crearGrafico(datos: any, dias: any[]): void{
         series: {
           label: {
             connectorAllowed: false
-          },
-          pointStart: moment.utc(dias[0]).valueOf(),
-          pointInterval:  ( 60 * 1/12 ) * 1000 * 1,
+          } 
         }
       },
       series: [{
         
         name: 'Viento',
-        data: arrViento,
+        data: arrViento.reverse(),
         tooltip: {
           pointFormat: 'Vel. Viento {point.y:.1f}km/h'
       },
       }, {
         name: 'Temperatura',
-        data: arrTemperatura,
+        data: arrTemperatura.reverse(),
         tooltip: {
           pointFormat: 'Temperatura : {point.y}ºC'
       }
       }, {
         name: 'Radiacion',
-        data: arrLuz,
+        data: arrLuz.reverse(),
         tooltip: {
           pointFormat: 'Radiación {point.y:.0f} de 10'
       }
       }, {
         name: 'Precipitación',
-        data: arrPrecipitacion,
+        data: arrPrecipitacion.reverse(),
         tooltip: {
           pointFormat: 'Precipitación  {point.y:.0f}mm'
       }
     }, {
         name: 'Humedad Ambiente',
-        data: arrHumedad_ambiente,
+        data: arrHumedad_ambiente.reverse(),
         tooltip: {
           pointFormat: 'Humedad A.{point.y:.0f}%'
       }
       }, {
         name: 'Humedad Suelo',
-        data: arrHumedad_suelo,
+        data: arrHumedad_suelo.reverse(),
         tooltip: {
           pointFormat: 'Humedad S. {point.y:.0f}%'
       }

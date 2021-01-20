@@ -131,7 +131,7 @@ crearGrafico(datos: any, dias: any[]): void{
           rangeDescription: 'Rango de Datos :'
 
         },
-        categories: this.arrFech
+        categories: this.arrFech.reverse()
       },
       legend: {
         layout: 'vertical',
@@ -147,37 +147,37 @@ crearGrafico(datos: any, dias: any[]): void{
       },
       series: [{
         name: 'Viento',
-        data: arrViento,
+        data: arrViento.reverse(),
         tooltip: {
           pointFormat: 'Vel. Viento {point.y:.1f}km/h'
       },
       }, {
         name: 'Temperatura',
-        data: arrTemperatura,
+        data: arrTemperatura.reverse(),
         tooltip: {
           pointFormat: 'Temperatura : {point.y}ºC'
       }
       }, {
         name: 'Radiacion',
-        data: arrRadiacion,
+        data: arrRadiacion.reverse(),
         tooltip: {
           pointFormat: 'Radiación {point.y:.0f} de 10'
       }
       }, {
         name: 'Precipitación',
-        data: arrPrecipitacion,
+        data: arrPrecipitacion.reverse(),
         tooltip: {
           pointFormat: 'Precipitación  {point.y:.0f}mm'
       }
     }, {
         name: 'Humedad Ambiente',
-        data: arrHumedad_ambiente,
+        data: arrHumedad_ambiente.reverse(),
         tooltip: {
           pointFormat: 'Humedad A.{point.y:.0f}%'
       }
       }, {
         name: 'Humedad Suelo',
-        data: arrHumedad_suelo,
+        data: arrHumedad_suelo.reverse(),
         tooltip: {
           pointFormat: 'Humedad S. {point.y:.0f}%'
       }

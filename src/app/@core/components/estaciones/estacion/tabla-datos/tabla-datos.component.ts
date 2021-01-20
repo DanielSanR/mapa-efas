@@ -31,7 +31,7 @@ export class TablaDatosComponent implements AfterViewInit, OnInit {
     this.paginator._intl.itemsPerPageLabel = 'Datos por pagina:';
     this.dataSource.sort = this.sort;
 
-    const sortState: Sort = {active: 'fecha', direction: 'asc'};
+    const sortState: Sort = {active: 'fecha', direction: 'desc'};
     this.sort.active = sortState.active;
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);

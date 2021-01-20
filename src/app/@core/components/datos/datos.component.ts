@@ -444,7 +444,7 @@ buscarDatos(): void{
 }
 
 procesarDatos(){
-  this.ultimosDatos = this.datosPorfecha[this.datosPorfecha.length - 1]
+  this.ultimosDatos = this.datosPorfecha[0]
                  
                     this.error=false;
                 
@@ -481,7 +481,7 @@ procesarDatos(){
                     
                   }); 
                   this.prototipo_nombre = this.selected.nombre; 
-                  this.ultimosDatos.datosAmbientales['lluvia'] = 70
+                 
                     this.tablaStatus = true;
                     this.calculateDayDiff(this.datosPorfecha, this.formulario.controls.fechaInicio.value,
                     this.formulario.controls.fechaFin.value)

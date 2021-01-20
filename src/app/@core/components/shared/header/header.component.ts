@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   }
 
   back():void {
-    console.log(this.baseURL );
+   
     this._location.back();  
   }
 

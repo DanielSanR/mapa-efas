@@ -94,10 +94,7 @@ export class EstacionComponent implements OnInit, OnDestroy {
 
         });
 
-        this.array_data_weather.length > 1 
-          ? this.last_data_day = this.array_data_weather[this.array_data_weather.length - 1]
-          : this.last_data_day = this.array_data_weather[0];
-        
+        this.last_data_day = this.array_data_weather[0];
         
         (this.last_data_day['direccionViento'] <= 7 && this.last_data_day['direccionViento'] >= 0) 
           ?  this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1]

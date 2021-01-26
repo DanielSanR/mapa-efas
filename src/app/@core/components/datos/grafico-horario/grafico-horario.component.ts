@@ -47,9 +47,9 @@ addData(){
     for ( let i = 0; i < this.datosGrafico.length; i++){
       mDatos[i] = new Array(9);
     } 
-    console.log(this.datosGrafico)
+    //console.log(this.datosGrafico)
     for ( let i = 0; i < this.datosGrafico.length; i++){
-      console.log(moment(new Date(this.datosGrafico[i].fecha)).format('YYYY-MM-DD h:mm'))
+      //console.log(moment(new Date(this.datosGrafico[i].fecha)).format('YYYY-MM-DD h:mm'))
       this.arrFechasHM.push(moment(new Date(this.datosGrafico[i].fecha)).format('DD-MM-YY HH:mm'));      
     
       mDatos[i][0] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];

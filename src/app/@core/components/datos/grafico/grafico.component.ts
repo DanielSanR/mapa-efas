@@ -44,8 +44,7 @@ export class GraficoComponent  {
   const checkbox   = true;
   this.datosGrafico = this.datos 
  
-   
-  console.log(this.datosGrafico)
+    
   if (checkbox){
     const mDatos = new Array(this.arrFech.length);
     for ( let i = 0; i < this.arrFech.length; i++){
@@ -83,15 +82,14 @@ export class GraficoComponent  {
 
 crearGrafico(datos: any, dias: any[]): void{
   // tomar la fecha del json 
-/*   console.log(datos)
-  console.log(this.arrFech); */
+ 
     const arrViento = [];
     const arrTemperatura = [];
     const arrHumedad_ambiente = [];
     const arrHumedad_suelo = [];
     const arrRadiacion = [];
     const arrPrecipitacion = [];
-    console.log(this.arrFech);
+     
     for ( let i = 0; i < this.arrFech.length; i++){
       arrViento.push(datos[i][0]);
       arrTemperatura.push(datos[i][1]);

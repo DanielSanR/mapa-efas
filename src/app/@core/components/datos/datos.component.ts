@@ -380,7 +380,7 @@ buscarDatos(): void{
                                                        
                                                       this.error=false;
                                                       this.datosPorfecha = result.datosPorFecha
-                                                      console.log(this.datosPorfecha)
+                                                     
                                                       this.procesarDatos();
                                                       
                                                     }
@@ -469,8 +469,7 @@ procesarDatos(){
   
   this.ultimosDatos = this.datosPorfecha[0]
  this.setearIcono();
-  
-  console.log(this.Icono_Interface)
+   
   
 
                     this.error=false;

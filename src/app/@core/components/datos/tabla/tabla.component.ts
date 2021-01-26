@@ -30,7 +30,7 @@ export class TablaComponent implements OnInit,AfterViewInit {
   // tslint:disable-next-line: variable-name
   // []
  @Input() set dato_form(prototipo: datoPorFecha[]){
-  console.log(this.stringViento);
+ 
     const arr: datoPorFecha[] = prototipo;
  
     this.dataSource = new MatTableDataSource<datoPorFecha>(arr); // console.log(this.dataSource.data);

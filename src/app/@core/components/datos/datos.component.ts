@@ -491,7 +491,7 @@ procesarDatos(){
                           temperaturaAmbiente:temperaturaAmbiente,
                           humedadAmbiente:humedadAmbiente,
                           humedadSuelo:humedadSuelo,
-                          luz:luz,
+                          luz:luz / 10 ,
                           lluvia:lluvia,
                           viento:viento,
                           precipitaciones:precipitaciones,

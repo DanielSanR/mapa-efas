@@ -42,6 +42,11 @@ fixear el form de instituciones ---
 definir un preload para form ---
 definir preload para datos tabla/gráfico --- */
 
+
+interface Icono {
+  direccion: string
+  nombre_icono:string
+}
 interface Error {
   titulo: string
   mensaje : string
@@ -87,7 +92,7 @@ export class DatosComponent implements OnInit,OnDestroy {
 @Input()selectedIndex: number | null;
   flagChartMatTab: boolean;
   error : boolean
-  
+  Icono_Interface :Icono
   fixedDias = Array();
   dateMax = moment(); // variable para almacenar fecha actual
   dateMin  = moment(); // var para definir el rango minimo del datapicker, en este caso fecha actual -1 año
@@ -104,7 +109,9 @@ export class DatosComponent implements OnInit,OnDestroy {
   institucion_id:number;
   prototype_id:number;
   prototipo_nombre: string;
-
+array_d_wind:any[] = [ ['NORTE','icon-north-w'],['NORESTE','icon-ne-w'],['ESTE','icon-east-w'],['SURESTE','icon-se-w'],['SUR','icon-south-w'],['SUROESTE','icon-swe-w'],['OESTE','icon-west-w'],['NOROESTE','icon-nwe-w'] ];
+ 
+  src_d_wind: string;
   //Suscribes
   DatosbyRangeSub$ = new Subscription;
   DatosDailySub$ = new Subscription;
@@ -141,7 +148,11 @@ export class DatosComponent implements OnInit,OnDestroy {
  
  
   ngOnInit(): void {
-    
+    this.Icono_Interface = {
+      direccion :'NORTE',
+      nombre_icono : 'icon-north-w'
+    }
+     
     this.error$ = {
       titulo: 'Cargando datos',
       mensaje: 'Cargando...',
@@ -442,10 +453,26 @@ buscarDatos(): void{
   
     
 }
+ 
 
+setearIcono() {
+  const direc = this.ultimosDatos.datosAmbientales['direccionViento']
+  if (( direc <= 7)  &&  (direc > 0))
+  {
+    this.Icono_Interface.direccion = this.array_d_wind[direc][0]
+    this.Icono_Interface.nombre_icono  = this.array_d_wind[direc][1]
+    
+  }
+this.src_d_wind= 'assets/images/icons_modal/icons_dire_wind/icons-blue/'+ this.Icono_Interface.nombre_icono +'.png';
+}
 procesarDatos(){
+  
   this.ultimosDatos = this.datosPorfecha[0]
-                 
+ this.setearIcono();
+  
+  console.log(this.Icono_Interface)
+  
+
                     this.error=false;
                 
                     this.datosPorfecha.forEach(element => {
@@ -458,7 +485,7 @@ procesarDatos(){
                                       lluvia=0,
                                       viento=0,
                                       precipitaciones=0,
-                                      direcionViento=0
+                                      direccionViento=0
                                     }) => {
                   return {
                           temperaturaAmbiente:temperaturaAmbiente,
@@ -468,17 +495,15 @@ procesarDatos(){
                           lluvia:lluvia,
                           viento:viento,
                           precipitaciones:precipitaciones,
-                          direcionViento:direcionViento
+                          direccionViento:((direccionViento)>7 ? direccionViento=0 : direccionViento=direccionViento)
                           
                         }
     
                     }
                     let test  :DatoAmbiental[];
                     test =useContex(element.datosAmbientales);
-                    element.datosAmbientales =  test
-                 
-                    
-                    
+                    element.datosAmbientales =  test;
+                     
                   }); 
                   this.prototipo_nombre = this.selected.nombre; 
                  

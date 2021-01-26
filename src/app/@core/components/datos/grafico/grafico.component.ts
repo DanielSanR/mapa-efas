@@ -91,6 +91,7 @@ crearGrafico(datos: any, dias: any[]): void{
     const arrHumedad_suelo = [];
     const arrRadiacion = [];
     const arrPrecipitacion = [];
+    console.log(this.arrFech);
     for ( let i = 0; i < this.arrFech.length; i++){
       arrViento.push(datos[i][0]);
       arrTemperatura.push(datos[i][1]);

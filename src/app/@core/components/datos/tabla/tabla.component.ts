@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PrototipoDatos } from '../../../models/prototipoDatos';
 import { datoPorFecha } from '../../../models/datosPorFecha';
- 
+   
 @Component({
   selector: 'app-tabla',
   templateUrl: './tabla.component.html',
@@ -14,6 +14,7 @@ import { datoPorFecha } from '../../../models/datosPorFecha';
 // 'position', 'desc',
 export class TablaComponent implements OnInit,AfterViewInit {
   datosPrototipo : PrototipoDatos;
+  stringViento = [ 'NORTE','NORESTE','ESTE','SURESTE','SUR','SUROESTE','OESTE','NOROESTE']
   tempor : datoPorFecha
   dataSource: MatTableDataSource<datoPorFecha>;
   displayedColumns: string[] = [
@@ -22,15 +23,16 @@ export class TablaComponent implements OnInit,AfterViewInit {
   'humedadAmbiente',
   'humedadSuelo',
   'viento',
+  'direccionViento',
   'precipitaciones',
   'luz'];
 
   // tslint:disable-next-line: variable-name
   // []
  @Input() set dato_form(prototipo: datoPorFecha[]){
- 
+  console.log(this.stringViento);
     const arr: datoPorFecha[] = prototipo;
-  
+ 
     this.dataSource = new MatTableDataSource<datoPorFecha>(arr); // console.log(this.dataSource.data);
   
   
@@ -39,10 +41,11 @@ export class TablaComponent implements OnInit,AfterViewInit {
 
 constructor() { }
   ngOnInit(): void {
-  
+   
   }
 @ViewChild(MatPaginator) paginator: MatPaginator;
 ngAfterViewInit() {
+
   this.dataSource.paginator = this.paginator;
   this.paginator._intl.itemsPerPageLabel = "Datos por página : "  
   }

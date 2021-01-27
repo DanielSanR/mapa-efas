@@ -36,6 +36,12 @@
                     {{stringViento[datos.datosAmbientales.direccionViento]}}
                 </td>
             </ng-container>
+            <ng-container matColumnDef="lluvia">
+                <th mat-header-cell *matHeaderCellDef> Lluvia.</th>
+                <td mat-cell *matCellDef="let datos">
+                    {{datos.datosAmbientales.lluvia}}<span class="unity-data-t">%</span>
+                </td>
+            </ng-container>
             <ng-container matColumnDef="precipitaciones">
                 <th mat-header-cell *matHeaderCellDef> Precipitación.</th>
                 <td mat-cell *matCellDef="let datos">

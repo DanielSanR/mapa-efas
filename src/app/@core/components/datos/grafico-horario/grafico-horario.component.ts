@@ -170,6 +170,12 @@ crearGrafico(datos: any, dias: any[]): void{
           pointFormat: 'Radiación {point.y:.0f} de 10'
       }
       }, {
+        name: 'Lluvia',
+        data: arrLluvia.reverse(),
+        tooltip: {
+          pointFormat: 'Lluvia  {point.y:.0f}%'
+      }
+    }, {
         name: 'Precipitación',
         data: arrPrecipitacion.reverse(),
         tooltip: {

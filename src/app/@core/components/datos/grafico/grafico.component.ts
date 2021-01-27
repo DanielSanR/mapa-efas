@@ -64,6 +64,7 @@ export class GraficoComponent  {
               mDatos[i][3] = this.datosGrafico[i].datosAmbientales['precipitaciones'];
               mDatos[i][4] = this.datosGrafico[i].datosAmbientales['humedadAmbiente'];
               mDatos[i][5] = this.datosGrafico[i].datosAmbientales['humedadSuelo'];
+              mDatos[i][6] = this.datosGrafico[i].datosAmbientales['lluvia'];
             }
         }
  }
@@ -82,7 +83,7 @@ export class GraficoComponent  {
 
 crearGrafico(datos: any, dias: any[]): void{
   // tomar la fecha del json 
- 
+    const arrLluvia = [];
     const arrViento = [];
     const arrTemperatura = [];
     const arrHumedad_ambiente = [];
@@ -97,7 +98,7 @@ crearGrafico(datos: any, dias: any[]): void{
       arrPrecipitacion.push(datos[i][3]);
       arrHumedad_ambiente.push(datos[i][4]);
       arrHumedad_suelo.push(datos[i][5]);
-      
+      arrLluvia.push(datos[i][6]);
     } 
     const fecha2= []
     
@@ -163,6 +164,12 @@ crearGrafico(datos: any, dias: any[]): void{
           pointFormat: 'Radiación {point.y:.0f} de 10'
       }
       }, {
+        name: 'Lluvia',
+        data: arrLluvia.reverse(),
+        tooltip: {
+          pointFormat: 'Lluvia  {point.y:.0f}%'
+      }
+      },{
         name: 'Precipitación',
         data: arrPrecipitacion.reverse(),
         tooltip: {

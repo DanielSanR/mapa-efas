@@ -24,6 +24,7 @@ export class TablaComponent implements OnInit,AfterViewInit {
   'humedadSuelo',
   'viento',
   'direccionViento',
+  'lluvia',
   'precipitaciones',
   'luz'];
 

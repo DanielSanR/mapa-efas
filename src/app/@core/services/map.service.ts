@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '@env/environment';
 import * as L from 'leaflet';
 
 @Injectable({

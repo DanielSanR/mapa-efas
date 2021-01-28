@@ -1,21 +1,20 @@
-import { Component, OnDestroy, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
+import { default as _rollupMoment } from 'moment';
 import * as Highcharts from 'highcharts';
-import more from 'highcharts/highcharts-more';
+
 import { ChangeDetectorRef } from '@angular/core';
 import { datoPorFecha } from '@core/models/datosPorFecha';
-import { PrototipoDatos } from '@core/models/prototipoDatos';
+
 
 @Component({
   selector: 'app-grafico-horario',
-  templateUrl: './grafico-horario.component.html',
-  styleUrls: ['./grafico-horario.component.css']
+  templateUrl: './grafico-horario.component.html'
 })
 export class GraficoHorarioComponent implements OnInit {
-  Highcharts: typeof Highcharts = Highcharts; // required
-  chartOptions: Highcharts.Options; // required
-  updateFlag: boolean; // optional boolean
+  Highcharts: typeof Highcharts = Highcharts; 
+  chartOptions: Highcharts.Options; 
+  updateFlag: boolean; 
   
   flag: boolean;
   optionsC: any;

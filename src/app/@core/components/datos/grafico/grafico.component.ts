@@ -1,17 +1,16 @@
-import { Component, OnDestroy, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import * as moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
+import { default as _rollupMoment } from 'moment';
 import * as Highcharts from 'highcharts';
-import more from 'highcharts/highcharts-more';
+ 
 import { ChangeDetectorRef } from '@angular/core';
-import { PrototipoDatos } from '@core/models/prototipoDatos';
+ 
 import { datoPorFecha } from '@core/models/datosPorFecha';
 
 
 @Component({
   selector: 'app-grafico',
-  templateUrl: './grafico.component.html',
-  styleUrls: ['./grafico.component.css']
+  templateUrl: './grafico.component.html'
 })
 export class GraficoComponent  {
 

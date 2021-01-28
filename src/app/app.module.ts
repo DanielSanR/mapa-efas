@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { from } from 'rxjs';
+ 
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field'; 
 import { DatePipe } from '@angular/common';
 
@@ -30,7 +30,7 @@ import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
 import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
 import { InstitucionesService } from '@core/services/institucion.service';
-import * as Highcharts from 'highcharts';
+ 
 
 import { HighchartsChartModule } from 'highcharts-angular'; 
 import { GraficoHorarioComponent } from './@core/components/datos/grafico-horario/grafico-horario.component';

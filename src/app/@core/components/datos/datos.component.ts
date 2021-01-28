@@ -1,7 +1,7 @@
-import { Component, OnInit, QueryList, AfterViewInit, ViewChild, ViewChildren, Input, ɵConsole, OnDestroy } from '@angular/core';
-import Prototipos from '../../../../assets/jsons/prototipos.json';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import {empty, Observable, Subscription} from 'rxjs';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable, Subscription} from 'rxjs';
 import {map, retryWhen, startWith} from 'rxjs/operators';
 import { DatosService } from '../../services/datos.service';
  
@@ -9,9 +9,8 @@ import { InstitucionesService } from '@core/services/institucion.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { Prototipo } from '@core/models/prototipo';
 import { Institucion } from '@core/models/institucion';
-import { THIS_EXPR, ThrowStmt } from '@angular/compiler/src/output/output_ast';
 import * as moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
+import { default as _rollupMoment } from 'moment';
 import { ValidadoresService } from '../../services/validadores.service';
 import {
   MAT_MOMENT_DATE_FORMATS,
@@ -19,29 +18,16 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import { GraficoComponent } from './grafico/grafico.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ActivatedRoute, Router } from '@angular/router';
-import { PrototipoDatos } from '../../models/prototipoDatos';
 import { datoPorFecha } from '@core/models/datosPorFecha';
-import { HttpErrorResponse } from '@angular/common/http';
 import { PrototiposService } from '../../services/prototipos.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DatoAmbiental } from '../../models/datoAmbiental';
-import { debounceTime } from 'rxjs/operators';
-import { finalize } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { shareReplay } from 'rxjs/operators';
 import { delayWhen } from 'rxjs/operators';
 import { timer } from 'rxjs'; 
- 
-/* Falta por hacer : 
-Setear el ultimo dato traido en Ultima act. ---
-manejo de errores en dialog 
-fixear el form de instituciones ---
-definir un preload para form ---
-definir preload para datos tabla/gráfico --- */
-
 
 interface Icono {
   direccion: string
@@ -363,7 +349,8 @@ buscarDatos(): void{
                                                   } )
                                                 ).subscribe(
                                                   result => {
-                                                    if((typeof(result.datosPorFecha[0]) === 'undefined'))
+                                                   
+                                                    if((typeof(result.datosPorFecha) === 'undefined' ) ||( typeof(result.datosPorFecha[0]) === 'undefined'))
                                                     {
                                                       this.error$ = {
                                                         titulo: 'sinDatos',

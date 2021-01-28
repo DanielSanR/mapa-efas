@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable  } from 'rxjs';
 import { Prototipo } from '@core/models/prototipo';
-import * as moment from 'moment';
-import { default as _rollupMoment, Moment } from 'moment';
+import { default as _rollupMoment } from 'moment';
 import { PrototipoDatos } from '../models/prototipoDatos';
 import { datoPorFecha } from '../models/datosPorFecha';
  
@@ -37,7 +36,6 @@ getDatos(id: number ): Observable<Prototipo[]> {
   return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
 }
 getByRange(id: number,start: Date, end : Date ): Observable<PrototipoDatos> {
-  console.log('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/1/'+start+'/'+end);
   return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/'+id+'/'+start+'/'+end);
 }
 getByDay(id: number,start: Date): Observable<PrototipoDatos> {

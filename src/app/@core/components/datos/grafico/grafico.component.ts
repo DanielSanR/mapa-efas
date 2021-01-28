@@ -31,8 +31,7 @@ export class GraficoComponent  {
 
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    
     this.addData();
  
 }
@@ -50,11 +49,10 @@ export class GraficoComponent  {
     for ( let i = 0; i < this.arrFech.length; i++){
       mDatos[i] = new Array(3);
     }
-    // matriz para almacenar  los datosAmbientales, guarda el ultimo dato ambiental de cada fecha
-    // se hara mediante lastIndexOf y una funcion proximamente.
+    
     for ( let i = 0; i < this.arrFech.length; i++){
 
-        // tslint:disable-next-line: prefer-for-of
+       
         for ( let j = 0; j < this.datosGrafico.length; j++){
             const datoc = moment(new Date(this.datosGrafico[j].fecha)).format('YYYY-MM-DD');
             if (this.arrFech[i] === datoc){
@@ -82,7 +80,7 @@ export class GraficoComponent  {
 }
 
 crearGrafico(datos: any, dias: any[]): void{
-  // tomar la fecha del json 
+ 
     const arrLluvia = [];
     const arrViento = [];
     const arrTemperatura = [];
@@ -111,7 +109,7 @@ crearGrafico(datos: any, dias: any[]): void{
     this.optionsC = {
       chart: {
         type: 'spline',
-        height: 300,
+        height: 369.8,
         zoomType: 'x',
         renderTo: 'container'
       },

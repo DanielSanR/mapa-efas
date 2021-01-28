@@ -46,10 +46,10 @@
 
 .localidad-u-datos {
     font-size: 11px;
-    font-weight: 200;
     align-items: left;
     margin: 0px 0px;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
+    font-weight: bold;
 }
 
 .humedad-u-datos {
@@ -58,11 +58,12 @@
     align-items: left;
     margin: 0px 0px;
     height: 15px;
+    padding-top: 8px;
 }
 
 .humedad-u-datos img {
     float: left;
-    width: 15px;
+    width: 19px;
     padding-right: 5px;
     padding-top: 2px;
 }
@@ -211,27 +212,36 @@
 /* Contenedor del Mat Tab */
 
 .mat-tab-content {
-    min-height: 370px;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 0em;
     padding-bottom: 10px;
+    text-align: -webkit-left;
+    max-width: 680px;
+    margin: 2em auto;
+    margin-left: 18px;
+    margin-right: 18px;
+    border-radius: 1em/1em;
+    width: 90%;
 }
 
 
 /*Texto y valor de Ultima actualizacion */
 
 .content-u-act {
+    text-align: left;
     margin-right: 5px;
     font-weight: 500;
     font-size: 13px;
 }
 
 .sub-u-act {
+    text-align: left;
     padding-left: 5px;
     padding-right: 16px;
     font-size: 11px;
     font-weight: 200;
+}
+
+.mat-content {
+    min-height: 220px;
 }
 
 

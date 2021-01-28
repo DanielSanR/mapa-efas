@@ -64,7 +64,7 @@
                                 Seleccione una fecha maxima válida
                             </mat-error>
                         </mat-form-field>
-                        <!--      (dateChange)="fin('change', $event)" -->
+
                         <mat-form-field appearance="outline" *ngIf="checkStatus" fxFlex>
                             <mat-label>Seleccionar Fecha Fin</mat-label>
                             <input matInput [matDatepicker]="dp4" formControlName="fechaFin" [min]="dateMin" [max]="dateMax">
@@ -101,148 +101,131 @@
         </mat-card>
     </div>
 
-    <div fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" *ngIf="tablaStatus">
 
+
+
+        <mat-card class="mat-tab-content">
+
+            <mat-tab-group *ngIf="!error" id="tab-group" headerPosition="above" [(selectedIndex)]="selectedIndex" dynamicHeight="true">
+
+                <mat-tab label="Ultimos Datos">
+                    <div class="content">
+                        <mat-card class="mat-info">
+                            <div class="header-datos">
+                                <div fxFlex fxLayout="row" fxLayout.sm="row" fxLayout.xs="row" fxLayout.lg="row" fxLayoutAlign="space-between center">
+                                    <div fxFlex fxLayoutAlign="none">
+                                        <div fxflex class="contenedor-datos-sup" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                            <h2 fxflex class="temp-u-datos">{{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}°C</h2>
+                                            <p fxFlex class="viento-u-datos"> <img src="{{src_d_wind}}" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['viento']}}km/h</p>
+                                            <p fxFlex class="humedad-u-datos"><img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['humedadAmbiente']}}% </p>
+
+
+                                        </div>
+
+                                        <div fxflex class="contenedor-proto-localidad" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                            <h1 class="prototipo-u-datos" fxFlex> {{selected.nombre}} </h1>
+                                            <p fxFlex class="localidad-u-datos"> {{selectedInstitucion}}</p>
+                                        </div>
+                                    </div>
+                                    <div fxflex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                        <div *ngIf="(ultimosDatos.datosAmbientales['lluvia'] <= 70) &&  (ultimosDatos.datosAmbientales['lluvia'] >= 40)  " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/nublado.png" alt="icono del sol"></div>
+
+                                        <div *ngIf="ultimosDatos.datosAmbientales['lluvia'] < 40 " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/soleado.png" alt="icono del sol"></div>
+                                        <div *ngIf="ultimosDatos.datosAmbientales['lluvia'] > 70 " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/rain.png" alt="icono del sol"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <mat-divider></mat-divider>
+                            <mat-card-content style="min-height: 254.8px;" fxLayout="row" class="ultimos-datos-mat" fxLayout.lt-md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="row">
+
+
+                                <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+
+                                    <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                        <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/hum_icon_w_2.png" alt="icono humedad"> HUMEDAD SUELO </div>
+                                        <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['humedadSuelo']}}%</div>
+                                    </div>
+
+
+                                    <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                        <div fxflex class="sub-u-datos"><img src="assets/images/icons_modal/pp_icon_w_2.png" alt="icono precipitacion"> PRECIPITACIÓN </div>
+                                        <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['precipitaciones']}}(mm)</div>
+                                    </div>
+
+                                </div>
+                                <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
+                                    <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                        <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/uv.png" alt="icono  uv"> INDICE UV </div>
+                                        <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['luz']}} de 10</div>
+                                    </div>
+
+                                    <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
+                                        <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/lluvia_b.png" alt="lluvia"> LLUVIA </div>
+                                        <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['lluvia']}}%</div>
+                                    </div>
+
+                                </div>
+
+
+                            </mat-card-content>
+
+
+
+                            <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
+
+                                <div fxflex class="content-u-act"> Ultima Actualización : </div>
+                                <div fxflex class="sub-u-act"> {{ultimosDatos.fecha | date:'dd/MM/yy HH:mm:ss ':'UTC'}} </div>
+                            </div>
+                        </mat-card>
+
+                    </div>
+
+                </mat-tab>
+                <mat-tab label="Listado de Datos">
+                    <div *ngIf="tablaStatus">
+                        <app-tabla [dato_form]="datosPorfecha"></app-tabla>
+                    </div>
+
+
+
+                </mat-tab>
+                <mat-tab *ngIf="(checkStatus) && (flagChartMatTab===true)" label="Gráfico Diario">
+
+                    <div fxFlex="100%" fxFill>
+                        <div fxLayout="column">
+
+                            <ng-template matTabContent>
+
+                                <app-grafico *ngIf="(tablaStatus)" [datos]="datosPorfecha" [fechas]="fixedDias"></app-grafico>
+                            </ng-template>
+                        </div>
+
+                    </div>
+                </mat-tab>
+                <mat-tab *ngIf="(!checkStatus) && (flagChartMatTab===true)" label="Gráfico Horario">
+                    <div fxFlex="100%" fxFill style="min-height: 409.8px;">
+                        <div fxLayout="column">
+
+                            <ng-template matTabContent>
+
+                                <app-grafico-horario *ngIf="(tablaStatus)" [datos]="datosPorfecha" [fechas]="fixedDias"></app-grafico-horario>
+                            </ng-template>
+                        </div>
+
+                    </div>
+                </mat-tab>
+
+
+            </mat-tab-group>
+
+
+
+
+        </mat-card>
 
     </div>
-
-    <mat-card class="mat-tab-content" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column" *ngIf="tablaStatus">
-
-        <mat-tab-group *ngIf="!error" id="tab-group" headerPosition="above" [(selectedIndex)]="selectedIndex" dynamicHeight="true">
-
-            <mat-tab label="Ultimos Datos">
-                <div class="content">
-                    <mat-card class="mat-info">
-                        <div class="header-datos">
-                            <div fxFlex fxLayout="row" fxLayout.sm="row" fxLayout.xs="row" fxLayout.lg="row" fxLayoutAlign="space-between center">
-                                <div fxFlex fxLayoutAlign="none">
-                                    <div fxflex class="contenedor-datos-sup" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                        <h2 fxflex class="temp-u-datos">{{ultimosDatos.datosAmbientales['temperaturaAmbiente']}}°C</h2>
-                                        <p fxFlex class="viento-u-datos"> <img src="{{src_d_wind}}" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['viento']}}km/h</p>
-                                        <p fxFlex class="humedad-u-datos"><img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento"> {{ultimosDatos.datosAmbientales['humedadAmbiente']}}% </p>
-
-
-                                    </div>
-
-                                    <div fxflex class="contenedor-proto-localidad" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                        <h1 class="prototipo-u-datos" fxFlex> {{selected.nombre}} </h1>
-                                        <p fxFlex class="localidad-u-datos"> {{selectedInstitucion}}</p>
-                                    </div>
-                                </div>
-                                <div fxflex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                    <div *ngIf="(ultimosDatos.datosAmbientales['lluvia'] <= 70) &&  (ultimosDatos.datosAmbientales['lluvia'] >= 40)  " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/nublado.png" alt="icono del sol"></div>
-                                    <!--  <p fxFlex class="estado-tiempo">1</p> -->
-                                    <div *ngIf="ultimosDatos.datosAmbientales['lluvia'] < 40 " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/soleado.png" alt="icono del sol"></div>
-                                    <div *ngIf="ultimosDatos.datosAmbientales['lluvia'] > 70 " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/rain.png" alt="icono del sol"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <mat-divider></mat-divider>
-                        <mat-card-content fxLayout="row" class="ultimos-datos-mat" fxLayout.lt-md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="row">
-
-
-                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-
-                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/hum_icon_w_2.png" alt="icono humedad"> HUMEDAD SUELO </div>
-                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['humedadSuelo']}}%</div>
-                                </div>
-
-
-                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos"><img src="assets/images/icons_modal/pp_icon_w_2.png" alt="icono precipitacion"> PRECIPITACIÓN </div>
-                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['precipitaciones']}}(mm)</div>
-                                </div>
-
-                            </div>
-                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/uv.png" alt="icono  uv"> INDICE UV </div>
-                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['luz']}} de 10</div>
-                                </div>
-
-                                <div class="content-items" fxflex fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos"> <img src="assets/images/icons_modal/lluvia_b.png" alt="lluvia"> LLUVIA </div>
-                                    <div fxflex class="sub-u-datos-d"> {{ultimosDatos.datosAmbientales['lluvia']}}%</div>
-                                </div>
-
-                            </div>
-
-
-                        </mat-card-content>
-                        <!-- <mat-divider></mat-divider>
-                        <div class="amanecer-atardecer-content" fxLayout="row" fxLayout.lt-md="row" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="row">
-                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                <div fxflex class="content-items-p" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos-am-at"> <img src="assets/images/icons_modal/amanecer.png" alt="icono vel viento"> AMANECER </div>
-                                    <div fxflex class="sub-u-datos-am-at-d"> 5:20 AM</div>
-                                </div>
-
-
-                            </div>
-                            <div fxFlex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
-                                <div fxflex class="content-items-p" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="0px">
-                                    <div fxflex class="sub-u-datos-am-at"> <img src="assets/images/icons_modal/atardecer.png" alt="icono vel viento">PUESTA DE SOL </div>
-                                    <div fxflex class="sub-u-datos-am-at-d"> 20:15 PM</div>
-                                </div>
-
-
-                            </div>
-                        </div> -->
-
-
-                        <div fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="0px" fxLayoutAlign="end" fxLayoutGap.lt-md="0px">
-
-                            <div fxflex class="content-u-act"> Ultima Actualización : </div>
-                            <div fxflex class="sub-u-act"> {{ultimosDatos.fecha | date:'dd/MM/yy HH:mm:ss ':'UTC'}} </div>
-                        </div>
-                    </mat-card>
-
-                </div>
-
-            </mat-tab>
-            <mat-tab label="Listado de Datos">
-                <div *ngIf="tablaStatus ">
-                    <app-tabla [dato_form]="datosPorfecha"></app-tabla>
-                </div>
-
-
-
-            </mat-tab>
-            <mat-tab *ngIf="(checkStatus) && (flagChartMatTab===true)" label="Gráfico Diario">
-
-                <div fxFlex="100%" fxFill>
-                    <div fxLayout="column">
-
-                        <ng-template matTabContent>
-
-                            <app-grafico *ngIf="(tablaStatus)" [datos]="datosPorfecha" [fechas]="fixedDias"></app-grafico>
-                        </ng-template>
-                    </div>
-
-                </div>
-            </mat-tab>
-            <mat-tab *ngIf="(!checkStatus) && (flagChartMatTab===true)" label="Gráfico Horario">
-                <div fxFlex="100%" fxFill>
-                    <div fxLayout="column">
-
-                        <ng-template matTabContent>
-
-                            <app-grafico-horario *ngIf="(tablaStatus)" [datos]="datosPorfecha" [fechas]="fixedDias"></app-grafico-horario>
-                        </ng-template>
-                    </div>
-
-                </div>
-            </mat-tab>
-
-
-        </mat-tab-group>
-
-
-
-
-    </mat-card>
     <br><br>
 
 </div>

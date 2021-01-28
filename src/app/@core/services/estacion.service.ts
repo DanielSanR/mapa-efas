@@ -20,7 +20,6 @@ export class EstacionService {
   
   getPrototypeLastData(prototype_id:number, current_date_formatted:any):Observable<PrototipoDatos> {
     return this._http.get<any>(this.url+prototype_id+'/'+current_date_formatted);
-    /* return this._http.get<PrototipoDatos>('assets/jsons/datosDelDia.json'); */
   }
 
  

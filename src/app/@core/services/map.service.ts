@@ -7,9 +7,6 @@ import * as L from 'leaflet';
 })
 export class MapService {
 
-  // fixear luego de agregar todos los market
-  /* lat = -27.9359265; */
-  /* lng = -55.7744321; */
 
   private map;
 

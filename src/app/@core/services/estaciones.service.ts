@@ -20,7 +20,6 @@ export class EstacionesService {
   
   getPrototypeInstitution(institution_id:number):Observable<Prototipo[]> {
     return this._http.get<Prototipo[]>(this.url+institution_id);
-    /* return this._http.get<Prototipo[]>('assets/jsons/prototipos.json'); */
   }
 
 

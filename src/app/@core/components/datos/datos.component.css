@@ -58,7 +58,7 @@
     align-items: left;
     margin: 0px 0px;
     height: 15px;
-    padding-top: 8px;
+    padding-top: 3px;
 }
 
 .humedad-u-datos img {
@@ -82,7 +82,7 @@
     float: left;
     width: 15px;
     padding-right: 5px;
-    padding-top: 2px;
+    padding-top: 4px;
 }
 
 .contenedor-proto-localidad {

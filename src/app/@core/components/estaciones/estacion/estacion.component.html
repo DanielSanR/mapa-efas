@@ -1,6 +1,5 @@
 <div *ngIf="isLoading === false && httpErr === false">
     <mat-tab-group style="transition-duration: 5000ms;">
-
         <mat-tab label="ESTACIÓN">
             <div class="content">
                 <mat-list>
@@ -30,49 +29,41 @@
 
         <mat-tab label="ULTIMA INFORMACIÓN" *ngIf="this.respData === true; else noData"> 
             <div class="content">
-                <mat-card>
-                    <mat-grid-list cols="2" rowHeight="35px" >
-                        <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-fc" >
-                                <img src="assets/images/icons_modal/temp_icon_w.png" alt="icono_temp_ambiente">
-                                <strong>TEMPERATURA</strong>
-                            </figure>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-sc" >
-                                {{last_data_day['temperaturaAmbiente']}}°C
-                            </figure>
-                        </mat-grid-tile>
-                    </mat-grid-list>
-                </mat-card>
+                <div  class="contenedor-datos-sup">
+                    <div class="temp-clima">
+                        <h2 class="temp-u-datos">{{last_data_day['temperaturaAmbiente']}}°C</h2>
+                        <div class="img-temp-amb" >
+                            <img src="assets/images/icons_modal/nublado.png" alt="icono_del_sol" *ngIf="(last_data_day['lluvia'] <= 70) && (last_data_day['lluvia'] >= 40)">
+                            <img src="assets/images/icons_modal/soleado.png" alt="icono_del_sol" *ngIf="last_data_day['lluvia'] < 40">
+                            <img src="assets/images/icons_modal/rain.png" alt="icono_del_sol" *ngIf="last_data_day['lluvia'] > 70">
+                        </div>
+                    </div>    
+                    <div class="viento-humAmbiente">
+                        <div id="viento">
+                            <div class="viento-img-container">
+                                <img src="{{src_d_wind}}" alt="icono vel viento" id="img-viento-dir">
+                            </div>
+                            <span>{{last_data_day['viento']}}km/h</span>
+                        </div>
+                        <div id="humedad-amb">
+                            <div class="humedad-img-container">
+                                <img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento" >
+                            </div>
+                            <span>{{last_data_day['humedadAmbiente']}}%</span> 
+                        </div>
+                    </div>
+                </div>
                 <mat-card style="margin-top: 5px;">
                     <mat-grid-list cols="2" rowHeight="35px" >
                         <mat-grid-tile>
                             <figure class="mat-figure m-g-t-ultinfo-fc" >
                                 <img src="assets/images/icons_modal/hum_icon_w.png" alt="icono_porc_humedad">
-                                <strong>HUMEDAD<br><span style="font-size: 12px; color: white;">Ambiente/Suelo</span></strong>
+                                <strong>HUMEDAD SUELO</strong>
                             </figure>
                         </mat-grid-tile>
                         <mat-grid-tile>
                             <figure class="mat-figure m-g-t-ultinfo-sc" >
-                                {{last_data_day['humedadAmbiente']}}% / {{last_data_day['humedadSuelo']}}%
-                            </figure>
-                        </mat-grid-tile>
-                    </mat-grid-list>
-                </mat-card>
-                <mat-card style="margin-top: 5px;">
-                    <mat-grid-list cols="2" rowHeight="35px" >
-                        <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-fc" >
-                                <img src="assets/images/icons_modal/wind_icon_w.png" alt="icono_vel_viento">
-                                <strong>VIENTO</strong>
-                            </figure>
-                        </mat-grid-tile>
-                        <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-sc" >
-                                <img src="{{src_d_wind}}" style="margin-right: 3px; width: 21px!important;">
-                                {{last_data_day['viento']}}
-                                <span class="unity-data">km/h</span>
+                                {{last_data_day['humedadSuelo']}}%
                             </figure>
                         </mat-grid-tile>
                     </mat-grid-list>
@@ -112,7 +103,7 @@
                         <mat-grid-tile>
                             <figure class="mat-figure m-g-t-ultinfo-fc" >
                                 <mat-icon id="icon_uv">wb_sunny</mat-icon>
-                                <strong>LUZ</strong>
+                                <strong>INDICE UV</strong>
                             </figure>
                         </mat-grid-tile>
                         <mat-grid-tile>

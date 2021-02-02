@@ -100,7 +100,7 @@ export class EstacionComponent implements OnInit, OnDestroy {
           ?  this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1]
           :  this.icon_d_wind = this.array_d_wind[0][1];
          
-        this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-w/'+ this.icon_d_wind +'.png';
+        this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-blue/'+ this.icon_d_wind +'.png';
 
       } else {
         let data_weather = {temperaturaAmbiente: 0,humedadAmbiente: 0,humedadSuelo: 0,luz: 0,viento: 0,direccionViento: 0,lluvia: 0, precipitaciones: 0,};

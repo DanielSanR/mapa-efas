@@ -49,9 +49,9 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="luz">
-                <th mat-header-cell *matHeaderCellDef>Índice UV.</th>
+                <th mat-header-cell *matHeaderCellDef>Luminosidad</th>
                 <td mat-cell *matCellDef="let datos">
-                    {{datos.datosAmbientales.luz}} de 10
+                    {{datos.datosAmbientales.luz}} %
                 </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

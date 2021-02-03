@@ -76,6 +76,7 @@ export class DatosComponent implements OnInit,OnDestroy {
   };
  error$ : Error;
 @Input()selectedIndex: number | null;
+  estadoClima : number = 0;
   flagChartMatTab: boolean;
   error : boolean
   Icono_Interface :Icono
@@ -179,6 +180,7 @@ array_d_wind:any[] = [ ['NORTE','icon-north-w'],['NORESTE','icon-ne-w'],['ESTE',
         this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
         .pipe(
           startWith(''),
+          
           map(value => typeof value === 'string' ? value : value.nombre),
           map(nombre => nombre ? this._filter(nombre) : this.options.slice())
         );
@@ -248,6 +250,8 @@ obtenerPrototipo( institucionId: { id: number; }): any{
   };
   this.error = true;
   this.isLoadingPrototype = true;
+  this.tablaStatus = false;
+  this.selected=null;
     this.PrototipoService$.add(this._PROTOTIPOS.getInstitucion(institucionId.id).pipe(
       tap(() => console.log("HTTP request executed")), 
       shareReplay(),
@@ -267,7 +271,8 @@ obtenerPrototipo( institucionId: { id: number; }): any{
       result  => { 
         this.isLoadingPrototype = false;  
         this.prototiposArr = result
-        if  (typeof(result) === 'undefined') {
+     
+        if  ((typeof(result) === 'undefined') || this.prototiposArr.length < 1) {
           this.error$ = {
             titulo: 'sinDatos',
             mensaje: 'No hay Prototipos para la Institución seleccionada',
@@ -337,7 +342,7 @@ buscarDatos(): void{
                                                   shareReplay(),
                                                   retryWhen(errors => {
                                                       return errors
-                                                              .pipe(delayWhen(() => timer(5000)),
+                                                              .pipe(delayWhen(() => timer(3000)),
                                                                   tap(() => {
                                                                     this.error$ = {
                                                                       titulo: 'internet',
@@ -439,10 +444,18 @@ buscarDatos(): void{
 }  
   
     
-}
- 
+}/* 
+ temp del cielo por infra, y temp de ambiente , sumar y restar dep de las condiciones  */
 
 setearIcono() {
+  let fecha = new Date(this.ultimosDatos.fecha);
+ 
+   
+  this.estadoClima =(this._VALIDADORES.clima(this.ultimosDatos.datosAmbientales['lluvia'],this.ultimosDatos.datosAmbientales['humedadAmbiente'],
+  
+  this.ultimosDatos.datosAmbientales['precipitaciones'],fecha.getHours()));
+  console.log(this.estadoClima);
+
   const direc = this.ultimosDatos.datosAmbientales['direccionViento']
   if (( direc <= 7)  &&  (direc > 0))
   {
@@ -477,7 +490,7 @@ procesarDatos(){
                           temperaturaAmbiente:temperaturaAmbiente,
                           humedadAmbiente:humedadAmbiente,
                           humedadSuelo:humedadSuelo,
-                          luz:luz / 10 ,
+                          luz:luz,
                           lluvia:lluvia,
                           viento:viento,
                           precipitaciones:precipitaciones,
@@ -529,14 +542,13 @@ simulargetDatosEstacion( ): void{
 this.obtenerPrototipo(this.formulario.get('institutoControl').value);
    setTimeout(() => {
     
-     
     if  (typeof(this.prototiposArr) === 'undefined') {this.selected = null, this.prototiposArr = [] }
 
     else {  const prototipo  = this.prototiposArr.map(x => x.id).indexOf(Number(this.prototype_id));
       this.selected = this.prototiposArr[prototipo];}
   
     
-   }, 1500);
+   }, 500);
 
 
 }

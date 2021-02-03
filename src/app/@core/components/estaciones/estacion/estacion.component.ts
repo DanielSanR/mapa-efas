@@ -73,7 +73,7 @@ export class EstacionComponent implements OnInit, OnDestroy {
                                                                     temperaturaAmbiente: temperaturaAmbiente,
                                                                     humedadAmbiente: humedadAmbiente, 
                                                                     humedadSuelo: humedadSuelo,
-                                                                    luz: luz / 10,           
+                                                                    luz: luz,           
                                                                     viento: viento,
                                                                     direccionViento: direccionViento,
                                                                     lluvia: lluvia, 

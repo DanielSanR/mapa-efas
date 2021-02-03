@@ -82,7 +82,7 @@
     float: left;
     width: 15px;
     padding-right: 5px;
-    padding-top: 4px;
+    padding-top: 1px;
 }
 
 .contenedor-proto-localidad {
@@ -383,7 +383,7 @@
 
  ::ng-deep .mat-tab-label {
     height: 30px !important;
-    min-height: 15px!important;
+    min-height: 14px!important;
     margin: 5px!important;
     width: 150px!important;
     min-width: 15px!important;

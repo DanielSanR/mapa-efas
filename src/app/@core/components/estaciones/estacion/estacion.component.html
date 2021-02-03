@@ -5,39 +5,39 @@
                 <mat-list>
                     <mat-list-item>
                         <span mat-line class="m-t-dataStations"> Estación </span>
-                        <span mat-subheader class="m-t-dataStations-attribute" >{{stationData.nombre}}</span>
+                        <span mat-subheader class="m-t-dataStations-attribute">{{stationData.nombre}}</span>
                     </mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item>
                         <span mat-line class="m-t-dataStations"> Ubicación </span>
-                        <span mat-subheader class="m-t-dataStations-attribute" >Campo Anexo</span>
+                        <span mat-subheader class="m-t-dataStations-attribute">Campo Anexo</span>
                     </mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item>
                         <span mat-line class="m-t-dataStations"> Localidad </span>
-                        <span mat-subheader class="m-t-dataStations-attribute" >{{stationData.localidad}}</span>
+                        <span mat-subheader class="m-t-dataStations-attribute">{{stationData.localidad}}</span>
                     </mat-list-item>
                     <mat-divider></mat-divider>
                     <mat-list-item>
                         <span mat-line class="m-t-dataStations"> Departamento </span>
-                        <span mat-subheader class="m-t-dataStations-attribute" >{{stationData.departamento}}</span>
+                        <span mat-subheader class="m-t-dataStations-attribute">{{stationData.departamento}}</span>
                     </mat-list-item>
-                    <mat-divider></mat-divider>    
+                    <mat-divider></mat-divider>
                 </mat-list>
             </div>
         </mat-tab>
 
-        <mat-tab label="ULTIMA INFORMACIÓN" *ngIf="this.respData === true; else noData"> 
+        <mat-tab label="ULTIMA INFORMACIÓN" *ngIf="this.respData === true; else noData">
             <div class="content">
-                <div  class="contenedor-datos-sup">
+                <div class="contenedor-datos-sup">
                     <div class="temp-clima">
                         <h2 class="temp-u-datos">{{last_data_day['temperaturaAmbiente']}}°C</h2>
-                        <div class="img-temp-amb" >
+                        <div class="img-temp-amb">
                             <img src="assets/images/icons_modal/nublado.png" alt="icono_del_sol" *ngIf="(last_data_day['lluvia'] <= 70) && (last_data_day['lluvia'] >= 40)">
                             <img src="assets/images/icons_modal/soleado.png" alt="icono_del_sol" *ngIf="last_data_day['lluvia'] < 40">
                             <img src="assets/images/icons_modal/rain.png" alt="icono_del_sol" *ngIf="last_data_day['lluvia'] > 70">
                         </div>
-                    </div>    
+                    </div>
                     <div class="viento-humAmbiente">
                         <div id="viento">
                             <div class="viento-img-container">
@@ -47,68 +47,68 @@
                         </div>
                         <div id="humedad-amb">
                             <div class="humedad-img-container">
-                                <img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento" >
+                                <img src="assets/images/icons_modal/humedad_b.png" alt="icono vel viento">
                             </div>
-                            <span>{{last_data_day['humedadAmbiente']}}%</span> 
+                            <span>{{last_data_day['humedadAmbiente']}}%</span>
                         </div>
                     </div>
                 </div>
                 <mat-card style="margin-top: 5px;">
-                    <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-list cols="2" rowHeight="35px">
                         <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <figure class="mat-figure m-g-t-ultinfo-fc">
                                 <img src="assets/images/icons_modal/hum_icon_w.png" alt="icono_porc_humedad">
                                 <strong>HUMEDAD SUELO</strong>
                             </figure>
                         </mat-grid-tile>
                         <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            <figure class="mat-figure m-g-t-ultinfo-sc">
                                 {{last_data_day['humedadSuelo']}}%
                             </figure>
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-card>
                 <mat-card style="margin-top: 5px;">
-                    <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-list cols="2" rowHeight="35px">
                         <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <figure class="mat-figure m-g-t-ultinfo-fc">
                                 <img src="assets/images/icons_modal/lluvia.png" alt="icono_lluvia">
                                 <strong>LLUVIA</strong>
                             </figure>
                         </mat-grid-tile>
                         <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            <figure class="mat-figure m-g-t-ultinfo-sc">
                                 {{last_data_day['lluvia']}}<span class="unity-data">%</span>
                             </figure>
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-card>
                 <mat-card style="margin-top: 5px;">
-                    <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-list cols="2" rowHeight="35px">
                         <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <figure class="mat-figure m-g-t-ultinfo-fc">
                                 <img src="assets/images/icons_modal/pp_icon_w.png" alt="icono_precipitacion">
                                 <strong>PRECIPITACIÓN</strong>
                             </figure>
                         </mat-grid-tile>
                         <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-sc" >
+                            <figure class="mat-figure m-g-t-ultinfo-sc">
                                 {{last_data_day['precipitaciones']}}<span class="unity-data">(mm)</span>
                             </figure>
                         </mat-grid-tile>
                     </mat-grid-list>
                 </mat-card>
                 <mat-card style="margin-top: 5px;">
-                    <mat-grid-list cols="2" rowHeight="35px" >
+                    <mat-grid-list cols="2" rowHeight="35px">
                         <mat-grid-tile>
-                            <figure class="mat-figure m-g-t-ultinfo-fc" >
+                            <figure class="mat-figure m-g-t-ultinfo-fc">
                                 <mat-icon id="icon_uv">wb_sunny</mat-icon>
-                                <strong>INDICE UV</strong>
+                                <strong>LUMINOSIDAD</strong>
                             </figure>
                         </mat-grid-tile>
                         <mat-grid-tile>
                             <figure class="mat-figure m-g-t-ultinfo-sc">
-                                {{last_data_day['luz']}} de 10
+                                {{last_data_day['luz']}}%
                             </figure>
                         </mat-grid-tile>
                     </mat-grid-list>
@@ -129,7 +129,7 @@
             <mat-tab label="ULTIMA INFORMACIÓN">
                 <div style="padding: 4px; margin-top: 5px; height: 20vh;">
                     <div style="position: absolute; top: 45%; left: 20%; font-size: 18px; color: gray;">
-                    No hay datos disponibles
+                        No hay datos disponibles
                     </div>
                 </div>
             </mat-tab>
@@ -138,7 +138,7 @@
         <mat-tab label="DATOS DEL DÍA" *ngIf="this.respData === true; else noData">
             <app-tabla-datos [array_data]="array_data_weather"></app-tabla-datos>
         </mat-tab>
-        <ng-template #noData> 
+        <ng-template #noData>
             <mat-tab label="DATOS DEL DÍA">
                 <div style="padding: 4px; margin-top: 5px; height: 20vh;">
                     <div style="position: absolute; top: 45%; left: 20%; font-size: 18px; color: gray;">
@@ -148,7 +148,7 @@
             </mat-tab>
         </ng-template>
 
-        <mat-tab label="MÁS DATOS"> 
+        <mat-tab label="MÁS DATOS">
             <button mat-raised-button id="btn-advance-search" (click)="redirectDatos()">BUSCAR MÁS DATOS</button>
         </mat-tab>
 
@@ -161,7 +161,7 @@
         <mat-tab label="ESPERANDO DATOS">
             <div style="padding: 4px; margin-top: 5px; height: 20vh;">
                 <div style="width: 25px; position: absolute; top: 35%; left: 40%;">
-                    <mat-spinner [diameter]="70"></mat-spinner>    
+                    <mat-spinner [diameter]="70"></mat-spinner>
                 </div>
             </div>
         </mat-tab>

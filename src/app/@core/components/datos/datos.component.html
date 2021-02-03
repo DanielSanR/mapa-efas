@@ -96,13 +96,13 @@
                         <button class="btn-form" mat-raised-button type="submit" [disabled]="!formulario.valid" fxFlex>CONSULTAR</button>
                     </div>
                 </form>
+
             </mat-card-content>
             <mat-card-actions></mat-card-actions>
         </mat-card>
     </div>
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" *ngIf="tablaStatus">
-
 
 
         <mat-card class="mat-tab-content">
@@ -131,8 +131,9 @@
                                     <div fxflex fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayout.lg="column">
                                         <div *ngIf="(ultimosDatos.datosAmbientales['lluvia'] <= 70) &&  (ultimosDatos.datosAmbientales['lluvia'] >= 40)  " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/nublado.png" alt="icono del sol"></div>
 
-                                        <div *ngIf="ultimosDatos.datosAmbientales['lluvia'] < 40 " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/soleado.png" alt="icono del sol"></div>
-                                        <div *ngIf="ultimosDatos.datosAmbientales['lluvia'] > 70 " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/rain.png" alt="icono del sol"></div>
+                                        <div *ngIf="estadoClima == 2" fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/soleado.png" alt="icono del sol"></div>
+                                        <div *ngIf="estadoClima == 1 " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/rain.png" alt="icono de lluvia"></div>
+                                        <div *ngIf="estadoClima == 3 " fxflex class="container-img-u-datos"> <img src="assets/images/icons_modal/luna.png" alt="icono de lluvia"></div>
                                     </div>
                                 </div>
 

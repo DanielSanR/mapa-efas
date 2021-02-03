@@ -27,6 +27,7 @@ let estado = 0;
  const humedadC = humedad;
  const precipitacionC = precipitacion ;
  const horaC = hora;
+ if (hora >21 ) { estado = 3} else { estado =2 }
  if ((lluviaC >= 70) && (humedadC >= 70)){
     
     if(((horaC <= 21) && (horaC >= 8)) || (precipitacionC >= 1)) { //  lluvia
@@ -41,7 +42,7 @@ let estado = 0;
     else { estado = 3 }
     
  }
- if (hora >21 ) { estado = 2} else { estado =3 }
+
   
  return estado
 }

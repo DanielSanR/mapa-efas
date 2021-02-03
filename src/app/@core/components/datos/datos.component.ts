@@ -450,11 +450,10 @@ buscarDatos(): void{
 setearIcono() {
   let fecha = new Date(this.ultimosDatos.fecha);
  
-   
   this.estadoClima =(this._VALIDADORES.clima(this.ultimosDatos.datosAmbientales['lluvia'],this.ultimosDatos.datosAmbientales['humedadAmbiente'],
   
   this.ultimosDatos.datosAmbientales['precipitaciones'],fecha.getHours()));
-  console.log(this.estadoClima);
+  
 
   const direc = this.ultimosDatos.datosAmbientales['direccionViento']
   if (( direc <= 7)  &&  (direc > 0))

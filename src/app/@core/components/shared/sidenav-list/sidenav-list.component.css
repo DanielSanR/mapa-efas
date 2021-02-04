@@ -35,14 +35,10 @@ mat-icon {
     }
 }
 
-@media(min-width: 800px) {
+@media(min-width: 700px) {
     #img-logo {
         max-width: 160px;
         margin-right: auto;
         margin-left: auto;
-    }
-    #icon-header {
-        margin-bottom: 0px;
-        margin-top: 11px;
     }
 }

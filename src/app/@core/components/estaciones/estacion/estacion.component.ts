@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { EstacionService } from '@core/services/estacion.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ValidadoresService } from '@core/services/validadores.service';
 
 
 
@@ -31,10 +32,13 @@ export class EstacionComponent implements OnInit, OnDestroy {
   isLoading:boolean = true;
   httpErr:boolean = false;
   respData:boolean = false;
+  stateWeather:number = 0;
+
 
   constructor(  private _estacionService: EstacionService,
                 private router: Router,
                 private datePipe: DatePipe,
+                private _VALIDADORES: ValidadoresService,
                 public dialogRef: MatDialogRef<EstacionComponent>,
                 @Inject( MAT_DIALOG_DATA) public data: any ) {
                   this.stationData = data.element;
@@ -98,9 +102,17 @@ export class EstacionComponent implements OnInit, OnDestroy {
         
         (this.last_data_day['direccionViento'] <= 7 && this.last_data_day['direccionViento'] >= 0) 
           ?  this.icon_d_wind = this.array_d_wind[`${this.last_data_day['direccionViento']}`][1]
-          :  this.icon_d_wind = this.array_d_wind[0][1];
-         
+          :  this.icon_d_wind = this.array_d_wind[0][1]; 
+        
         this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-blue/'+ this.icon_d_wind +'.png';
+
+        
+        let hour = new Date(this.last_data_day['fecha']).getHours();
+        this.stateWeather = this._VALIDADORES.clima( this.last_data_day['lluvia'],
+                                                     this.last_data_day['humedadAmbiente'],
+                                                     this.last_data_day['precipitaciones'], 
+                                                     hour );
+        this.stateWeather = 1;
 
       } else {
         let data_weather = {temperaturaAmbiente: 0,humedadAmbiente: 0,humedadSuelo: 0,luz: 0,viento: 0,direccionViento: 0,lluvia: 0, precipitaciones: 0,};
@@ -134,6 +146,7 @@ export class EstacionComponent implements OnInit, OnDestroy {
 
     return data_weather;
   }
+
 
   ngOnDestroy(): void {
     this.last_data_prototype_subscription.unsubscribe();

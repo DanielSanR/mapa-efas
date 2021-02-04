@@ -25,16 +25,17 @@ clima(lluvia:number,humedad:number,precipitacion:number, hora:number) : number{
 let estado = 0;
  const lluviaC = lluvia;
  const humedadC = humedad;
- const precipitacionC = precipitacion ;
+ const precipitacionC = precipitacion;
  const horaC = hora;
- if (hora >21 ) { estado = 3} else { estado =2 }
+ if ((horaC>= 21) || ( horaC < 8) ) { estado = 3} else { estado =2 }
+ 
  if ((lluviaC >= 70) && (humedadC >= 70)){
     
-    if(((horaC <= 21) && (horaC >= 8)) || (precipitacionC >= 1)) { //  lluvia
+    if(((horaC < 21) && (horaC >= 8)) || (precipitacionC >= 1)) { //  lluvia
       
           estado = 1; //lluvia
     }
-    else if ( ((horaC < 8)  || (horaC > 21)) && (precipitacionC >= 1)) { 
+    else if ( ((horaC < 8)  || (horaC >= 21)) && (precipitacionC >= 1)) { 
      
          estado = 1; //lluvia
     } 
@@ -42,13 +43,9 @@ let estado = 0;
     else { estado = 3 }
     
  }
-
-  
  return estado
 }
   validacionFechaDesde(fecha1: string, fecha2: string, check: string, min: string, max: string) {
-    // tuve que hacer esta funcion medio engorrosa con if anidados, porque si lo hago en varias funciones, los validadores se sobreescriben
-    // o no funciona correctamente si uso [min] [max].Por el momento es la solucion que encontré a este problema.
     return (FormGroup: FormGroup) => {
       const checkbox = FormGroup.controls[check];
       const f1 = FormGroup.controls[fecha1];

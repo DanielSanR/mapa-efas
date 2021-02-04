@@ -27,22 +27,20 @@ let estado = 0;
  const humedadC = humedad;
  const precipitacionC = precipitacion;
  const horaC = hora;
- if ((horaC>= 21) || ( horaC < 8) ) { estado = 3} else { estado =2 }
- 
- if ((lluviaC >= 70) && (humedadC >= 70)){
-    
-    if(((horaC < 21) && (horaC >= 8)) || (precipitacionC >= 1)) { //  lluvia
-      
-          estado = 1; //lluvia
-    }
-    else if ( ((horaC < 8)  || (horaC >= 21)) && (precipitacionC >= 1)) { 
-     
-         estado = 1; //lluvia
-    } 
+  /** 1: lluvia
+    2: soleado
+    3: luna 
+               **/
+    console.log(horaC);
+  if ((horaC >=8 ) && (horaC <= 20) ) { // es de dia 
+      if((lluviaC>=70) && (humedadC >=70) || (precipitacionC >=1)){estado =1} // llueve
+      else { estado =2} // soleado
 
-    else { estado = 3 }
-    
- }
+  }
+  else { //es de noche
+          if ((lluviaC>=70) && (humedadC >=70) && (precipitacionC >=1)) { estado =1} // lluvia
+          else {estado =3} // luna
+  } 
  return estado
 }
   validacionFechaDesde(fecha1: string, fecha2: string, check: string, min: string, max: string) {

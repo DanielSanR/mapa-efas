@@ -448,11 +448,11 @@ buscarDatos(): void{
  temp del cielo por infra, y temp de ambiente , sumar y restar dep de las condiciones  */
 
 setearIcono() {
-  let fecha = new Date(this.ultimosDatos.fecha);
+  let fecha = Number(moment.utc(new Date(this.ultimosDatos.fecha)).format('HH'));
  
   this.estadoClima =(this._VALIDADORES.clima(this.ultimosDatos.datosAmbientales['lluvia'],this.ultimosDatos.datosAmbientales['humedadAmbiente'],
   
-  this.ultimosDatos.datosAmbientales['precipitaciones'],fecha.getHours()));
+  this.ultimosDatos.datosAmbientales['precipitaciones'],fecha));
   
 
   const direc = this.ultimosDatos.datosAmbientales['direccionViento']

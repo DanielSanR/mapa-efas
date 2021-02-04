@@ -6,6 +6,7 @@ import { EstacionService } from '@core/services/estacion.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ValidadoresService } from '@core/services/validadores.service';
+import moment from 'moment';
 
 
 
@@ -107,7 +108,8 @@ export class EstacionComponent implements OnInit, OnDestroy {
         this.src_d_wind = 'assets/images/icons_modal/icons_dire_wind/icons-blue/'+ this.icon_d_wind +'.png';
 
         
-        let hour = new Date(this.last_data_day['fecha']).getHours();
+        let hour = Number(moment.utc(new Date(this.last_data_day['fecha']).getHours()));
+        console.log(hour);
         this.stateWeather = this._VALIDADORES.clima( this.last_data_day['lluvia'],
                                                      this.last_data_day['humedadAmbiente'],
                                                      this.last_data_day['precipitaciones'], 

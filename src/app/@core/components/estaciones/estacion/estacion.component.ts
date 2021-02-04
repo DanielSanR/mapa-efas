@@ -112,8 +112,8 @@ export class EstacionComponent implements OnInit, OnDestroy {
                                                      this.last_data_day['humedadAmbiente'],
                                                      this.last_data_day['precipitaciones'], 
                                                      hour );
-        this.stateWeather = 1;
-
+        
+                                                     
       } else {
         let data_weather = {temperaturaAmbiente: 0,humedadAmbiente: 0,humedadSuelo: 0,luz: 0,viento: 0,direccionViento: 0,lluvia: 0, precipitaciones: 0,};
         data_weather['fecha'] = 0;

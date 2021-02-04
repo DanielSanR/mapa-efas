@@ -486,13 +486,13 @@ procesarDatos(){
                                       direccionViento=0
                                     }) => {
                   return {
-                          temperaturaAmbiente:temperaturaAmbiente,
-                          humedadAmbiente:humedadAmbiente,
-                          humedadSuelo:humedadSuelo,
-                          luz:luz,
-                          lluvia:lluvia,
-                          viento:viento,
-                          precipitaciones:precipitaciones,
+                          temperaturaAmbiente:this.limpiarValores(temperaturaAmbiente),
+                          humedadAmbiente:this.limpiarValores(humedadAmbiente),
+                          humedadSuelo:this.limpiarValores(humedadSuelo),
+                          luz:this.limpiarValores(luz),
+                          lluvia:this.limpiarValores(lluvia),
+                          viento:this.limpiarValores(viento),
+                          precipitaciones:this.limpiarValores(precipitaciones),
                           direccionViento:((direccionViento)>7 ? direccionViento=0 : direccionViento=direccionViento)
                           
                         }
@@ -509,6 +509,16 @@ procesarDatos(){
                     this.calculateDayDiff(this.datosPorfecha, this.formulario.controls.fechaInicio.value,
                     this.formulario.controls.fechaFin.value)
                     this.flagChartMatTab = true
+}
+
+limpiarValores(valor : number){
+  
+  if ((valor < 0) || (valor > 999 )){
+    valor = 0;
+    return valor;
+  }
+  else return valor;
+
 }
 calculateDayDiff(result: any, fecha1: string, fecha2: string){
  

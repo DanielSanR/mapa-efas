@@ -31,14 +31,14 @@ let estado = 0;
     2: soleado
     3: luna 
                **/
-    console.log(horaC);
+              
   if ((horaC >=8 ) && (horaC <= 20) ) { // es de dia 
-      if((lluviaC>=70) && (humedadC >=70) || (precipitacionC >=1)){estado =1} // llueve
+      if((lluviaC>=70) && (humedadC >=70) || (precipitacionC >= 0.25)){estado =1} // llueve
       else { estado =2} // soleado
 
   }
   else { //es de noche
-          if ((lluviaC>=70) && (humedadC >=70) && (precipitacionC >=1)) { estado =1} // lluvia
+          if ((lluviaC>=70) && (humedadC >=70) && (precipitacionC >= 0.25)) { estado =1} // lluvia
           else {estado =3} // luna
   } 
  return estado

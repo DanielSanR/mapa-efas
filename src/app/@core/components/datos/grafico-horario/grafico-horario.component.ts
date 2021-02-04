@@ -50,13 +50,13 @@ addData(){
       this.arrFechasHM.push(moment(new Date(this.datosGrafico[i].fecha)).format('DD-MM-YY HH:mm'));      
     
       mDatos[i][0] = this.datosGrafico[i].datosAmbientales['temperaturaAmbiente'];
-      mDatos[i][1] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['humedadAmbiente']);
-      mDatos[i][2] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['humedadSuelo']);
-      mDatos[i][3] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['luz']);
-      mDatos[i][4] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['lluvia']);
-      mDatos[i][5] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['viento']);
-      mDatos[i][6] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['precipitaciones']);
-      mDatos[i][7] = this.limpiarValores(this.datosGrafico[i].datosAmbientales['direcionViento']);
+      mDatos[i][1] = this.datosGrafico[i].datosAmbientales['humedadAmbiente'];
+      mDatos[i][2] = this.datosGrafico[i].datosAmbientales['humedadSuelo'];
+      mDatos[i][3] = this.datosGrafico[i].datosAmbientales['luz'];
+      mDatos[i][4] = this.datosGrafico[i].datosAmbientales['lluvia'];
+      mDatos[i][5] = this.datosGrafico[i].datosAmbientales['viento'];
+      mDatos[i][6] = this.datosGrafico[i].datosAmbientales['precipitaciones'];
+      mDatos[i][7] = this.datosGrafico[i].datosAmbientales['direcionViento'];
         
        
  } 
@@ -71,15 +71,7 @@ addData(){
  else { this.flag = true;
  }
 }
-limpiarValores(valor : number){
-  
-    if ((valor < 0) || (valor > 9999 )){
-      valor = 0;
-      return valor;
-    }
-    else return valor;
-  
-}
+
 crearGrafico(datos: any, dias: any[]): void{
 
     let arrTemperatura = [];

@@ -109,7 +109,6 @@ export class EstacionComponent implements OnInit, OnDestroy {
 
         
         let hour = Number(moment.utc(new Date(this.last_data_day['fecha']).getHours()));
-        console.log(hour);
         this.stateWeather = this._VALIDADORES.clima( this.last_data_day['lluvia'],
                                                      this.last_data_day['humedadAmbiente'],
                                                      this.last_data_day['precipitaciones'], 

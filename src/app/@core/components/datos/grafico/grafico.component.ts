@@ -146,43 +146,43 @@ crearGrafico(datos: any, dias: any[]): void{
         name: 'Viento',
         data: arrViento.reverse(),
         tooltip: {
-          pointFormat: 'Vel. Viento {point.y:.1f}km/h'
+          pointFormat: 'Vel. Viento :{point.y:.1f}km/h'
       },
       }, {
         name: 'Temperatura',
         data: arrTemperatura.reverse(),
         tooltip: {
-          pointFormat: 'Temperatura : {point.y}ºC'
+          pointFormat: 'Temperatura :{point.y}ºC'
       }
       }, {
-        name: 'Radiacion',
+        name: 'Luminosidad',
         data: arrRadiacion.reverse(),
         tooltip: {
-          pointFormat: 'Radiación {point.y:.0f} de 10'
+          pointFormat: 'Luminosidad :{point.y:.0f}%'
       }
       }, {
         name: 'Lluvia',
         data: arrLluvia.reverse(),
         tooltip: {
-          pointFormat: 'Lluvia  {point.y:.0f}%'
+          pointFormat: 'Lluvia :{point.y:.0f}%'
       }
       },{
         name: 'Precipitación',
         data: arrPrecipitacion.reverse(),
         tooltip: {
-          pointFormat: 'Precipitación  {point.y:.0f}mm'
+          pointFormat: 'Precipitación :{point.y:.0f}mm'
       }
     }, {
         name: 'Humedad Ambiente',
         data: arrHumedad_ambiente.reverse(),
         tooltip: {
-          pointFormat: 'Humedad A.{point.y:.0f}%'
+          pointFormat: 'Humedad A. :{point.y:.0f}%'
       }
       }, {
         name: 'Humedad Suelo',
         data: arrHumedad_suelo.reverse(),
         tooltip: {
-          pointFormat: 'Humedad S. {point.y:.0f}%'
+          pointFormat: 'Humedad S. :{point.y:.0f}%'
       }
       }],
       responsive: {

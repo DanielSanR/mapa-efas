@@ -264,7 +264,7 @@ obtenerPrototipo( institucionId: { id: number; }): any{
                           mensaje: 'No se pudo recuperar los Prototipos, compruebe su conexión.',
                           color: 'warn'
                         };
-                        console.log('Reintentando...')})
+                       this.reintentar();})
                   );
       } )
     ).subscribe(
@@ -310,7 +310,13 @@ crearFormulario(): void{
     });
 
   }
-
+reintentar(){
+  this.error$ = {
+    titulo: 'buscar',
+    mensaje: 'Reintentando...',
+    color: 'primary'
+  };
+}
 buscarDatos(): void{ 
   this.error$ = {
     titulo: 'buscar',
@@ -349,7 +355,9 @@ buscarDatos(): void{
                                                                       mensaje: 'No se pudo conectar a internet, compruebe su conexión.',
                                                                       color: 'warn'
                                                                     };
-                                                                    console.log("Reintentando ")})
+                                                                      setTimeout(() => {
+                                                                        this.reintentar();
+                                                                      }, 1000); })
                                                               );
                                                   } )
                                                 ).subscribe(
@@ -399,7 +407,7 @@ buscarDatos(): void{
                                                   shareReplay(),
                                                   retryWhen(errors => {
                                                       return errors
-                                                              .pipe(delayWhen(() => timer(5000)),
+                                                              .pipe(delayWhen(() => timer(3000)),
                                                                   tap(() => {
                                                                     this.error$ = {
                                                                       titulo: 'internet',
@@ -407,7 +415,9 @@ buscarDatos(): void{
                                                                       color: 'warn'
                                                                     };
                                                                    
-                                                                    console.log("Reintentando ...")})
+                                                                    setTimeout(() => {
+                                                                      this.reintentar();
+                                                                    }, 1000); })
                                                               );
                                                   } )
                                                 ).subscribe(
@@ -494,8 +504,7 @@ procesarDatos(){
                           viento:this.limpiarValores(viento),
                           precipitaciones:this.limpiarValores(precipitaciones),
                           direccionViento:((direccionViento)>7 ? direccionViento=0 : direccionViento=direccionViento)
-                          
-                        }
+                      }
     
                     }
                     let test  :DatoAmbiental[];

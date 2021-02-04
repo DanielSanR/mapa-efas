@@ -31,7 +31,7 @@ let estado = 0;
     2: soleado
     3: luna 
                **/
-              
+
   if ((horaC >=8 ) && (horaC <= 20) ) { // es de dia 
       if((lluviaC>=70) && (humedadC >=70) || (precipitacionC >= 0.25)){estado =1} // llueve
       else { estado =2} // soleado

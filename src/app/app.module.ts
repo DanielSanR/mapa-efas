@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
  
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field'; 
 import { DatePipe } from '@angular/common';
@@ -35,9 +35,8 @@ import { InstitucionesService } from '@core/services/institucion.service';
 import { HighchartsChartModule } from 'highcharts-angular'; 
 import { GraficoHorarioComponent } from './@core/components/datos/grafico-horario/grafico-horario.component';
 import { PrototiposService } from './@core/services/prototipos.service';
-
-
-
+import {ServerErrorsInterceptor} from './@core/services/Interceptor.service'; 
+import { ToastrModule } from "ngx-toastr";
 @NgModule({
   entryComponents:[
     EstacionComponent
@@ -67,10 +66,16 @@ import { PrototiposService } from './@core/services/prototipos.service';
     AppRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+   /*  ToastrModule.forRoot({
+       positionClass: "toast-bottom-left",
+    }), */
+   
   ],
+  //HTTP_INTERCEPTORS, useClass: ServerErrorsInterceptor, multi: true 
+  // MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } 
   providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    { provide:HTTP_INTERCEPTORS, useClass: ServerErrorsInterceptor, multi: true  },
     AppRoutingModule,
     MarkerService,
     PopUpService,

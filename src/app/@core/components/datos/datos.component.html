@@ -6,16 +6,16 @@
                 <mat-card-title> BUSCADOR DE DATOS AGROMETEOROLÓGICOS </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <form fxLayout="column" [formGroup]="formulario" (ngSubmit)="buscarDatos()">
+                <form fxLayout="column" [formGroup]="formulario" (ngSubmit)="searchData()">
                     <p>
-                        <mat-checkbox formControlName="checkbox" (click)="cambiar()" class="checkbox">Consultar por rango de fechas</mat-checkbox>
+                        <mat-checkbox formControlName="checkbox" (click)="change()" class="checkbox">Consultar por rango de fechas</mat-checkbox>
                     </p>
                     <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
 
                         <mat-form-field appearance="outline" fxFlex>
                             <mat-label>Instituciones</mat-label>
                             <input matInput type="text" formControlName="institutoControl" [matAutocomplete]="auto">
-                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstitucion" (optionSelected)='obtenerPrototipo(formulario.get("institutoControl").value)'>
+                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayInstitucion" (optionSelected)='getPrototipos(formulario.get("institutoControl").value)'>
                                 <mat-option *ngIf="isLoading" [value]="default" class="is-loading">Cargando datos...</mat-option>
                                 <ng-container *ngIf="!isLoading">
 
@@ -90,7 +90,7 @@
                         <mat-error *ngIf="(error) && (error$.titulo === 'sinDatos')">
                             {{ error$.mensaje }}
                         </mat-error>
-                        <h3 *ngIf="(error$.titulo === 'buscar') && (error) " class="primary"> {{error$.mensaje}} </h3>
+                        <p *ngIf="(error$.titulo === 'buscar') && (error) " class="primary"> {{error$.mensaje}} </p>
                     </div>
                     <div class="input-row" fxLayout="column" fxLayout.lt-md="column">
                         <button class="btn-form" mat-raised-button type="submit" [disabled]="!formulario.valid" fxFlex>CONSULTAR</button>

@@ -1,34 +1,31 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-
+import { Component, OnInit, Input, OnDestroy,ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subscription} from 'rxjs';
-import {map, retryWhen, startWith} from 'rxjs/operators';
-import { DatosService } from '../../services/datos.service';
- 
-import { InstitucionesService } from '@core/services/institucion.service';
-import { ChangeDetectorRef } from '@angular/core';
-import { Prototipo } from '@core/models/prototipo';
-import { Institucion } from '@core/models/institucion';
-import * as moment from 'moment';
-import { default as _rollupMoment } from 'moment';
-import { ValidadoresService } from '../../services/validadores.service';
+import { Observable, Subscription, timer } from 'rxjs'; 
 import {
   MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { datoPorFecha } from '@core/models/datosPorFecha';
+ //material 
+ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+ import { MatDialog } from '@angular/material/dialog';
+// servicios
+import { DatosService } from '../../services/datos.service';
+import { ValidadoresService } from '../../services/validadores.service';
+import { InstitucionesService } from '@core/services/institucion.service';
 import { PrototiposService } from '../../services/prototipos.service';
-import { MatDialog } from '@angular/material/dialog';
+// modelos
+import { Prototipo } from '@core/models/prototipo';
+import { Institucion } from '@core/models/institucion';
 import { DatoAmbiental } from '../../models/datoAmbiental';
-import { tap } from 'rxjs/operators';
-import { shareReplay } from 'rxjs/operators';
-import { delayWhen } from 'rxjs/operators';
-import { timer } from 'rxjs'; 
-
+import { datoPorFecha } from '@core/models/datosPorFecha';
+//extras 
+import * as moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+import { tap,shareReplay,delayWhen,map, retryWhen, startWith } from 'rxjs/operators'; 
+import { ErrorService} from '../../services/error.service';
 interface Icono {
   direccion: string
   nombre_icono:string
@@ -36,7 +33,6 @@ interface Icono {
 interface Error {
   titulo: string
   mensaje : string
-  color: string
 }
 
 interface DefInstitucion {
@@ -64,50 +60,51 @@ interface DefInstitucion {
 
 })
 
-
-
 export class DatosComponent implements OnInit,OnDestroy {
-  default :  DefInstitucion = {
-    id : 0,
-    nombre: 'Seleccione una Institucion valida',
-    cue: "000000000",
-    longitud:1,
-    latitud:1
-  };
- error$ : Error;
-@Input()selectedIndex: number | null;
-  estadoClima : number = 0;
-  flagChartMatTab: boolean;
-  error : boolean
+  @Input()selectedIndex: number | null;
+
+//interfaces 
+  default :  DefInstitucion 
+  error$ : Error;
   Icono_Interface :Icono
-  fixedDias = Array();
+  //fechas
   dateMax = moment(); // variable para almacenar fecha actual
   dateMin  = moment(); // var para definir el rango minimo del datapicker, en este caso fecha actual -1 año
+  fixedDias = Array();
+  // modelos
   prototiposArr: Prototipo[];
   datosPorfecha : datoPorFecha[] // datos diarios, sin rango de fecha
   ultimosDatos : datoPorFecha;
   selected: Prototipo;
-  selectedInstitucion  : string;
-  tablaStatus = false;
   options: Institucion[] = [];
   filteredOptions: Observable<Institucion[]>;
+  //otros
+  mensaje :string;
   formulario: FormGroup ;
+  formNotSend : boolean = true;
+  estadoClima : number = 0;
+  flagChartMatTab: boolean;
+  error : boolean = true;
+  isLoadingPrototype: boolean  = false;
+  isLoading : boolean  = true;
+  selectedInstitucion  : string;
+  tablaStatus : boolean = false;
+  array_d_wind:any[] = [ ['NORTE','icon-north-w'],['NORESTE','icon-ne-w'],
+  ['ESTE','icon-east-w'],['SURESTE','icon-se-w'],['SUR','icon-south-w'],
+  ['SUROESTE','icon-swe-w'],['OESTE','icon-west-w'],['NOROESTE','icon-nwe-w'] ];
+  
  //variables para datos traidos del modal
   institucion_id:number;
   prototype_id:number;
   prototipo_nombre: string;
-array_d_wind:any[] = [ ['NORTE','icon-north-w'],['NORESTE','icon-ne-w'],['ESTE','icon-east-w'],['SURESTE','icon-se-w'],['SUR','icon-south-w'],['SUROESTE','icon-swe-w'],['OESTE','icon-west-w'],['NOROESTE','icon-nwe-w'] ];
- 
+
   src_d_wind: string;
   //Suscribes
   DatosbyRangeSub$ = new Subscription;
   DatosDailySub$ = new Subscription;
   InstitucionSub$ = new Subscription();
   PrototipoService$ = new Subscription();
-  //para errores de la API institucion y prototipo
-
-  isLoadingPrototype = false;
-  isLoading = false;
+ 
   
   constructor(private formBuilder: FormBuilder, private _DATOSXFECHA: DatosService, private cdref: ChangeDetectorRef,
               private _VALIDADORES: ValidadoresService,
@@ -115,89 +112,79 @@ array_d_wind:any[] = [ ['NORTE','icon-north-w'],['NORESTE','icon-ne-w'],['ESTE',
               private activatedRoute: ActivatedRoute,
               private _INSTITUCIONES: InstitucionesService,
               private _PROTOTIPOS: PrototiposService,
-              private router : Router, public dialog : MatDialog) {
+              private router : Router, public dialog : MatDialog,
+              private _ERROR: ErrorService) {
                
-                      this._ADAPTER.setLocale('es');
-                      const moment1 = _rollupMoment || moment;
-                      const year = this.dateMax.get('year');
-                      this.dateMin = moment1([year - 1 , 0, 1]);
-                      this.crearFormulario();
-
-                // this.simulargetDatosEstacion();
-                
-                      this.activatedRoute.params.subscribe(params => {
-                        this.institucion_id = params['inst_id'];
-                        this.prototype_id = params['protype_id'];
-                       
+                  this._ADAPTER.setLocale('es');
+                  const moment1 = _rollupMoment || moment;
+                  const year = this.dateMax.get('year');
+                  this.dateMin = moment1([year - 1 , 0, 1]);
+                  this.newForm();
+                  this.activatedRoute.params.subscribe(params => {
+                  this.institucion_id = params['inst_id'];
+                  this.prototype_id = params['protype_id'];
+                    
                 });
                      
-                }
+              }
  
  
   ngOnInit(): void {
+    //sub para manejo de errores service
+    this._ERROR.enviarErrorjeObservable.subscribe(response => {
+this.error$.mensaje = response.mensaje;this.error$.titulo = response.titulo;
+//console.log(response)
+    });
+
+    this.default = {
+      id : 0,
+      nombre: 'Seleccione una Institucion valida',
+      cue: "000000000",
+      longitud:1,
+      latitud:1
+    };
     this.Icono_Interface = {
       direccion :'NORTE',
       nombre_icono : 'icon-north-w'
     }
-     
     this.error$ = {
       titulo: 'Cargando datos',
-      mensaje: 'Cargando...',
-      color: 'warn'
+      mensaje: 'Cargando...' 
     };
-    this.error=true
-    this.isLoading = true;
-    this.InstitucionSub$.add(this._INSTITUCIONES.getInstitucion().pipe(
-      tap(() => console.log("HTTP request executed")), 
+    this.InstitucionSub$.add(this._INSTITUCIONES.getInstitucion()/* .pipe(
       shareReplay(),
       retryWhen(errors => {
           return errors
                   .pipe(delayWhen(() => timer(5000)),
-                      tap(() => {this.error$ = {
-                        
-                        titulo: 'internet',
-                        mensaje: 'No se pudo recuperar las Instituciones, compruebe su conexión.',
-                        color: 'warn'
-                      };
-                      console.log(this.error$.mensaje);
-                      console.log(this.error);
-                      console.log('Reintentando...')
+                      tap(() => { 
+                       this.ConnectionTimeOut();
                     })
                   );
       } )
-    ).subscribe(
+    ) */.subscribe(
       result => {
-          
             this.error=false;
             this.options=result;
-            this.isLoading = false;  
-          
+            this.isLoading = false;          
           },
           err => 
-            console.log("Ocurrio un error conectandose a la API"),
-          () => {console.log("Petición completada.")}),
+            console.log("Ocurrio un error conectandose a la API")
+          ),
           ) 
         this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
         .pipe(
-          startWith(''),
-          
+          startWith(''),      
           map(value => typeof value === 'string' ? value : value.nombre),
           map(nombre => nombre ? this._filter(nombre) : this.options.slice())
         );
         if (this.institucion_id > 0 ){
           setTimeout(() => {
             this.error = false;
-            this.simulargetDatosEstacion();
-          }, 500);
-          
-          
-  
+            this.getEstaciones();
+          }, 500);       
   }
- 
-    
- 
-     
   }
+
 
 get prototipoNoValido(): boolean{
     return this.formulario.get('prototipoControl').hasError('required');
@@ -224,9 +211,8 @@ get outRangeMin(): boolean {
 get checkStatus(): boolean {
   return this.formulario.get('checkbox').value;
 }
-cambiar(){
+change(){
   this.flagChartMatTab = false;
-  
 }
   // funcion para mostrar las instituciones en el autocomplete
 displayInstitucion(institucion: Institucion): string {
@@ -239,62 +225,47 @@ displayInstitucion(institucion: Institucion): string {
     return this.options.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 
-
-
- 
-obtenerPrototipo( institucionId: { id: number; }): any{
+getPrototipos( institucionId: { id: number; }): any{
   this.error$ = {
     titulo: 'Cargando...',
-    mensaje: 'Cargando...',
-    color: 'warn'
+    mensaje: 'Cargando...' 
   };
   this.error = true;
   this.isLoadingPrototype = true;
   this.tablaStatus = false;
   this.selected=null;
-    this.PrototipoService$.add(this._PROTOTIPOS.getInstitucion(institucionId.id).pipe(
-      tap(() => console.log("HTTP request executed")), 
+    this.PrototipoService$.add(this._PROTOTIPOS.getInstitucion(institucionId.id)./* pipe(
       shareReplay(),
       retryWhen(errors => {
           return errors
                   .pipe(delayWhen(() => timer(5000)),
                       tap(() => {
-                        this.error$ = {
-                          titulo: 'internet',
-                          mensaje: 'No se pudo recuperar los Prototipos, compruebe su conexión.',
-                          color: 'warn'
-                        };
-                       this.reintentar();})
+                       this.ConnectionTimeOut();})
                   );
       } )
-    ).subscribe(
+    ). */subscribe(
       result  => { 
         this.isLoadingPrototype = false;  
         this.prototiposArr = result
      
-        if  ((typeof(result) === 'undefined') || this.prototiposArr.length < 1) {
+        if  (((!result) || this.prototiposArr.length < 1)) {
           this.error$ = {
             titulo: 'sinDatos',
-            mensaje: 'No hay Prototipos para la Institución seleccionada',
-            color: 'warn'
+            mensaje: 'No hay Prototipos para la Institución seleccionada' 
           };
           this.selected = null, this.prototiposArr = [];
          } else { 
           this.selectedInstitucion = this.formulario.controls.institutoControl.value['nombre'];
-           this.error = false}
-     
+           this.error = false} 
         
-
     },
-    err => console.log("Ocurrio un error conectandose a la API"),
-    () => console.log("Petición completada.")),
-    
-
+    err => console.log("Ocurrio un error conectandose a la API")
+    )
     )
     
   }
-  // funcion que vamos a usar para recibir los datos de EstacionesComponent
-crearFormulario(): void{
+  // creamos el reactive form
+newForm(): void{
 
     this.formulario = this.formBuilder.group({
       institutoControl: ['', [Validators.required, this._VALIDADORES.isInstitucion]],
@@ -310,154 +281,137 @@ crearFormulario(): void{
     });
 
   }
-reintentar(){
+  //Funcion que refleja el error de timeot en la interfaz
+ConnectionTimeOut(){
   this.error$ = {
     titulo: 'buscar',
-    mensaje: 'Reintentando...',
-    color: 'primary'
+    mensaje: 'Reintentando...' 
   };
+  setTimeout(() => {
+    this.error$ = {titulo: 'internet',
+    mensaje: 'No se pudieron recuperar los datos, compruebe su conexión.'
+    };
+  }, 2000);
 }
-buscarDatos(): void{ 
-  this.error$ = {
-    titulo: 'buscar',
-    mensaje: 'Buscando...',
-    color: 'primary'
-  };
-     this.error= true;
-  
- // Falta verificar si es por rango o no
-     this.selectedIndex = 0;
-     this.tablaStatus = false;
-     let delay = 0
-     if  (this.formulario.invalid){
-       return Object.values(this.formulario.controls).forEach(control => {
-        this.tablaStatus = false;
-        control.markAsTouched();
-       });
-     }
-     else {
-     
-       //datos por rango de fechas
-      if  (this.checkStatus === true) {
-        
-         let datoamb = DatoAmbiental;
-          this.DatosbyRangeSub$=  this._DATOSXFECHA.getByRange(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD'),this.formulario.controls.fechaFin.value.format('YYYY-MM-DD')
-                                                ).pipe(
-                                                  tap(() =>console.log("peticion ejecutada")), 
-                                                  map(result => result ),
-                                                  shareReplay(),
-                                                  retryWhen(errors => {
-                                                      return errors
-                                                              .pipe(delayWhen(() => timer(3000)),
-                                                                  tap(() => {
-                                                                    this.error$ = {
-                                                                      titulo: 'internet',
-                                                                      mensaje: 'No se pudo conectar a internet, compruebe su conexión.',
-                                                                      color: 'warn'
-                                                                    };
-                                                                      setTimeout(() => {
-                                                                        this.reintentar();
-                                                                      }, 1000); })
-                                                              );
-                                                  } )
-                                                ).subscribe(
-                                                  result => {
-                                                   
-                                                    if((typeof(result.datosPorFecha) === 'undefined' ) ||( typeof(result.datosPorFecha[0]) === 'undefined'))
-                                                    {
-                                                      this.error$ = {
-                                                        titulo: 'sinDatos',
-                                                        mensaje: 'No se encontrarón datos en el rango seleccionado.',
-                                                        color: 'warn'
-                                                      };
-                                                      this.error = true;
-                                                   
-                                                      
-                                  
-                                                    }
-                                  
-                                                    else {
-                                                       
-                                                      this.error=false;
-                                                      this.datosPorfecha = result.datosPorFecha
-                                                     
-                                                      this.procesarDatos();
-                                                      
-                                                    }
-                                  
-                                                      
-                                                }, 
-                                                err => console.log("Ocurrio un error conectandose a la API"),
-                                                () => console.log("Petición completada.")
-                                                )
-      
-       
-
-    }
-
-    //datos por una sola fecha
-  else
-   {     
-        
-         
-        this.DatosDailySub$= this._DATOSXFECHA.getByDay(this.selected.id,this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD')
-                                                ).pipe(
-                                                  tap(() => console.log("peticion ejecutada")),
-                                                  map(result => result ),
-                                                  shareReplay(),
-                                                  retryWhen(errors => {
-                                                      return errors
-                                                              .pipe(delayWhen(() => timer(3000)),
-                                                                  tap(() => {
-                                                                    this.error$ = {
-                                                                      titulo: 'internet',
-                                                                      mensaje: 'No se pudo conectar a internet, compruebe su conexión.',
-                                                                      color: 'warn'
-                                                                    };
-                                                                   
-                                                                    setTimeout(() => {
-                                                                      this.reintentar();
-                                                                    }, 1000); })
-                                                              );
-                                                  } )
-                                                ).subscribe(
-                result => {
-                  if((typeof(result.datosPorFecha[0]) === 'undefined'))
-                  { 
-                    this.error$ = {
-                      titulo: 'sinDatos',
-                      mensaje: 'No se encontrarón datos para la fecha seleccionada.',
-                      color: 'warn'
-                    };
-                    this.error = true;
-              
-                    
-
+//busca los datos de la API
+searchData(): void{ 
+ 
+              if(this.formNotSend) {
+               this.formNotSend = false;
+                this.error$ = {
+                  titulo: 'buscar',
+                  mensaje: 'Buscando...' 
+                };
+                  this.error= true;
+              // Falta verificar si es por rango o no
+                  this.selectedIndex = 0;
+                  this.tablaStatus = false;
+                  let delay = 0
+                  if  (this.formulario.invalid){
+                    return Object.values(this.formulario.controls).forEach(control => {
+                    this.tablaStatus = false;
+                    control.markAsTouched();
+                    });
                   }
-
                   else {
-                    this.datosPorfecha = result.datosPorFecha
-                   this.error=false;
+                    if  (this.checkStatus === true) {
+                    
+                      let datoamb = DatoAmbiental;
+                      this.DatosbyRangeSub$ =this._DATOSXFECHA.getByRange(this.selected.id,
+                      this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD'),
+                      this.formulario.controls.fechaFin.value.format('YYYY-MM-DD')
+                      )./* pipe(
+                        map(result => result ),
+                        shareReplay(),
+                        retryWhen(errors => {
+                          return errors
+                                .pipe(delayWhen(() => timer(3000)),
+                                tap(() => {
+                                  this.formNotSend = false;
+                                  this.ConnectionTimeOut(); 
+                                        })
+                                    );
+                                } )
+                      ). */subscribe(
+                        result => {
+                          this.formNotSend = true;
+                          /* this.formulario.controls.value.patchValue({
+                            formEnviado : false,
+                            }) */
+                          if(!(result.datosPorFecha) || (!result.datosPorFecha[0]))
+                          {
+              
+                            this.error$ = {
+                              titulo: 'sinDatos',
+                              mensaje: 'No se encontrarón datos en el rango seleccionado.'
+                            };
+                            this.error = true;
+                          }
+                          else {  
+                            this.error=false;
+                            this.datosPorfecha = result.datosPorFecha
+                            
+                            this.processData();    
+                          }
+                        
+                        }, 
+                        err => console.log("error")  
+                        )
+              
+                    }
+              
+                //datos por una sola fecha
+                     else
+                      {        
+                      this.DatosDailySub$ = this._DATOSXFECHA.getByDay
+                      (this.selected.id,
+                       this.formulario.controls.fechaInicio.value.format('YYYY-MM-DD')
+                       )/* .pipe(
+                        map(result => result),
+                        shareReplay(),
+                        retryWhen( errors => {
+                        return errors
+                               .pipe(delayWhen(() => timer(3000)),
+                                tap(() => {
+                                      this.formNotSend = false;
+                                      this.ConnectionTimeOut(); })
+                                    );
+                                    } )
+                      ) */.subscribe(
+                        result => {
+                          this.formNotSend = true;
+                        /*   this.formulario.controls.value.patchValue({
+                            formEnviado : false,
+                            }) */
+                          if(!result.datosPorFecha[0])
+                          { 
+                            this.error$ = {
+                              titulo: 'sinDatos',
+                              mensaje: 'No se encontrarón datos para la fecha seleccionada.'
+                          };
+                            this.error = true;
+                        }
+              
+                          else {
+                            this.datosPorfecha = result.datosPorFecha
+                            this.error=false;
+                          
+                            this.processData();
+                         }
+                         
                   
-                    this.procesarDatos();
-                    
-                  }
-
-                    
-              }, 
-              //var q muestra el error de API
-              err => console.log("Ocurrio un error conectandose a la API"),
-              () => console.log("Petición  completada")) 
-       
-
-    }
-}  
-  
+                    }, 
+                      //var q muestra el error de API
+                      err => console.log("error") 
+                                                            )  
+                }
+              }
+              }
     
-}/* 
- temp del cielo por infra, y temp de ambiente , sumar y restar dep de las condiciones  */
-
-setearIcono() {
+     
+}
+//setea los iconos del clima
+setIcon() {
   let fecha = Number(moment.utc(new Date(this.ultimosDatos.fecha)).format('HH'));
  
   this.estadoClima =(this._VALIDADORES.clima(this.ultimosDatos.datosAmbientales['lluvia'],this.ultimosDatos.datosAmbientales['humedadAmbiente'],
@@ -474,10 +428,11 @@ setearIcono() {
   }
 this.src_d_wind= 'assets/images/icons_modal/icons_dire_wind/icons-blue/'+ this.Icono_Interface.nombre_icono +'.png';
 }
-procesarDatos(){
-  
-  this.ultimosDatos = this.datosPorfecha[0]
- this.setearIcono();
+//limpia valores q vienen sin 0 y realiza validaciones
+processData(){
+
+this.ultimosDatos = this.datosPorfecha[0]
+ this.setIcon();
    
   
 
@@ -496,13 +451,13 @@ procesarDatos(){
                                       direccionViento=0
                                     }) => {
                   return {
-                          temperaturaAmbiente:this.limpiarValores(temperaturaAmbiente),
-                          humedadAmbiente:this.limpiarValores(humedadAmbiente),
-                          humedadSuelo:this.limpiarValores(humedadSuelo),
-                          luz:this.limpiarValores(luz),
-                          lluvia:this.limpiarValores(lluvia),
-                          viento:this.limpiarValores(viento),
-                          precipitaciones:this.limpiarValores(precipitaciones),
+                          temperaturaAmbiente:this.fixValues(temperaturaAmbiente),
+                          humedadAmbiente:(humedadAmbiente),
+                          humedadSuelo:this.fixValues(humedadSuelo),
+                          luz:this.fixValues(luz),
+                          lluvia:this.fixValues(lluvia),
+                          viento:this.fixValues(viento),
+                          precipitaciones:this.fixValues(precipitaciones),
                           direccionViento:((direccionViento)>7 ? direccionViento=0 : direccionViento=direccionViento)
                       }
     
@@ -520,7 +475,7 @@ procesarDatos(){
                     this.flagChartMatTab = true
 }
 
-limpiarValores(valor : number){
+fixValues(valor : number){
   
   if ((valor < 0) || (valor > 999 )){
     valor = 0;
@@ -529,6 +484,8 @@ limpiarValores(valor : number){
   else return valor;
 
 }
+
+//sirve para sacar los dias en los que hay datos
 calculateDayDiff(result: any, fecha1: string, fecha2: string){
  
   const f1 = fecha1;
@@ -550,17 +507,17 @@ calculateDayDiff(result: any, fecha1: string, fecha2: string){
    this.fixedDias = Array.from(mySet);
 }
 
-simulargetDatosEstacion( ): void{
+getEstaciones( ): void{
    const institucion = this.options.map(x => x.id).indexOf(Number(this.institucion_id));
    this.formulario.controls.institutoControl.patchValue({
     nombre: this.options[institucion].nombre,
     id: this.options[institucion].id
 });
  
-this.obtenerPrototipo(this.formulario.get('institutoControl').value);
+this.getPrototipos(this.formulario.get('institutoControl').value);
    setTimeout(() => {
     
-    if  (typeof(this.prototiposArr) === 'undefined') {this.selected = null, this.prototiposArr = [] }
+    if  (!this.prototiposArr) {this.selected = null, this.prototiposArr = [] }
 
     else {  const prototipo  = this.prototiposArr.map(x => x.id).indexOf(Number(this.prototype_id));
       this.selected = this.prototiposArr[prototipo];}

@@ -37,6 +37,7 @@ import { GraficoHorarioComponent } from './@core/components/datos/grafico-horari
 import { PrototiposService } from './@core/services/prototipos.service';
 import {ServerErrorsInterceptor} from './@core/services/Interceptor.service'; 
 import { ToastrModule } from "ngx-toastr";
+import { SpinnerComponent } from './@core/components/spinner/spinner.component';
 @NgModule({
   entryComponents:[
     EstacionComponent
@@ -55,7 +56,8 @@ import { ToastrModule } from "ngx-toastr";
     InicioComponent,
     TablaComponent,
     GraficoComponent,
-    GraficoHorarioComponent
+    GraficoHorarioComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

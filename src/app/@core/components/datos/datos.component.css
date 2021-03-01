@@ -330,9 +330,6 @@
     caret-color: rgb(0, 175, 215) !important;
 }
 
-
-/*vel de animacion*/
-
 @keyframes fade-in {
     0% {
         opacity: 0;

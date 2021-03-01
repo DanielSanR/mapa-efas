@@ -62,6 +62,7 @@ interface DefInstitucion {
 
 export class DatosComponent implements OnInit,OnDestroy {
   @Input()selectedIndex: number | null;
+  loading = false;
 
 //interfaces 
   default :  DefInstitucion 
@@ -130,9 +131,11 @@ export class DatosComponent implements OnInit,OnDestroy {
  
  
   ngOnInit(): void {
+
     //sub para manejo de errores service
     this._ERROR.enviarErrorjeObservable.subscribe(response => {
 this.error$.mensaje = response.mensaje;this.error$.titulo = response.titulo;
+ 
 //console.log(response)
     });
 
@@ -168,7 +171,7 @@ this.error$.mensaje = response.mensaje;this.error$.titulo = response.titulo;
             this.isLoading = false;          
           },
           err => 
-            console.log("Ocurrio un error conectandose a la API")
+          this.loading = false
           ),
           ) 
         this.filteredOptions = this.formulario.controls.institutoControl.valueChanges
@@ -259,7 +262,7 @@ getPrototipos( institucionId: { id: number; }): any{
            this.error = false} 
         
     },
-    err => console.log("Ocurrio un error conectandose a la API")
+    err => this.loading = false
     )
     )
     
@@ -295,7 +298,7 @@ ConnectionTimeOut(){
 }
 //busca los datos de la API
 searchData(): void{ 
- 
+   this.loading = true;
               if(this.formNotSend) {
                this.formNotSend = false;
                 this.error$ = {
@@ -334,6 +337,7 @@ searchData(): void{
                                 } )
                       ). */subscribe(
                         result => {
+                          this.loading= false
                           this.formNotSend = true;
                           /* this.formulario.controls.value.patchValue({
                             formEnviado : false,
@@ -355,8 +359,9 @@ searchData(): void{
                           }
                         
                         }, 
-                        err => console.log("error")  
-                        )
+                        err => this.loading = false
+                      );
+                        
               
                     }
               
@@ -379,6 +384,7 @@ searchData(): void{
                                     } )
                       ) */.subscribe(
                         result => {
+                          this.loading= false
                           this.formNotSend = true;
                         /*   this.formulario.controls.value.patchValue({
                             formEnviado : false,
@@ -402,7 +408,7 @@ searchData(): void{
                   
                     }, 
                       //var q muestra el error de API
-                      err => console.log("error") 
+                      err => this.loading = false
                                                             )  
                 }
               }
@@ -410,6 +416,7 @@ searchData(): void{
     
      
 }
+ 
 //setea los iconos del clima
 setIcon() {
   let fecha = Number(moment.utc(new Date(this.ultimosDatos.fecha)).format('HH'));

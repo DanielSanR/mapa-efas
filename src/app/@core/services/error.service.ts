@@ -1,8 +1,4 @@
-
-
- import { Injectable } from "@angular/core";
-import { ToastrService } from "ngx-toastr";
-import { HttpErrorResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 interface Error {
   titulo: string
@@ -26,7 +22,8 @@ this.enviarErrorSubject.next(this.error$);
 
  
 /*
-  // Handling HTTP Errors using Toaster
+  // para implementar toast . probaré mas adelante
+   Handling HTTP Errors using Toaster
   public handleError(err: HttpErrorResponse) {
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {

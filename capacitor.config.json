@@ -1,0 +1,17 @@
+{
+  "appId": "com.Ambient.app",
+  "appName": "Ambient",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/mapa-efas",
+  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 4000,
+      "androidSplashResourceName": "splash",
+      "splashFullScreen": true,
+      "splashImmersive": true
+    }
+  },
+  "cordova": {}
+}

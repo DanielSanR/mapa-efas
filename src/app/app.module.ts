@@ -18,26 +18,25 @@ import { FooterComponent } from './@core/components/shared/footer/footer.compone
 import { EstacionesComponent } from './@core/components/estaciones/estaciones.component';
 import { DatosComponent } from './@core/components/datos/datos.component';
 import { InicioComponent } from './@core/components/inicio/inicio.component';
- 
-//Modulos
-import { MaterialModule } from './material.module';
+import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
 import { TablaDatosComponent } from './@core/components/estaciones/estacion/tabla-datos/tabla-datos.component';
 import { TablaComponent } from './@core/components/datos/tabla/tabla.component';
 import { GraficoComponent } from './@core/components/datos/grafico/grafico.component';
+import { SpinnerComponent } from './@core/components/spinner/spinner.component';
+import { GraficoHorarioComponent } from './@core/components/datos/grafico-horario/grafico-horario.component';
  
+//Modulos
+import { MaterialModule } from './material.module';
+import { HighchartsChartModule } from 'highcharts-angular'; 
+
 //Servicios
 import { PopUpService } from '@core/services/pop-up.service';
 import { MarkerService } from './@core/services/marker.service';
-import { EstacionComponent } from './@core/components/estaciones/estacion/estacion.component';
 import { InstitucionesService } from '@core/services/institucion.service';
- 
-
-import { HighchartsChartModule } from 'highcharts-angular'; 
-import { GraficoHorarioComponent } from './@core/components/datos/grafico-horario/grafico-horario.component';
 import { PrototiposService } from './@core/services/prototipos.service';
-import {ServerErrorsInterceptor} from './@core/services/Interceptor.service'; 
-import { ToastrModule } from "ngx-toastr";
-import { SpinnerComponent } from './@core/components/spinner/spinner.component';
+import { ServerErrorsInterceptor } from './@core/services/Interceptor.service';
+
+
 @NgModule({
   entryComponents:[
     EstacionComponent
@@ -57,7 +56,7 @@ import { SpinnerComponent } from './@core/components/spinner/spinner.component';
     TablaComponent,
     GraficoComponent,
     GraficoHorarioComponent,
-    SpinnerComponent
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,13 +68,7 @@ import { SpinnerComponent } from './@core/components/spinner/spinner.component';
     MaterialModule,
     ReactiveFormsModule,
     HighchartsChartModule,
-   /*  ToastrModule.forRoot({
-       positionClass: "toast-bottom-left",
-    }), */
-   
   ],
-  //HTTP_INTERCEPTORS, useClass: ServerErrorsInterceptor, multi: true 
-  // MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } 
   providers: [
     { provide:HTTP_INTERCEPTORS, useClass: ServerErrorsInterceptor, multi: true  },
     AppRoutingModule,

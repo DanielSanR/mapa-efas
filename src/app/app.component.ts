@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Plugins } from '@capacitor/core';
+const { SplashScreen } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'mapa-efas';
+
+  ngAfterViewInit(): void {
+    SplashScreen.hide();
+  }
+
 }

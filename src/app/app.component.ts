@@ -11,7 +11,9 @@ export class AppComponent {
   title = 'mapa-efas';
 
   ngAfterViewInit(): void {
-    SplashScreen.hide();
+    SplashScreen.hide({
+      fadeOutDuration: 500
+    });
   }
 
 }

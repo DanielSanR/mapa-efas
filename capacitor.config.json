@@ -7,10 +7,13 @@
   "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 4000,
       "androidSplashResourceName": "splash",
-      "splashFullScreen": true,
-      "splashImmersive": true
+      "fadeSplashScreen": false,
+      "fadeSplashScreenDuration": 500,
+      "launchShowDuration": 5000,
+      "launchAutoHide": false,
+      "splashImmersive": false,
+      "splashFullScreen": false
     }
   },
   "cordova": {}

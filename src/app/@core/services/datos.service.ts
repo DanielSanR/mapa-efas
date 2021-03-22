@@ -5,6 +5,8 @@ import { Prototipo } from '@core/models/prototipo';
 import { default as _rollupMoment } from 'moment';
 import { PrototipoDatos } from '../models/prototipoDatos';
 import { datoPorFecha } from '../models/datosPorFecha';
+import { environment } from '../../../environments/environment';
+
  
 @Injectable({
   providedIn: 'root'
@@ -21,29 +23,28 @@ export class DatosService {
   }
 
 
-
   getProtoipoByInstitucion(): Observable<Prototipo[]> {
     return this._http.get<any>('assets/jsons/datos.json');
   }
 
   getProtoipoByID(id: number): Observable<Prototipo[]> {
- 
-
     return this._http.get<any>(this.url);
-}
+  }
 
-getDatos(id: number ): Observable<Prototipo[]> {
-  return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
-}
-getByRange(id: number,start: Date, end : Date ): Observable<PrototipoDatos> {
-  return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/'+id+'/'+start+'/'+end);
-}
-getByDay(id: number,start: Date): Observable<PrototipoDatos> {
-  return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/'+id+'/'+start);
-}
+  getDatos(id: number ): Observable<Prototipo[]> {
+    return this._http.get<any>('assets/jsons/datos_prototipo' + id + '.json');
+  }
 
-getDatosHorarios(id: number): Observable<datoPorFecha[]> {
-  return this._http.get<any>('http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/'+id);
-}
+  getByRange(id: number,start: Date, end : Date ): Observable<PrototipoDatos> {
+    return this._http.get<any>(environment.BASE_URL+'datoAmbientalPrototipo/'+id+'/'+start+'/'+end);
+  }
+
+  getByDay(id: number,start: Date): Observable<PrototipoDatos> {
+    return this._http.get<any>(environment.BASE_URL+'datoAmbientalPrototipo/'+id+'/'+start);
+  }
+
+  getDatosHorarios(id: number): Observable<datoPorFecha[]> {
+    return this._http.get<any>(environment.BASE_URL+'datoAmbientalPrototipo/'+id);
+  }
 
 }

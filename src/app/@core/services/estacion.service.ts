@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PrototipoDatos } from '@core/models/prototipoDatos';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class EstacionService {
 
 
   constructor(private _http: HttpClient) { 
-    this.url = 'http://ambient.siliconmisiones.gob.ar/api/datoAmbientalPrototipo/';
+    this.url = environment.BASE_URL+'datoAmbientalPrototipo/';
   }
 
 

@@ -1,6 +1,6 @@
 <div *ngIf="isLoading === false && httpErr === false">
     <mat-tab-group style="transition-duration: 5000ms;">
-        <mat-tab label="ESTACIÓN">
+        <mat-tab label="Estación">
             <div class="content">
                 <mat-list>
                     <mat-list-item>
@@ -27,7 +27,7 @@
             </div>
         </mat-tab>
 
-        <mat-tab label="ULTIMA INFORMACIÓN" *ngIf="this.respData === true; else noData">
+        <mat-tab label="Ultima información" *ngIf="this.respData === true; else noData">
             <div class="content">
                 <div class="contenedor-datos-sup">
                     <div class="temp-clima">
@@ -126,7 +126,7 @@
             </div>
         </mat-tab>
         <ng-template #noData>
-            <mat-tab label="ULTIMA INFORMACIÓN">
+            <mat-tab label="Ultima información">
                 <div style="padding: 4px; margin-top: 5px; height: 20vh;">
                     <div style="position: absolute; top: 45%; left: 20%; font-size: 18px; color: gray;">
                         No hay datos disponibles
@@ -135,11 +135,11 @@
             </mat-tab>
         </ng-template>
 
-        <mat-tab label="DATOS DEL DÍA" *ngIf="this.respData === true; else noData">
+        <mat-tab label="Datos del día" *ngIf="this.respData === true; else noData">
             <app-tabla-datos [array_data]="array_data_weather"></app-tabla-datos>
         </mat-tab>
         <ng-template #noData>
-            <mat-tab label="DATOS DEL DÍA">
+            <mat-tab label="Datos del día">
                 <div style="padding: 4px; margin-top: 5px; height: 20vh;">
                     <div style="position: absolute; top: 45%; left: 20%; font-size: 18px; color: gray;">
                         No hay datos disponibles
@@ -148,7 +148,7 @@
             </mat-tab>
         </ng-template>
 
-        <mat-tab label="MÁS DATOS">
+        <mat-tab label="Más datos">
             <button mat-raised-button id="btn-advance-search" (click)="redirectDatos()">BUSCAR MÁS DATOS</button>
         </mat-tab>
 

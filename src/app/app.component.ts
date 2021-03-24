@@ -12,7 +12,7 @@ export class AppComponent {
 
   ngAfterViewInit(): void {
     SplashScreen.hide({
-      fadeOutDuration: 500
+      fadeOutDuration: 1000
     });
   }
 

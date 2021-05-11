@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BASE_URL: 'http://ambient.siliconmisiones.gob.ar/api/',
+  BASE_URL: 'https://ambient.siliconmisiones.gob.ar/api/',
 };
 
 /*
